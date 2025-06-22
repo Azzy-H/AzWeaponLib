@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageData>
+
+    <AWL_BulletsPerShot>霰弹弹丸数</AWL_BulletsPerShot>
+    <AWL_Stat_BulletsPerShot_Desc>该武器在每次射击中发射的子弹数量。</AWL_Stat_BulletsPerShot_Desc>
+
+    <AWL_RetargetRange>霰弹扩散距离</AWL_RetargetRange>
+    <AWL_Stat_RetargetRange_Desc>该武器射击时弹丸的散布半径。越高的数值会使得弹丸可击中目标的选取范围越广。该数值不影响对单体敌人的命中率。</AWL_Stat_RetargetRange_Desc>
+
+</LanguageData>

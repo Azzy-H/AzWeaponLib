@@ -1,0 +1,6 @@
+D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\AzWeaponLib\Source\1.6\AzWeaponLib\AzWeaponLib\obj\Debug\AzWeaponLib.csproj.AssemblyReference.cache
+D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\AzWeaponLib\Source\1.6\AzWeaponLib\AzWeaponLib\obj\Debug\AzWeaponLib.csproj.CoreCompileInputs.cache
+D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\AzWeaponLib\Source\1.6\Assemblies\AzWeaponLib.dll
+D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\AzWeaponLib\Source\1.6\Assemblies\AzWeaponLib.pdb
+D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\AzWeaponLib\Source\1.6\AzWeaponLib\AzWeaponLib\obj\Debug\AzWeaponLib.dll
+D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\AzWeaponLib\1.6\Assemblies\AzWeaponLib.dll

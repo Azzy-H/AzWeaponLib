@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  
+  <!-- 装填时间 -->
+  <StatDef>
+    <defName>AWL_ReloadingTimeFactor</defName>
+    <label>reloading time</label>
+    <description>How long it takes to reload the magazine after it's used up.</description>
+    <category>PawnCombat</category>
+    <toStringStyle>PercentZero</toStringStyle>
+    <defaultBaseValue>1</defaultBaseValue>
+    <hideAtValue>1</hideAtValue>
+    <valueIfMissing>1</valueIfMissing>
+    <minValue>0.5</minValue>
+    <!-- <showIfUndefined>false</showIfUndefined> -->
+    <displayPriorityInCategory>5000</displayPriorityInCategory>
+  </StatDef>
+
+</Defs>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Azzy's Weapon Library</name>
+	<packageId>AzzyH.WeaponLibrary</packageId>
+	<supportedVersions>
+		<li>1.6</li>
+	</supportedVersions>
+	<author>AzzyH</author>
+	<description>Azzy的武器相关代码库</description>
+</ModMetaData>

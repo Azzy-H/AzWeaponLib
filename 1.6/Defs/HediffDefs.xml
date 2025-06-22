@@ -1,0 +1,35 @@
+<Defs>
+    <HediffDef>
+        <defName>AWL_MultiVerbSelect</defName>
+        <label>multi verb select</label>
+        <description>Multi Verb Select.</description>
+        <hediffClass>HediffWithComps</hediffClass>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <comps>
+            <li Class="AzWeaponLib.MultiVerb.HediffCompProperties_MultiVerbSelect" />
+        </comps>
+        <stages>
+            <li>
+                <label>-</label>
+                <becomeVisible>false</becomeVisible>
+            </li>
+        </stages>
+    </HediffDef>
+
+    <HediffDef>
+        <defName>AWL_AmmoGizmoDisp</defName>
+        <label>ammo gizmo disp</label>
+        <description>Ammo Gizmo Disp.</description>
+        <hediffClass>HediffWithComps</hediffClass>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <comps>
+            <li Class="AzWeaponLib.AmmoSystem.HediffCompProperties_AmmoGizmoDisp" />
+        </comps>
+        <stages>
+            <li>
+                <label>-</label>
+                <becomeVisible>false</becomeVisible>
+            </li>
+        </stages>
+    </HediffDef>
+</Defs>

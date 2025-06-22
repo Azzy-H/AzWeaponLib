@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+    <!--Ammo System-->
+    <AWL_AmmunitionGizmoLabel>弹药</AWL_AmmunitionGizmoLabel>
+    <AWL_AmmunitionGizmoTip>当前弹药/弹匣上限(备弹)</AWL_AmmunitionGizmoTip>
+
+    <AWL_PawnTooltipReload>左键主动换弹，右键切换自动换弹模式</AWL_PawnTooltipReload>
+    <AWL_LowManipulation>单位的操作能力不足</AWL_LowManipulation>
+    <AWL_NoEnoughBackupAmmo>备弹不足</AWL_NoEnoughBackupAmmo>
+    <AWL_DisposableWeapon>一次性武器无法装填</AWL_DisposableWeapon>
+    <AWL_NoNeedToReload>满弹药</AWL_NoNeedToReload>
+
+</LanguageData>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <AWL_Mod>Azzy的武器库</AWL_Mod>
+
+    <Reset>重置为默认</Reset>
+    
+    <EnableAmmoSystem>使用弹药系统</EnableAmmoSystem>
+    <EnableTheAmmoSystem>当勾选时，启用弹药系统。</EnableTheAmmoSystem>
+
+    <EnableBackupAmmoSystemLabel>使用备用弹药系统</EnableBackupAmmoSystemLabel>
+    <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>当勾选时，部分武器将会需要装填。</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
+
+    <OnlyShowAmmoGizmoWhenSelectedOneThingLabel>仅在选择一个殖民者时显示弹药数据</OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
+    <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>仅在选择一个殖民者时显示弹药数据。</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
+
+    <RandomWeaponModeForNonPlayerPawnLabel>非玩家单位随机切换武器模式</RandomWeaponModeForNonPlayerPawnLabel>
+    <RandomWeaponModeForNonPlayerPawnDesc>启用后，如果非玩家单位装备了具有多个模式的武器，将会自动切换至其中一种模式。\n\n关闭则仅使用默认模式。</RandomWeaponModeForNonPlayerPawnDesc>
+
+</LanguageData>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+    <AWL_AmmunitionCapacityLabel>备弹量</AWL_AmmunitionCapacityLabel>
+    <AWL_AmmunitionCapacityText>一个弹匣所装填的弹药量。</AWL_AmmunitionCapacityText>
+
+    <AWL_ReloadingTimeLabel>上弹所需时间</AWL_ReloadingTimeLabel>
+    <AWL_ReloadingTimeText>更换弹匣或单发装填所需秒数。</AWL_ReloadingTimeText>
+    <AWL_Disposable>一次性武器</AWL_Disposable>
+
+    <AWL_SingleShotLoadingLabel>单发装填</AWL_SingleShotLoadingLabel>
+    <AWL_SingleShotLoadingText>该武器采用单发装填。</AWL_SingleShotLoadingText>
+
+    <AWL_AmmunitionCostLabel>装填消耗物品</AWL_AmmunitionCostLabel>
+    <AWL_AmmunitionCostText>每一个物品提供的弹药数。</AWL_AmmunitionCostText>
+
+    <AWL_MaxBackupAmmoLabel>最大备弹数</AWL_MaxBackupAmmoLabel>
+    <AWL_MaxBackupAmmoText>该武器最大备用弹匣。</AWL_MaxBackupAmmoText>
+    <AWL_CanLoadExtra>枪膛可存弹药</AWL_CanLoadExtra>
+
+    <AWL_ShootingSkillMultipiler>射击技能乘数</AWL_ShootingSkillMultipiler>
+    <AWL_ShootingSkillMultipiler_Tips>射击技能乘数的计算公式为28/(20+当前单位的射击技能等级)</AWL_ShootingSkillMultipiler_Tips>
+    <AWL_ManipulationMultipiler>操作能力乘数</AWL_ManipulationMultipiler>
+    <AWL_ManipulationMultipiler_Tips>操作能力乘数的计算公式为150%/(50%+操作能力(最高200%))</AWL_ManipulationMultipiler_Tips>
+    <AWL_ReloadingTimeFactor>装填时间</AWL_ReloadingTimeFactor>
+    <AWL_ReloadingTimeFactor_Tips>该单位的装填时间。</AWL_ReloadingTimeFactor_Tips>
+
+</LanguageData>

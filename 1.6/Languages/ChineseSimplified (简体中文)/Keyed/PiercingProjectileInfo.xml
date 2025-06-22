@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+  <AWL_PenetratingPowerLabel>穿透力</AWL_PenetratingPowerLabel>
+  <AWL_PenetratingPowerText>这种武器的子弹具有穿透能力，子弹至多能对与穿透力数值相当的单位数量造成伤害。</AWL_PenetratingPowerText>
+
+  <AWL_ShieldPenetrationLabel>穿盾能力</AWL_ShieldPenetrationLabel>
+  <AWL_ShieldPenetrationText>这种武器的子弹是否能够穿过盾。</AWL_ShieldPenetrationText>
+  <AWL_PenetratingPowerCostByShield>穿盾穿透力消耗</AWL_PenetratingPowerCostByShield>
+</LanguageData>

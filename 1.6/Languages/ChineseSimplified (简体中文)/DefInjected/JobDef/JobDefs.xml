@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: Reloading. -->
+  <AWL_ReloadWeapon.reportString>装填中。</AWL_ReloadWeapon.reportString>
+  
+  <!-- EN: Reloading. -->
+  <AWL_ReloadWeaponWithAmmo.reportString>装填中。</AWL_ReloadWeaponWithAmmo.reportString>
+  
+</LanguageData>
