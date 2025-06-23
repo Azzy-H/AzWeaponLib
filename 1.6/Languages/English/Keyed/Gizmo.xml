@@ -3,13 +3,13 @@
 <LanguageData>
 
     <!--Ammo System-->
-    <AWL_AmmunitionGizmoLabel>弹药</AWL_AmmunitionGizmoLabel>
-    <AWL_AmmunitionGizmoTip>当前弹药/弹匣上限(备弹)</AWL_AmmunitionGizmoTip>
+    <AWL_AmmunitionGizmoLabel>Ammunition</AWL_AmmunitionGizmoLabel>
+    <AWL_AmmunitionGizmoTip>Current ammunition/magazine upper limit (available ammunition)</AWL_AmmunitionGizmoTip>
 
-    <AWL_PawnTooltipReload>左键主动换弹，右键切换自动换弹模式</AWL_PawnTooltipReload>
-    <AWL_LowManipulation>单位的操作能力不足</AWL_LowManipulation>
-    <AWL_NoEnoughBackupAmmo>备弹不足</AWL_NoEnoughBackupAmmo>
-    <AWL_DisposableWeapon>一次性武器无法装填</AWL_DisposableWeapon>
-    <AWL_NoNeedToReload>满弹药</AWL_NoNeedToReload>
+    <AWL_PawnTooltipReload>Left-click active reloading, right-click to switch to automatic reloading mode</AWL_PawnTooltipReload>
+    <AWL_LowManipulation>pawn is incapable of manipulation</AWL_LowManipulation>
+    <AWL_NoEnoughBackupAmmo>Insufficient ammunition reserves</AWL_NoEnoughBackupAmmo>
+    <AWL_DisposableWeapon>Disposable weapons cannot be loaded</AWL_DisposableWeapon>
+    <AWL_NoNeedToReload>magazine is full</AWL_NoNeedToReload>
 
 </LanguageData>

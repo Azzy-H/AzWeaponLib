@@ -2,10 +2,10 @@
 
 <LanguageData>
 
-  <AWL_PenetratingPowerLabel>穿透力</AWL_PenetratingPowerLabel>
-  <AWL_PenetratingPowerText>这种武器的子弹具有穿透能力，子弹至多能对与穿透力数值相当的单位数量造成伤害。</AWL_PenetratingPowerText>
+  <AWL_PenetratingPowerLabel>Penetration Power</AWL_PenetratingPowerLabel>
+  <AWL_PenetratingPowerText>The bullets of this weapon possess penetration capability. They can cause damage to a number of units equivalent to the penetration power value at most.</AWL_PenetratingPowerText>
 
-  <AWL_ShieldPenetrationLabel>穿盾能力</AWL_ShieldPenetrationLabel>
-  <AWL_ShieldPenetrationText>这种武器的子弹是否能够穿过盾。</AWL_ShieldPenetrationText>
-  <AWL_PenetratingPowerCostByShield>穿盾穿透力消耗</AWL_PenetratingPowerCostByShield>
+  <AWL_ShieldPenetrationLabel>Shield Penetration Ability</AWL_ShieldPenetrationLabel>
+  <AWL_ShieldPenetrationText>Whether the bullets of this weapon can penetrate shields.</AWL_ShieldPenetrationText>
+  <AWL_PenetratingPowerCostByShield>Penetration power consumption for shield penetration</AWL_PenetratingPowerCostByShield>
 </LanguageData>
