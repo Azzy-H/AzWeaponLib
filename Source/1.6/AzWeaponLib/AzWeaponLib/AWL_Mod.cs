@@ -12,8 +12,6 @@ namespace AzWeaponLib
         public AWL_Mod(ModContentPack content) : base(content)
         {
             this.settings = GetSettings<AWL_Settings>();
-            settings.enableAmmoSystem = !ModsConfig.IsActive("ceteam.combatextended");
-
             contentDir = base.Content.RootDir;
         }
 
@@ -34,9 +32,9 @@ namespace AzWeaponLib
             if (settings.enableAmmoSystem)
             {
                 listingStandard.Gap(5);
-                listingStandard.CheckboxLabeled("  " + "EnableBackupAmmoSystemLabel".Translate(), ref settings.enableBackupAmmoSystem, "EnableBackupAmmoSystemLabelDesc".Translate());
+                listingStandard.CheckboxLabeled("-" + "EnableBackupAmmoSystemLabel".Translate(), ref settings.enableBackupAmmoSystem, "EnableBackupAmmoSystemLabelDesc".Translate());
                 listingStandard.Gap(5);
-                listingStandard.CheckboxLabeled("  " + "OnlyShowAmmoGizmoWhenSelectedOneThingLabel".Translate(), ref settings.onlyShowAmmoGizmoWhenSelectedOneThing, "OnlyShowAmmoGizmoWhenSelectedOneThingDesc".Translate());
+                listingStandard.CheckboxLabeled("-" + "OnlyShowAmmoGizmoWhenSelectedOneThingLabel".Translate(), ref settings.onlyShowAmmoGizmoWhenSelectedOneThing, "OnlyShowAmmoGizmoWhenSelectedOneThingDesc".Translate());
             }
             listingStandard.Gap(5);
             listingStandard.CheckboxLabeled("RandomWeaponModeForNonPlayerPawnLabel".Translate(), ref settings.randomWeaponModeForNonPlayerPawn, "RandomWeaponModeForNonPlayerPawnDesc".Translate());

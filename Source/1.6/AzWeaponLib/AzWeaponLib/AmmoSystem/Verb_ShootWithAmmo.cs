@@ -14,7 +14,8 @@ namespace AzWeaponLib.AmmoSystem
         public int bulletsPerShot = 1;
         public int ammoCostPerShot = 1;
         public float retargetRange;
-        public SimpleCurve retargetChanceFromRange;
+        public float shotgunRetargetRange;
+        public SimpleCurve shotgunRetargetChanceFromRange;
     }
     public class Verb_ShootWithAmmo : Verb_Shoot
     {
@@ -48,7 +49,7 @@ namespace AzWeaponLib.AmmoSystem
         protected static Dictionary<Thing, ShootLine> victims = new Dictionary<Thing, ShootLine>();
         protected override bool TryCastShot()
         {
-            if (VerbProps.retargetRange > 1)
+            if (VerbProps.shotgunRetargetRange > 1)
             {
                 GetVicitm();
             }
@@ -133,7 +134,7 @@ namespace AzWeaponLib.AmmoSystem
             ThingDef targetCoverDef = null;
             //尝试重定位
             //Log.Message("try shoot");
-            if (VerbProps.retargetRange > 1 && victims.Count > 0)
+            if (VerbProps.shotgunRetargetRange > 1 && victims.Count > 0)
             {
                 //Log.Message("new shoot");
                 foreach (var kv in victims)
@@ -290,11 +291,12 @@ namespace AzWeaponLib.AmmoSystem
         {
             //Log.Message("GetVicitm");
             victims.Clear();
-            int num = GenRadial.NumCellsInRadius(VerbProps.retargetRange);
+            int num = GenRadial.NumCellsInRadius(VerbProps.shotgunRetargetRange);
             IntVec3 targetCell = currentTarget.Cell;
             for (int i = 0; i < num; i++)
             {
                 IntVec3 cell = targetCell + GenRadial.RadialPattern[i];
+                if (Vector3.Dot((cell - caster.Position).ToVector3(), (currentTarget.Cell - caster.Position).ToVector3()) < 0f) continue;
                 if (!cell.InBounds(caster.Map)) continue;
                 foreach (Thing victim in caster.Map.thingGrid.ThingsListAtFast(cell))
                 {
@@ -303,7 +305,7 @@ namespace AzWeaponLib.AmmoSystem
                     {
                         continue;
                     }
-                    if ((victim is Pawn || victim.def.Fillage != FillCategory.None) && (victim.HostileTo(caster) || victim.Faction == null) && VerbProps.retargetChanceFromRange.Evaluate(GenRadial.RadialPattern[i].Magnitude) > Rand.Value && !victims.ContainsKey(victim))
+                    if ((victim is Pawn || victim.def.Fillage != FillCategory.None) && (victim.HostileTo(caster) || victim.Faction == null) && VerbProps.shotgunRetargetChanceFromRange.Evaluate(GenRadial.RadialPattern[i].Magnitude) > Rand.Value && !victims.ContainsKey(victim))
                     {
                         //Log.Message(victim.ToString());
                         victims.Add(victim, shootline);
@@ -322,11 +324,14 @@ namespace AzWeaponLib.AmmoSystem
         {
             if (isConstantly)
             {
+                //if((!currentTarget.HasThing) || !(currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing.Destroyed)) burstShotsLeft++;
                 if (CasterPawn.jobs.curJob.def == JobDefOf.Wait_Combat || (CasterPawn.jobs.curJob.def == JobDefOf.AttackStatic && (jobTarget.Cell == CurrentTarget.Cell || jobTarget.Thing == CurrentTarget.Thing)))
                 {
+                    if (currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing.Destroyed) goto end;
                     burstShotsLeft++;
                 }
             }
+            end:
             return base.TryCastShot();
         }
     }

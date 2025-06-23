@@ -75,7 +75,7 @@ namespace AzWeaponLib.AmmoSystem
             StringBuilder resultStringBuilder = new StringBuilder(Text);
             resultStringBuilder.AppendLine();
             resultStringBuilder.AppendLine();
-            resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString("F2"));
+            resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString());
             if (canLoadExtra)
             {
                 resultStringBuilder.Append("--");
@@ -96,7 +96,7 @@ namespace AzWeaponLib.AmmoSystem
             string Label = "AWL_ReloadingTimeLabel".Translate();
             string Text = "AWL_ReloadingTimeText".Translate();
             StringBuilder resultStringBuilder = new StringBuilder(Text);
-            if (exhaustedDef != null)
+            if (reloadingTime < 0)
             {
                 resultStringBuilder.AppendLine();
                 resultStringBuilder.AppendLine();

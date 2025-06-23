@@ -7,4 +7,12 @@
             <li Class="AzWeaponLib.AmmoSystem.JobGiver_ReloadWeaponWithAmmo" />
         </value>
     </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>//li[@Class="ThinkNode_ConditionalPlayerControlledMech"]/subNodes</xpath>
+        <value>
+            <!-- pawn自己找物品装填备弹 -->
+            <li Class="AzWeaponLib.AmmoSystem.JobGiver_ReloadWeaponWithAmmo" />
+        </value>
+    </Operation>
 </Patch>

@@ -276,12 +276,20 @@ namespace AzWeaponLib
                 {
                     if (verbProperties_ShootWithAmmo.bulletsPerShot > 1)
                     {
-                        yield return new StatDrawEntry(statCat, prefix + "SR_BulletsPerShot".Translate() + postfix, verbProperties_ShootWithAmmo.bulletsPerShot.ToString(), "SR_Stat_BulletsPerShot_Desc".Translate(), 3590 + dispPriorityOffset);
+                        yield return new StatDrawEntry(statCat, prefix + "AWL_BulletsPerShot".Translate() + postfix, verbProperties_ShootWithAmmo.bulletsPerShot.ToString(), "AWL_Stat_BulletsPerShot_Desc".Translate(), 3590 + dispPriorityOffset);
                     }
-                    if (verbProperties_ShootWithAmmo.retargetRange > 1)
+                    if (verbProperties_ShootWithAmmo.shotgunRetargetRange > 0)
                     {
-                        yield return new StatDrawEntry(statCat, prefix + "SR_RetargetRange".Translate() + postfix, verbProperties_ShootWithAmmo.retargetRange.ToString("F1"), "SR_Stat_RetargetRange_Desc".Translate(), 3590 + dispPriorityOffset);
+                        yield return new StatDrawEntry(statCat, prefix + "AWL_ShotgunRetargetRange".Translate() + postfix, verbProperties_ShootWithAmmo.shotgunRetargetRange.ToString("F1"), "AWL_Stat_ShotgunRetargetRange_Desc".Translate(), 3590 + dispPriorityOffset);
                     }
+                    if (verbProperties_ShootWithAmmo.retargetRange > 0)
+                    {
+                        yield return new StatDrawEntry(statCat, prefix + "AWL_Retarget".Translate() + postfix, verbProperties_ShootWithAmmo.retargetRange.ToString("F1"), "AWL_Stat_Retarget_Desc".Translate(), 3590 + dispPriorityOffset);
+                    }
+                }
+                if (typeof(Verb_ShootWithAmmoConstantly).IsAssignableFrom(verb.verbClass))
+                {
+                    yield return new StatDrawEntry(statCat, prefix + "AWL_MechGun".Translate() + postfix, "Yes".Translate(), "AWL_MechGun_Desc".Translate(), 3590 + dispPriorityOffset);
                 }
             }
             if (verb.ForcedMissRadius > 0f)

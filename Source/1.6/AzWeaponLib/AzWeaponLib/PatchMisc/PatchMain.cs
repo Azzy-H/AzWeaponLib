@@ -11,8 +11,9 @@ using Verse;
 using Verse.AI;
 using static UnityEngine.Scripting.GarbageCollector;
 using AzWeaponLib.HeavyWeapon;
+using AzWeaponLib.MultiVerb;
 
-namespace AzWeaponLib.MultiVerb
+namespace AzWeaponLib
 {
     [StaticConstructorOnStartup]
     public class PatchMain

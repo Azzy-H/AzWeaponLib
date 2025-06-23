@@ -40,5 +40,7 @@ namespace AzWeaponLib
         public static FieldInfo StatDrawEntry_labelInt = AccessTools.Field(typeof(StatDrawEntry), "labelInt");
 
         public static FieldInfo StatDrawEntry_displayOrderWithinCategory = AccessTools.Field(typeof(StatDrawEntry), "displayOrderWithinCategory");
+
+        public static FieldInfo Verb_currentTarget = AccessTools.Field(typeof(Verb), "currentTarget");
     }
 }
