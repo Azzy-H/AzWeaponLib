@@ -113,7 +113,7 @@ namespace AzWeaponLib
             Stance_Busy stance = __instance.curStance as Stance_Busy;
             if (stance == null) return true;
             Verb verb = stance.verb;
-            if (verb.verbProps is VerbProperties_ShootWithAmmo vpswa && vpswa.retargetRange > 0)
+            if (verb != null && verb.verbProps is VerbProperties_ShootWithAmmo vpswa && vpswa.retargetRange > 0)
             {
                 if (!Patch_Verb.NeedRetarget(verb.CurrentTarget) || (!verb.CasterPawn?.drafter.FireAtWill ?? false)) return true;
                 if (verb.caster is IAttackTargetSearcher attackTargetSearcher)

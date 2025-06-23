@@ -235,12 +235,22 @@ namespace AzWeaponLib.AmmoSystem
         public override void PostExposeData()
         {
             base.PostExposeData();
+            string reason = "true";
             Scribe_References.Look(ref hediff, "hediff_CompAmmo");
             Scribe_References.Look(ref pawn, "pawn_CompAmmo");
-            Scribe_Values.Look(ref enableReloadOverall, "enableReloadOverride_CompAmmo");
             Scribe_Values.Look(ref ammo, "ammo_CompAmmo");
             Scribe_Values.Look(ref autoReload, "autoReload_CompAmmo");
             Scribe_Values.Look(ref backupAmmo, "backupAmmo_CompAmmo");
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                if(!enableReloadOverall.Accepted) reason = enableReloadOverall.Reason;
+                Scribe_Values.Look(ref reason, "enableReloadOverall_CompAmmo");
+            }
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
+                Scribe_Values.Look(ref reason, "enableReloadOverall_CompAmmo");
+                if (reason != "true") enableReloadOverall = new AcceptanceReport(reason);
+            }
         }
         public override void Initialize(CompProperties props)
         {

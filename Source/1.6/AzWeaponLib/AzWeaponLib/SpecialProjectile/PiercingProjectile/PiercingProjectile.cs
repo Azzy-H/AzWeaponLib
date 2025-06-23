@@ -14,7 +14,7 @@ namespace AzWeaponLib.SpecialProjectile
     {
         public int penetratingPower = 255;
         public bool reachMaxRangeAlways;
-        public float? rangeOverride;
+        public float? rangeOverride = null;
         public float minDistanceToAffectAlly = 3.9f;
         public float minDistanceToAffectAny = 1.1f;
         public int penetratingPowerCostByShield = 255;
@@ -127,11 +127,14 @@ namespace AzWeaponLib.SpecialProjectile
             while (potints.Count > 0)
             {
                 IntVec3 realDest = potints.Pop();
+                //Log.Message("realDest" + realDest.ToString());
                 if (realDest.InBounds(Map))
                 {
+                    //Log.Error("Yes");
                     destination = realDest.ToVector3();
                     destination.x += Rand.Value;
                     destination.z += Rand.Value;
+                    break;
                 }
             }
             ticksToImpact = Mathf.CeilToInt(base.StartingTicksToImpact);

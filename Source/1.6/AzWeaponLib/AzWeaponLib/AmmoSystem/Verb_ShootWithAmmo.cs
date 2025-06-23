@@ -13,8 +13,8 @@ namespace AzWeaponLib.AmmoSystem
     {
         public int bulletsPerShot = 1;
         public int ammoCostPerShot = 1;
-        public float retargetRange;
-        public float shotgunRetargetRange;
+        public float retargetRange = 0f;
+        public float shotgunRetargetRange = 0f;
         public SimpleCurve shotgunRetargetChanceFromRange;
     }
     public class Verb_ShootWithAmmo : Verb_Shoot
