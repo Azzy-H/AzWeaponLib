@@ -14,9 +14,9 @@ namespace AzWeaponLib.HeavyWeapon
         public IEnumerable<StatDrawEntry> GetStatDrawEntries(object i = null)
         {
             List<ThingDef> availableApparels = apparelGroupDef.availableApparels;
-            string Label = "SR_ApparelGroupDefLabel".Translate();
+            string Label = "AWL_ApparelGroupDefLabel".Translate();
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("SR_ApparelGroupDefText".Translate());
+            sb.AppendLine("AWL_ApparelGroupDefText".Translate());
             sb.AppendLine(apparelGroupDef.label);
             sb.AppendLine();
             foreach (ThingDef def in availableApparels)

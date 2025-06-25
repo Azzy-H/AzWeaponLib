@@ -8,8 +8,8 @@
     <AWL_ShotgunRetargetRange>霰弹扩散距离</AWL_ShotgunRetargetRange>
     <AWL_Stat_ShotgunRetargetRange_Desc>该武器射击时弹丸的散布半径。越高的数值会使得弹丸可击中目标的选取范围越广。该数值不影响对单体敌人的命中率。</AWL_Stat_ShotgunRetargetRange_Desc>
 
-    <AWL_MechGun>机枪</AWL_MechGun>
-    <AWL_MechGun_Desc>该武器能够持续开火。并在目标倒地后尝试转移目标至其他目标上。</AWL_MechGun_Desc>
+    <AWL_MechineGun>机枪</AWL_MechineGun>
+    <AWL_MechineGun_Desc>该武器能够持续开火。并在目标倒地后尝试转移目标至其他目标上。</AWL_MechineGun_Desc>
 
     <AWL_Retarget>转移目标</AWL_Retarget>
     <AWL_Stat_Retarget_Desc>该武器能够在攻击过程中转移目标的索敌半径。</AWL_Stat_Retarget_Desc>

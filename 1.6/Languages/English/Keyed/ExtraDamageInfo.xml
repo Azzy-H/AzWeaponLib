@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+    <AWL_ExtraDamageLabel>extra damage</AWL_ExtraDamageLabel>
+    <AWL_ExtraDamageText>The amount of extra damage this weapon deals.\n\nThis may be deflected or mitigated by the target's armor.该数据不受武器品质影响。</AWL_ExtraDamageText>
+
+    <AWL_ExtraDamageAmount>damage</AWL_ExtraDamageAmount>
+    <AWL_ExtraDamagePenetration>penetration</AWL_ExtraDamagePenetration>
+    <AWL_ExtraDamageChance>chance</AWL_ExtraDamageChance>
+    <AWL_ExtraDamageChance_Must>surely be triggered</AWL_ExtraDamageChance_Must>
+
+</LanguageData>

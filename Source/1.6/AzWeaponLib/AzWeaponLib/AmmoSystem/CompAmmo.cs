@@ -108,7 +108,7 @@ namespace AzWeaponLib.AmmoSystem
             }
             resultStringBuilder.AppendLine();
             resultStringBuilder.AppendLine();
-            resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString("F2"));
+            resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString("0.##") + " " + "LetterSecond".Translate());
             if (compAmmo != null && pawnStatsAffectReloading)
             {
                 Dictionary<string, float> d = AmmoUtility.GetReloadMultipilerFactors(compAmmo.pawn, compAmmo.parent);
@@ -121,7 +121,7 @@ namespace AzWeaponLib.AmmoSystem
                     num *= d[s];
                 }
                 resultStringBuilder.AppendLine();
-                resultStringBuilder.AppendLine("StatsReport_FinalValue".Translate() + ": " + num.ToString());
+                resultStringBuilder.AppendLine("StatsReport_FinalValue".Translate() + ": " + num.ToString("0.##") + " " + "LetterSecond".Translate());
             }
             resultStringBuilder.AppendLine();
             return new StatDrawEntry(reportText: resultStringBuilder.ToString(), category: statCategoryDef, label: Label, valueString: num.ToString("F2"), displayPriorityWithinCategory: displayPriority - priorityOffset);

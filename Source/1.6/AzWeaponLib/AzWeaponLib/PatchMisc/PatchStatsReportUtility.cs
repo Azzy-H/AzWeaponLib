@@ -5,6 +5,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -141,23 +142,8 @@ namespace AzWeaponLib
                 {
                     yield return new StatDrawEntry(statCat, prefix + "BuildingDamageFactorPassable".Translate() + postfix, dmgBuildingsPassable.ToStringPercent(), "BuildingDamageFactorPassableExplanation".Translate(), StatDisplayOrder.Thing_WeaponBuildingDamageFactorImpassable + dispPriorityOffset);
                 }
-                //贯通弹信息
-                if (verb.defaultProjectile.modExtensions != null)
-                {
-                    foreach (DefModExtension defModExtension in verb.defaultProjectile.modExtensions)
-                    {
-                        if (defModExtension is IStatable statable)
-                        {
-                            foreach (var s in statable.GetStatDrawEntries(req.Thing))
-                            {
-                                string labelInt = (string)NonPublicFields.StatDrawEntry_labelInt.GetValue(s);
-                                NonPublicFields.StatDrawEntry_labelInt.SetValue(s, prefix + labelInt + postfix);
-                                NonPublicFields.StatDrawEntry_displayOrderWithinCategory.SetValue(s, s.DisplayPriorityWithinCategory + dispPriorityOffset);
-                                yield return s;
-                            }
-                        }
-                    }
-                }
+                //投射物数据
+                foreach(var v in GetExtraProjectileStatDrawEntries(verb, category, dispPriorityOffset, req, prefix: prefix, postfix: postfix, statCat: verbStatCategory)) yield return v;
             }
             if (verb.defaultProjectile == null && verb.beamDamageDef != null)
             {
@@ -271,26 +257,8 @@ namespace AzWeaponLib
                 stringBuilder5.AppendLine();
                 stringBuilder5.AppendLine("StatsReport_FinalValue".Translate() + ": " + num6.ToString("F0"));
                 yield return new StatDrawEntry(statCat, prefix + "Range".Translate() + postfix, num6.ToString("F0"), stringBuilder5.ToString(), StatDisplayOrder.Thing_Weapon_Range + dispPriorityOffset);
-                //霰弹info
-                if (verb is VerbProperties_ShootWithAmmo verbProperties_ShootWithAmmo)
-                {
-                    if (verbProperties_ShootWithAmmo.bulletsPerShot > 1)
-                    {
-                        yield return new StatDrawEntry(statCat, prefix + "AWL_BulletsPerShot".Translate() + postfix, verbProperties_ShootWithAmmo.bulletsPerShot.ToString(), "AWL_Stat_BulletsPerShot_Desc".Translate(), 3590 + dispPriorityOffset);
-                    }
-                    if (verbProperties_ShootWithAmmo.shotgunRetargetRange > 0)
-                    {
-                        yield return new StatDrawEntry(statCat, prefix + "AWL_ShotgunRetargetRange".Translate() + postfix, verbProperties_ShootWithAmmo.shotgunRetargetRange.ToString("F1"), "AWL_Stat_ShotgunRetargetRange_Desc".Translate(), 3590 + dispPriorityOffset);
-                    }
-                    if (verbProperties_ShootWithAmmo.retargetRange > 0)
-                    {
-                        yield return new StatDrawEntry(statCat, prefix + "AWL_Retarget".Translate() + postfix, verbProperties_ShootWithAmmo.retargetRange.ToString("F1"), "AWL_Stat_Retarget_Desc".Translate(), 3590 + dispPriorityOffset);
-                    }
-                }
-                if (typeof(Verb_ShootWithAmmoConstantly).IsAssignableFrom(verb.verbClass))
-                {
-                    yield return new StatDrawEntry(statCat, prefix + "AWL_MechGun".Translate() + postfix, "Yes".Translate(), "AWL_MechGun_Desc".Translate(), 3590 + dispPriorityOffset);
-                }
+                //额外verb数据
+                foreach (var v in GetVerbExtraStatDrawEntries(verb, category, dispPriorityOffset, req, prefix: prefix, postfix: postfix, statCat: statCat)) yield return v;
             }
             if (verb.ForcedMissRadius > 0f)
             {
@@ -299,6 +267,76 @@ namespace AzWeaponLib
                 yield return new StatDrawEntry(statCat, prefix + "DirectHitChance".Translate() + postfix, (1f / (float)GenRadial.NumCellsInRadius(verb.ForcedMissRadius)).ToStringPercent(), "Stat_Thing_Weapon_DirectHitChance_Desc".Translate(), StatDisplayOrder.Thing_Weapon_DirectHitChance + dispPriorityOffset);
             }
         }
+        private static IEnumerable<StatDrawEntry> GetExtraProjectileStatDrawEntries(VerbProperties verb, ThingCategory category, int dispPriorityOffset, StatRequest req, string prefix = "", string postfix = "", StatCategoryDef statCat = null)
+        {
+            //贯通弹信息
+            if (verb.defaultProjectile.modExtensions != null)
+            {
+                foreach (DefModExtension defModExtension in verb.defaultProjectile.modExtensions)
+                {
+                    if (defModExtension is IStatable statable1)
+                    {
+                        foreach (var s in statable1.GetStatDrawEntries(req.Thing))
+                        {
+                            string labelInt = (string)NonPublicFields.StatDrawEntry_labelInt.GetValue(s);
+                            NonPublicFields.StatDrawEntry_labelInt.SetValue(s, prefix + labelInt + postfix);
+                            NonPublicFields.StatDrawEntry_displayOrderWithinCategory.SetValue(s, s.DisplayPriorityWithinCategory + dispPriorityOffset);
+                            yield return s;
+                        }
+                    }
+                }
+            }
+            if (verb.defaultProjectile.projectile is IStatable statable)
+            {
+                foreach (var v in statable.GetStatDrawEntries(req.Thing)) { yield return v; }
+            }
+            if (verb.defaultProjectile.projectile.extraDamages != null)
+            {
+                string Label = "AWL_ExtraDamageLabel".Translate();
+                string Text = "AWL_ExtraDamageText".Translate();
+                StringBuilder resultStringBuilder = new StringBuilder(Text);
+                resultStringBuilder.AppendLine();
+                float num = 0f;
+                foreach (ExtraDamage extraDamage in verb.defaultProjectile.projectile.extraDamages)
+                {
+                    num += extraDamage.amount * extraDamage.chance;
+                    resultStringBuilder.AppendInNewLine(extraDamage.def.label);
+                    resultStringBuilder.AppendInNewLine("  " + "AWL_ExtraDamageAmount".Translate() + ": " + extraDamage.amount.ToString("F0"));
+                    resultStringBuilder.AppendInNewLine("  " + "AWL_ExtraDamagePenetration".Translate() + ": " + extraDamage.AdjustedArmorPenetration().ToStringPercent());
+                    if (extraDamage.chance < 1f)
+                    {
+                        resultStringBuilder.AppendInNewLine("  " + "AWL_ExtraDamageChance".Translate() + ": " + extraDamage.chance.ToStringPercent());
+                    }
+                    else
+                    {
+                        resultStringBuilder.AppendInNewLine("  " + "AWL_ExtraDamageChance_Must".Translate());
+                    }
+                }
+                yield return new StatDrawEntry(statCat ?? StatCategoryDefOf.Weapon_Ranged, prefix + Label + postfix, num.ToString("F2"), resultStringBuilder.ToString(), StatDisplayOrder.Thing_Weapon_ArmorPenetration - 1 + dispPriorityOffset);
+            }
+        }
+        private static IEnumerable<StatDrawEntry> GetVerbExtraStatDrawEntries(VerbProperties verb, ThingCategory category, int dispPriorityOffset, StatRequest req, string prefix = "", string postfix = "", StatCategoryDef statCat = null)
+        {
+            //霰弹info
+            if (verb is VerbProperties_ShootWithAmmo verbProperties_ShootWithAmmo)
+            {
+                if (verbProperties_ShootWithAmmo.bulletsPerShot > 1)
+                {
+                    yield return new StatDrawEntry(statCat, prefix + "AWL_BulletsPerShot".Translate() + postfix, verbProperties_ShootWithAmmo.bulletsPerShot.ToString(), "AWL_Stat_BulletsPerShot_Desc".Translate(), 3590 + dispPriorityOffset);
+                }
+                if (verbProperties_ShootWithAmmo.shotgunRetargetRange > 0)
+                {
+                    yield return new StatDrawEntry(statCat, prefix + "AWL_ShotgunRetargetRange".Translate() + postfix, verbProperties_ShootWithAmmo.shotgunRetargetRange.ToString("F1"), "AWL_Stat_ShotgunRetargetRange_Desc".Translate(), 3590 + dispPriorityOffset);
+                }
+                if (verbProperties_ShootWithAmmo.retargetRange > 0)
+                {
+                    yield return new StatDrawEntry(statCat, prefix + "AWL_Retarget".Translate() + postfix, verbProperties_ShootWithAmmo.retargetRange.ToString("F1"), "AWL_Stat_Retarget_Desc".Translate(), 3590 + dispPriorityOffset);
+                }
+            }
+            if (typeof(Verb_ShootWithAmmoConstantly).IsAssignableFrom(verb.verbClass))
+            {
+                yield return new StatDrawEntry(statCat, prefix + "AWL_MechineGun".Translate() + postfix, "Yes".Translate(), "AWL_MechineGun_Desc".Translate(), 3590 + dispPriorityOffset);
+            }
+        }
     }
-
 }
