@@ -8,8 +8,8 @@
     <AWL_ShotgunRetargetRange>Shotgun diffusion distance</AWL_ShotgunRetargetRange>
     <AWL_Stat_ShotgunRetargetRange_Desc>The dispersion radius of the projectiles when the weapon is fired. The higher the value, the wider the selection range of the target that the projectile can hit. This value does not affect the hit rate against a single enemy.</AWL_Stat_ShotgunRetargetRange_Desc>
 
-    <AWL_MechGun>Mechine gun</AWL_MechGun>
-    <AWL_MechGun_Desc>This weapon is capable of firing continuously.</AWL_MechGun_Desc>
+    <AWL_MechineGun>Mechine gun</AWL_MechineGun>
+    <AWL_MechineGun_Desc>This weapon is capable of firing continuously.</AWL_MechineGun_Desc>
 
     <AWL_Retarget>Shift target</AWL_Retarget>
     <AWL_Stat_Retarget_Desc>This weapon is capable of shifting the enemy's radius of the target during the attack.</AWL_Stat_Retarget_Desc>
