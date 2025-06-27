@@ -455,8 +455,21 @@ namespace AzWeaponLib.AmmoSystem
                     activateSound = SoundDef.Named("Click"),
                     hotKey = null
                 };
-                if (needReloadBackupAmmo)
+                if (useBackupAmmo)
                 {
+                    yield return new Command_Action
+                    {
+                        icon = null,
+                        defaultLabel = "Dev:Clear backup ammo",
+                        defaultDesc = "Dev:Clear backup ammo",
+                        onHover = null,
+                        action = delegate
+                        {
+                            BackupAmmo = 0;
+                        },
+                        activateSound = SoundDef.Named("Click"),
+                        hotKey = null
+                    };
                     yield return new Command_Action
                     {
                         icon = null,
