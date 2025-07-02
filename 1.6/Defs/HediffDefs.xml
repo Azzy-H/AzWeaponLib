@@ -10,7 +10,6 @@
         </comps>
         <stages>
             <li>
-                <label>-</label>
                 <becomeVisible>false</becomeVisible>
             </li>
         </stages>
@@ -27,7 +26,6 @@
         </comps>
         <stages>
             <li>
-                <label>-</label>
                 <becomeVisible>false</becomeVisible>
             </li>
         </stages>

@@ -5,14 +5,10 @@
   <AWL_AmmoGizmoDisp.label>显示弹药</AWL_AmmoGizmoDisp.label>
   <!-- EN: Ammo Gizmo Disp. -->
   <AWL_AmmoGizmoDisp.description>用于显示弹药界面。</AWL_AmmoGizmoDisp.description>
-  <!-- EN: - -->
-  <AWL_AmmoGizmoDisp.stages.0.label>-</AWL_AmmoGizmoDisp.stages.0.label>
   
   <!-- EN: multi verb select -->
   <AWL_MultiVerbSelect.label>显示武器模式切换</AWL_MultiVerbSelect.label>
   <!-- EN: Multi Verb Select. -->
   <AWL_MultiVerbSelect.description>用于显示武器模式切换界面。</AWL_MultiVerbSelect.description>
-  <!-- EN: - -->
-  <AWL_MultiVerbSelect.stages.0.label>切换武器射击模式</AWL_MultiVerbSelect.stages.0.label>
   
 </LanguageData>

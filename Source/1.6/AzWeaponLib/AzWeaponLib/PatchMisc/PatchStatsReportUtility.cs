@@ -22,6 +22,7 @@ namespace AzWeaponLib
             StatDisplayOrder.Thing_Damage,
             StatDisplayOrder.Thing_Weapon_ArmorPenetration,
             StatDisplayOrder.Thing_Weapon_BuildingDamageFactor,
+            StatDisplayOrder.Thing_WeaponBuildingDamageFactorPassable,
             StatDisplayOrder.Thing_WeaponBuildingDamageFactorImpassable,
             StatDisplayOrder.Thing_Weapon_BurstShotCount,
             StatDisplayOrder.Thing_Weapon_BurstShotFireRate,
@@ -140,7 +141,7 @@ namespace AzWeaponLib
                 }
                 if (dmgBuildingsPassable != 1f)
                 {
-                    yield return new StatDrawEntry(statCat, prefix + "BuildingDamageFactorPassable".Translate() + postfix, dmgBuildingsPassable.ToStringPercent(), "BuildingDamageFactorPassableExplanation".Translate(), StatDisplayOrder.Thing_WeaponBuildingDamageFactorImpassable + dispPriorityOffset);
+                    yield return new StatDrawEntry(statCat, prefix + "BuildingDamageFactorPassable".Translate() + postfix, dmgBuildingsPassable.ToStringPercent(), "BuildingDamageFactorPassableExplanation".Translate(), StatDisplayOrder.Thing_WeaponBuildingDamageFactorPassable + dispPriorityOffset);
                 }
                 //投射物数据
                 foreach(var v in GetExtraProjectileStatDrawEntries(verb, category, dispPriorityOffset, req, prefix: prefix, postfix: postfix, statCat: verbStatCategory)) yield return v;

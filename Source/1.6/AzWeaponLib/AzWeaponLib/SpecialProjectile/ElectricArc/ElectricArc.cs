@@ -70,8 +70,6 @@ namespace AzWeaponLib.SpecialProjectile
         protected override void TickInterval(int delta)
         {
             ThingWithCompsTickInterval(delta);
-            TryConduct(delta);
-            ambientSustainer?.Maintain();
         }
         private void ThingWithCompsTick()
         {
@@ -95,12 +93,58 @@ namespace AzWeaponLib.SpecialProjectile
                 }
             }
         }
-        protected virtual void TryConduct(int delta = 1)
+        //protected virtual void TryConduct(int delta = 1)
+        //{
+        //    conductTickLeft -= delta;
+        //    while (conductTickLeft <= 0)
+        //    {
+        //        conductTickLeft += electricArcDef.conductTicks;
+        //        float conductRange;
+        //        if (extra)
+        //        {
+        //            conductRange = electricArcDef.conductRangeExtra;
+        //        }
+        //        else
+        //        {
+        //            conductRange = electricArcDef.conductRange;
+        //        }
+        //        int num = GenRadial.NumCellsInRadius(conductRange);
+        //        for (int i = 0; i < num; i++)
+        //        {
+        //            IntVec3 c = Position + GenRadial.RadialPattern[i];
+        //            if (!c.InBounds(Map) || !GenSight.LineOfSight(Position, c, Map))
+        //            {
+        //                continue;
+        //            }
+        //            //Map.debugDrawer.FlashCell(c, 0.1f);
+        //            List<Thing> thingList = c.GetThingList(Map);
+        //            for (int j = 0; j < thingList.Count; j++)
+        //            {
+        //                if ((thingList[j] is Pawn && (thingList[j].Faction != launcher.Faction || thingList[j].Faction != null || Rand.Chance(Find.Storyteller.difficulty.friendlyFireChanceFactor) || i == 0)) || 
+        //                    (thingList[j] is Building && (thingList[j].HostileTo(this) || i == 0)))
+        //                {
+        //                    if (victim.Contains(thingList[j]))
+        //                    {
+        //                        continue;
+        //                    }
+        //                    //victimTemp.Add(thingList[j]);
+        //                    //Map.debugDrawer.FlashCell(c, 0.5f);
+        //                    DrawFleckBetween(Position.ToVector3(), thingList[j].Position.ToVector3());
+        //                    Impact(thingList[j]);
+        //                    return;
+        //                }
+        //            }
+        //        }
+        //        Destroy();
+        //        return;
+        //    }
+        //}
+        protected virtual void TryConduct()
         {
-            conductTickLeft -= delta;
-            while (conductTickLeft <= 0)
+            conductTickLeft--;
+            if (conductTickLeft <= 0)
             {
-                conductTickLeft += electricArcDef.conductTicks;
+                conductTickLeft = electricArcDef.conductTicks;
                 float conductRange;
                 if (extra)
                 {
@@ -122,7 +166,7 @@ namespace AzWeaponLib.SpecialProjectile
                     List<Thing> thingList = c.GetThingList(Map);
                     for (int j = 0; j < thingList.Count; j++)
                     {
-                        if ((thingList[j] is Pawn && (thingList[j].Faction != launcher.Faction || thingList[j].Faction != null || Rand.Chance(Find.Storyteller.difficulty.friendlyFireChanceFactor) || i == 0)) || 
+                        if ((thingList[j] is Pawn && (thingList[j].Faction != launcher.Faction || thingList[j].Faction != null || Rand.Chance(Find.Storyteller.difficulty.friendlyFireChanceFactor) || i == 0)) ||
                             (thingList[j] is Building && (thingList[j].HostileTo(this) || i == 0)))
                         {
                             if (victim.Contains(thingList[j]))

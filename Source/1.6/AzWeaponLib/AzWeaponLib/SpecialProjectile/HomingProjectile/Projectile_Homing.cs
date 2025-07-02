@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 using Verse.Sound;
 using static HarmonyLib.Code;
 using static UnityEngine.GraphicsBuffer;
@@ -30,13 +31,25 @@ namespace AzWeaponLib.SpecialProjectile
 
         public override void Launch(Thing launcher, Vector3 origin, LocalTargetInfo usedTarget, LocalTargetInfo intendedTarget, ProjectileHitFlags hitFlags, bool preventFriendlyFire = false, Thing equipment = null, ThingDef targetCoverDef = null)
         {
-            if (Rand.Chance(GetHitChance(intendedTarget.Thing)))
+            bool flag = false;
+            if (usedTarget.HasThing && usedTarget.Thing is IAttackTarget)
+            {
+                if (Rand.Chance(GetHitChance(usedTarget.Thing)))
+                {
+                    hitFlags |= ProjectileHitFlags.IntendedTarget;
+                    intendedTarget = usedTarget;
+                    //Log.Message("应该击中");
+                    flag = true;
+                }
+            }
+            else if (Rand.Chance(GetHitChance(intendedTarget.Thing)))
             {
                 hitFlags |= ProjectileHitFlags.IntendedTarget;
-                //Log.Message("应该击中");
                 usedTarget = intendedTarget;
+                //Log.Message("应该击中");
+                flag = true;
             }
-            else
+            if(flag)
             {
                 hitFlags &= ~ProjectileHitFlags.IntendedTarget;
                 //Log.Message("应该脱靶");

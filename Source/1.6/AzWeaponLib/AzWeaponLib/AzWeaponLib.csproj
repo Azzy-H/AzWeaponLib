@@ -78,6 +78,8 @@
     <Compile Include="AmmoSystem\Patch_JobDriver_Hunt.cs" />
     <Compile Include="AmmoSystem\Patch_Pawn_DraftController.cs" />
     <Compile Include="AmmoSystem\Verb_ShootWithAmmo.cs" />
+    <Compile Include="Gas\DebugToolsGas.cs" />
+    <Compile Include="Gas\AWLGas.cs" />
     <Compile Include="GizmoInfo.cs" />
     <Compile Include="HeavyWeapon\ApparelGroupDef.cs" />
     <Compile Include="HeavyWeapon\CompApparelWithHeavyWeapon.cs" />

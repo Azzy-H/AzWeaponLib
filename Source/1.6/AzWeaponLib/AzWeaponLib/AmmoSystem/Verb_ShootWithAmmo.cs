@@ -301,7 +301,7 @@ namespace AzWeaponLib.AmmoSystem
                 foreach (Thing victim in caster.Map.thingGrid.ThingsListAtFast(cell))
                 {
                     ShootLine shootline;
-                    if (!TryFindShootLineFromTo(caster.Position, victim, out shootline))
+                    if (!TryFindShootLineFromTo(caster.Position, victim, out shootline) || Vector3.Dot((caster.Position - victim.Position).ToVector3(), (caster.Position - targetCell).ToVector3()) < 0f)
                     {
                         continue;
                     }
