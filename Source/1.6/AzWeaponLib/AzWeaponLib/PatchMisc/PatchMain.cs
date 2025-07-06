@@ -35,7 +35,7 @@ namespace AzWeaponLib
     {
         public static void PatchAllHeavyWeaponApparel()
         {
-            StringBuilder log = new StringBuilder("[AWL]Try patch AWL_PatchAllHeavyWeaponApparel\n");
+            StringBuilder log = new StringBuilder("[AWL]Try patch AWL_PatchAllHeavyWeaponApparel");
             HashSet<ThingDef> heavyWeaponApparel = (from thingDef in DefDatabase<ThingDef>.AllDefs
                                                     let heavyWeaponExt = thingDef.GetModExtension<HeavyWeaponDef>()
                                                     where heavyWeaponExt != null && heavyWeaponExt.apparelGroupDef != null
@@ -48,7 +48,7 @@ namespace AzWeaponLib
                         CompProperties compProperties = new CompProperties();
                     compProperties.compClass = typeof(CompApparelWithHeavyWeapon);
                         item.comps.Add(compProperties);
-                        log.AppendLine("Success in patching " + item.ToString() + " with CompApparelWithHeavyWeapon");
+                        log.AppendInNewLine("Success in patching " + item.ToString() + " with CompApparelWithHeavyWeapon");
                 }
                 catch (Exception ex)
                 {

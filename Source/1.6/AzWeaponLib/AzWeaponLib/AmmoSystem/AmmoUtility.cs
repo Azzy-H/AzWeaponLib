@@ -47,7 +47,7 @@ namespace AzWeaponLib.AmmoSystem
         }
         public static CompAmmo FindCompAmmo(Pawn pawn)
         {
-            return pawn.equipment.Primary?.TryGetComp<CompAmmo>();
+            return pawn?.equipment?.Primary?.TryGetComp<CompAmmo>();
         }
         public static List<Thing> FindEnoughAmmo(Pawn pawn, IntVec3 rootCell, CompAmmo compAmmo, bool forceReload)
         {

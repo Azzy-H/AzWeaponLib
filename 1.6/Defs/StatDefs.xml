@@ -11,7 +11,7 @@
     <defaultBaseValue>1</defaultBaseValue>
     <hideAtValue>1</hideAtValue>
     <valueIfMissing>1</valueIfMissing>
-    <minValue>0.5</minValue>
+    <minValue>0</minValue>
     <!-- <showIfUndefined>false</showIfUndefined> -->
     <displayPriorityInCategory>5000</displayPriorityInCategory>
   </StatDef>

@@ -17,7 +17,7 @@ using static HarmonyLib.Code;
 
 namespace AzWeaponLib.AmmoSystem
 {
-    public class CompProperties_Ammo : CompProperties, IStatable
+    public class CompProperties_Ammo : CompProperties
     {
         public bool singleShotLoading = false;
         public int ammunitionCapacity = 1;
@@ -40,12 +40,21 @@ namespace AzWeaponLib.AmmoSystem
             //base.ResolveReferences(parentDef);
             statCategoryDef = StatCategoryDefOf.Weapon_Ranged;
         }
+        public override IEnumerable<StatDrawEntry> SpecialDisplayStats(StatRequest req)
+        {
+            if(req.Thing == null) return GetStatDrawEntries(req);
+            return Enumerable.Empty<StatDrawEntry>();
+        }
         public virtual IEnumerable<StatDrawEntry> GetStatDrawEntries(object i = null)
         {
             CompAmmo compAmmo = null;
             if (i is Thing t)
             {
                 compAmmo = t.TryGetComp(this) as CompAmmo;
+            }
+            else if (i is CompAmmo)
+            {
+                compAmmo = (CompAmmo)i;
             }
             int priority = 0;
             if (singleShotLoading) yield return SingleShotLoadingDisp(ref priority, compAmmo);

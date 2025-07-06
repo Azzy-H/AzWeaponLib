@@ -71,16 +71,16 @@ namespace AzWeaponLib
                     }
                 }
             }
-            if (compProperties != null && !req.HasThing)
-            {
-                foreach (CompProperties compProp in compProperties)
-                {
-                    if (compProp is IStatable statable)
-                    {
-                        resultList.AddRange(statable.GetStatDrawEntries(req.Thing));
-                    }
-                }
-            }
+            //if (compProperties != null && !req.HasThing)
+            //{
+            //    foreach (CompProperties compProp in compProperties)
+            //    {
+            //        if (compProp is IStatable statable)
+            //        {
+            //            resultList.AddRange(statable.GetStatDrawEntries(req.Thing));
+            //        }
+            //    }
+            //}
             __result = resultList;
             return;
         }
