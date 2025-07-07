@@ -11,7 +11,7 @@ namespace AzWeaponLib.HeavyWeapon
     public class HeavyWeaponDef : DefModExtension, IStatable
     {
         public ApparelGroupDef apparelGroupDef;
-        public IEnumerable<StatDrawEntry> GetStatDrawEntries(object i = null)
+        public IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req)
         {
             List<ThingDef> availableApparels = apparelGroupDef.availableApparels;
             string Label = "AWL_ApparelGroupDefLabel".Translate();

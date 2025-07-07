@@ -10,6 +10,6 @@ namespace AzWeaponLib
 {
     public interface IStatable
     {
-        IEnumerable<StatDrawEntry> GetStatDrawEntries(object instance = null);
+        IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req);
     }
 }

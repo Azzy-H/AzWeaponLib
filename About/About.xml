@@ -6,5 +6,51 @@
 		<li>1.6</li>
 	</supportedVersions>
 	<author>AzzyH</author>
-	<description>Azzy的武器相关代码库</description>
+	<description>AzzyH的武器库
+包含特性：
+
+投射物：
+-电弧；（电弧将在pawn间连锁传递）
+-导弹；（导弹将追踪目标）
+-穿透投射物；（贯通攻击一条直线上的pawn）
+
+动词/弹药系统：
+-霰弹枪/机枪/可装填动词；（一次性发射多个投射物，连续射击，切换目标，可独立工作，也可与CompAmmo配合使用）
+-弹药组件；（提供一个简单的弹药系统，但通过不修改其他模组内容且可通过设置关闭，比CE或其他弹药系统更兼容）
+
+多动词系统：
+-多verb组件；（提供一个框架，使一把武器可包含多个verb，当启用MVCF.Features.Feature_ExtraEquipmentVerbs时此功能不激活）
+
+重型武器系统：
+-重型武器；（pawn必须穿戴特定装备才能装备重型武器）
+
+hediff炮台：
+-hediff炮台；（表现和原版炮台comp相近，但可以通过hediff实现动态获取）
+
+IStatable接口：
+-一个在DefModExtension和VerbProperties中显示自定义信息的接口；
+
+AzzyH's Weapon Library.
+features contained:
+
+projectile:
+-arc;(the arc will chains across the pawns)
+-missile;(missile will tracking target)
+-piercing projectile;(attack pawns in a straight line)
+
+verb/ammo system:
+-shotgun/mechinegun/reloadable verb;(shoot multi projectile at one time, continuously shooting, transfer target, can work independtly, also can cooperate with CompAmmo)
+-ammo comp;(provide a simple ammo system, but more compatible than ce or other ammo system by do not patch other mod's content and can be closed by settings)
+
+multiple verb system:
+-multi verb comp;(provide a framework that enable multi verbs consisted in a weapon, inactive when MVCF.Features.Feature_ExtraEquipmentVerbs is enabled)
+
+heavy Weapon system:
+-heavy weapon;(pawn must wear some certain apparels to equip heavy weapon)
+
+hediff turret
+-hediff turret; (its performance is similar to the vanilla CompTurretGun, but can be add or remove dynamically through hediff.)
+
+IStatable:
+-a interface to show custom info in DefModExtension and VerbProperties;</description>
 </ModMetaData>

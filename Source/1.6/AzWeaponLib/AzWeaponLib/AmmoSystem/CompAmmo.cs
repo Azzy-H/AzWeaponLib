@@ -45,16 +45,13 @@ namespace AzWeaponLib.AmmoSystem
             if(req.Thing == null) return GetStatDrawEntries(req);
             return Enumerable.Empty<StatDrawEntry>();
         }
-        public virtual IEnumerable<StatDrawEntry> GetStatDrawEntries(object i = null)
+        public virtual IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req)
         {
             CompAmmo compAmmo = null;
-            if (i is Thing t)
+            Thing t = req.Thing;
+            if (t != null)
             {
                 compAmmo = t.TryGetComp(this) as CompAmmo;
-            }
-            else if (i is CompAmmo)
-            {
-                compAmmo = (CompAmmo)i;
             }
             int priority = 0;
             if (singleShotLoading) yield return SingleShotLoadingDisp(ref priority, compAmmo);
@@ -295,7 +292,7 @@ namespace AzWeaponLib.AmmoSystem
         }
         public override IEnumerable<StatDrawEntry> SpecialDisplayStats()
         { 
-            foreach(StatDrawEntry sde in Props.GetStatDrawEntries(this)) yield return sde;
+            foreach(StatDrawEntry sde in Props.GetStatDrawEntries(StatRequest.For(parent))) yield return sde;
         }
         public virtual void ReloadByBackupAmmo()
         {

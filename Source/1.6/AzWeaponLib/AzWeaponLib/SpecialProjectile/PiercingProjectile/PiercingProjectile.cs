@@ -22,7 +22,7 @@ namespace AzWeaponLib.SpecialProjectile
         private static StatCategoryDef statCategoryDef;
         private const int displayPriority = 5300;
 
-        public virtual IEnumerable<StatDrawEntry> GetStatDrawEntries(object i = null)
+        public virtual IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req)
         {
             int priority = 0;
             if (statCategoryDef == null) statCategoryDef = StatCategoryDefOf.Weapon_Ranged;

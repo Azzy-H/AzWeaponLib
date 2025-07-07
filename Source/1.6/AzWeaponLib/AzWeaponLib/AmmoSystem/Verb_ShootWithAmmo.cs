@@ -1,31 +1,60 @@
-﻿using RimWorld;
+﻿using AzWeaponLib;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using Verse;
 using Verse.AI;
-using AzWeaponLib;
 
 namespace AzWeaponLib.AmmoSystem
 {
-    public class VerbProperties_ShootWithAmmo : VerbProperties
+    public class VerbProperties_ShootWithAmmo : VerbProperties, IStatable
     {
         public int bulletsPerShot = 1;
         public int ammoCostPerShot = 1;
         public float retargetRange = 0f;
         public float shotgunRetargetRange = 0f;
         public SimpleCurve shotgunRetargetChanceFromRange;
+        public bool useCompAmmo = true;
+        
+        public IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req)
+        {
+            StatCategoryDef statCat = StatCategoryDefOf.Weapon_Ranged;
+
+            if (bulletsPerShot > 1)
+            {
+                yield return new StatDrawEntry(statCat, "AWL_BulletsPerShot".Translate(), bulletsPerShot.ToString(), "AWL_Stat_BulletsPerShot_Desc".Translate(), 3590);
+            }
+            if (shotgunRetargetRange > 0)
+            {
+                yield return new StatDrawEntry(statCat, "AWL_ShotgunRetargetRange".Translate(), shotgunRetargetRange.ToString("F1"), "AWL_Stat_ShotgunRetargetRange_Desc".Translate(), 3590);
+            }
+            if (retargetRange > 0)
+            {
+                yield return new StatDrawEntry(statCat, "AWL_Retarget".Translate(), retargetRange.ToString("F1"), "AWL_Stat_Retarget_Desc".Translate(), 3590);
+            }
+            if (typeof(Verb_ShootWithAmmoConstantly).IsAssignableFrom(verbClass))
+            {
+                yield return new StatDrawEntry(statCat, "AWL_MechineGun".Translate(), "Yes".Translate(), "AWL_MechineGun_Desc".Translate(), 3590);
+            }
+        }
     }
     public class Verb_ShootWithAmmo : Verb_Shoot
     {
         public VerbProperties_ShootWithAmmo VerbProps => (VerbProperties_ShootWithAmmo)verbProps;
         private CompAmmo compAmmoInt;
-        public CompAmmo compAmmo
+        private bool compAmmoIsNull;
+        public CompAmmo CompAmmo
         {
             get
             {
-                if (compAmmoInt == null) compAmmoInt = CasterPawn.equipment.Primary.GetComp<CompAmmo>();
+                if (compAmmoInt == null && !compAmmoIsNull) 
+                { 
+                    if(verbTracker.directOwner is CompEquippable eq) compAmmoInt = eq.parent.GetComp<CompAmmo>();
+                    if (compAmmoInt == null) compAmmoIsNull = true;
+                }
                 return compAmmoInt;
             }
         }
@@ -33,16 +62,16 @@ namespace AzWeaponLib.AmmoSystem
         {
             get
             {
-                if (compAmmo == null) return true;
-                return VerbProps.ammoCostPerShot <= compAmmo.Ammo;
+                if (CompAmmo == null) return true;
+                return VerbProps.ammoCostPerShot <= CompAmmo.Ammo;
             }
         }
         public bool useAmmoSystem
         { 
             get 
             { 
-                if (compAmmo == null) return false;
-                return compAmmo.useAmmoSystem;
+                if (CompAmmo == null) return false;
+                return CompAmmo.useAmmoSystem;
             }
         }
         public float retargetChance;
@@ -61,11 +90,11 @@ namespace AzWeaponLib.AmmoSystem
             }
             else if (canShootNow && TryCastMultiBulletShot())
             {
-                compAmmo.UsedByNum(VerbProps.ammoCostPerShot);
+                CompAmmo.UsedByNum(VerbProps.ammoCostPerShot);
                 if (!canShootNow) 
                 {
-                    compAmmo.TryMakeReloadJob();
-                    compAmmo.AmmoExhausted(); 
+                    CompAmmo.TryMakeReloadJob();
+                    CompAmmo.AmmoExhausted(); 
                 }
                 flag = true;
             }
@@ -91,7 +120,7 @@ namespace AzWeaponLib.AmmoSystem
         {
             if (useAmmoSystem && !canShootNow)
             {
-                if(compAmmo.autoReload) compAmmo.TryMakeReloadJob();
+                if(CompAmmo.autoReload) CompAmmo.TryMakeReloadJob();
                 return false;
             }
             return base.TryStartCastOn(castTarg, destTarg, surpriseAttack, canHitNonTargetPawns, preventFriendlyFire, nonInterruptingSelfCast);

@@ -85,6 +85,7 @@
     <Compile Include="HeavyWeapon\CompApparelWithHeavyWeapon.cs" />
     <Compile Include="HeavyWeapon\HeavyWeaponDef.cs" />
     <Compile Include="HeavyWeapon\PatchEquipmentUtility.cs" />
+    <Compile Include="HediffTurret\Hediff_TurretGun.cs" />
     <Compile Include="IStatable.cs" />
     <Compile Include="MultiVerb\Comp_MultiVerb.cs" />
     <Compile Include="MultiVerb\HediffComp_MultiVerbSelect.cs" />
