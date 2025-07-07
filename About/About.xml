@@ -5,8 +5,17 @@
 	<supportedVersions>
 		<li>1.6</li>
 	</supportedVersions>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+			<steamWorkshopUrl>https://steamcommunity.com/workshop/filedetails/?id=2009463077</steamWorkshopUrl>
+		</li>
+	</modDependencies>
 	<author>AzzyH</author>
-	<description>AzzyH的武器库
+	<description>本mod只是前置，不包含任何实际内容！
+Azzy的武器库
 包含特性：
 
 投射物：
@@ -16,9 +25,9 @@
 
 动词/弹药系统：
 -霰弹枪/机枪/可装填动词；（一次性发射多个投射物，连续射击，切换目标，可独立工作，也可与CompAmmo配合使用）
--弹药组件；（提供一个简单的弹药系统，但通过不修改其他模组内容且可通过设置关闭，比CE或其他弹药系统更兼容）
+-弹药组件；（提供一个简单的弹药系统，但不修改其他模组内容，且可通过设置关闭，比CE或其他弹药系统更具兼容性）
 
-多动词系统：
+多verb系统：
 -多verb组件；（提供一个框架，使一把武器可包含多个verb，当启用MVCF.Features.Feature_ExtraEquipmentVerbs时此功能不激活）
 
 重型武器系统：
@@ -30,7 +39,8 @@ hediff炮台：
 IStatable接口：
 -一个在DefModExtension和VerbProperties中显示自定义信息的接口；
 
-AzzyH's Weapon Library.
+This mod serves solely as a prerequisite and contains no actual content!
+Azzy's Weapon Library.
 features contained:
 
 projectile:
