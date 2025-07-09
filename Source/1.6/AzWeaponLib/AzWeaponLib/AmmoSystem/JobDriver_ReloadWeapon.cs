@@ -48,6 +48,12 @@ namespace AzWeaponLib.AmmoSystem
         {
             int reloadTick = Mathf.Min(compAmmo.GetReloadTicks(), compAmmo.MaxReloadTick);
             this.FailOn(() => (useAmmo && compAmmo.NoBackupAmmo) || !compAmmo.NeedReload);
+            Toil waitForAvaliable = Toils_General.Wait(int.MaxValue);
+            waitForAvaliable.tickAction = delegate
+            {
+                if (!pawn.stances.curStance.StanceBusy) ReadyForNextToil();
+            };
+            yield return waitForAvaliable;
             int loop = compAmmo.ReloadLoop(job.playerForced);
             do
             {

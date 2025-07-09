@@ -407,7 +407,7 @@ namespace AzWeaponLib.AmmoSystem
             }
             else 
             {
-                pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: true);
+                pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: true, cancelBusyStances: false);
             }
         }
         public void TryMakeReloadJob(bool forced = false)

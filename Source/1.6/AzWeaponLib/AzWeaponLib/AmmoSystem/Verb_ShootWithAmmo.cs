@@ -91,11 +91,11 @@ namespace AzWeaponLib.AmmoSystem
             else if (canShootNow && TryCastMultiBulletShot())
             {
                 CompAmmo.UsedByNum(VerbProps.ammoCostPerShot);
-                if (!canShootNow) 
-                {
-                    CompAmmo.TryMakeReloadJob();
-                    CompAmmo.AmmoExhausted(); 
-                }
+                //if (!canShootNow) 
+                //{
+                //    CompAmmo.TryMakeReloadJob();
+                //    CompAmmo.AmmoExhausted(); 
+                //}
                 flag = true;
             }
 
