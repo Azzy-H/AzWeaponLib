@@ -93,7 +93,6 @@
     <Compile Include="NonPublicFields.cs" />
     <Compile Include="NonPublicProperties.cs" />
     <Compile Include="PatchMisc\PatchMain.cs" />
-    <Compile Include="PatchMisc\PatchRangeOffset.cs" />
     <Compile Include="PatchMisc\PatchStatsReportUtility.cs" />
     <Compile Include="PatchMisc\Patch_Pawn_StanceTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
