@@ -10,7 +10,7 @@ using Verse;
 namespace AzWeaponLib.HeavyWeapon
 {
     [HarmonyPatch(typeof(EquipmentUtility))]
-    public class PatchEquipmentUtility
+    internal class Patch_EquipmentUtility
     {
         [HarmonyPatch("CanEquip", 
             new Type[] { 

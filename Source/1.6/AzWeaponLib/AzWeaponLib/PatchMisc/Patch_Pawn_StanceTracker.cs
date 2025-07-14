@@ -15,7 +15,7 @@ using Verse.AI;
 namespace AzWeaponLib
 {
     [HarmonyPatch(typeof(Verb))]
-    public class Patch_Verb//Building
+    internal class Patch_Verb//Building
     {
         [HarmonyPatch("VerbTick")]
         [HarmonyPrefix]
@@ -78,7 +78,7 @@ namespace AzWeaponLib
     //    }
     //}
     [HarmonyPatch(typeof(Pawn_StanceTracker))]
-    public class Patch_Pawn_StanceTracker
+    internal class Patch_Pawn_StanceTracker
     {
         [HarmonyPatch("StanceTrackerTick")]
         [HarmonyPrefix]

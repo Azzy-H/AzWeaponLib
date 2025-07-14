@@ -26,4 +26,7 @@
     <AWL_ReloadingTimeFactor>装填时间</AWL_ReloadingTimeFactor>
     <AWL_ReloadingTimeFactor_Tips>该单位的装填时间。</AWL_ReloadingTimeFactor_Tips>
 
+    <AWL_MoveReloadLabel>移动装填</AWL_MoveReloadLabel>
+    <AWL_MoveReloadText>该武器可以在移动中装填。</AWL_MoveReloadText>
+
 </LanguageData>

@@ -1,4 +1,7 @@
-﻿using HarmonyLib;
+﻿using AzWeaponLib.AmmoSystem;
+using AzWeaponLib.HeavyWeapon;
+using AzWeaponLib.MultiVerb;
+using HarmonyLib;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -10,8 +13,6 @@ using UnityEngine;
 using Verse;
 using Verse.AI;
 using static UnityEngine.Scripting.GarbageCollector;
-using AzWeaponLib.HeavyWeapon;
-using AzWeaponLib.MultiVerb;
 
 namespace AzWeaponLib
 {
@@ -27,6 +28,11 @@ namespace AzWeaponLib
             {
                 Log.Message("[AWL]Notify MVCF exsists");
                 LongEventHandler.ExecuteWhenFinished(StartUpLib.PatchWhenMVCFEnabled);
+            }
+            if (ModLister.GetActiveModWithIdentifier("Owlchemist.Tacticowl") != null)
+            {
+                Log.Message("[AWL]Notify Tacticowl exsists");
+                StartUpLib.PatchWhenTacticowlEnabled();
             }
             StartUpLib.PatchAllHeavyWeaponApparel();
         }
@@ -90,6 +96,17 @@ namespace AzWeaponLib
                 Log.Message("[AWL]No need to patch MVCF.");
             }
             
+        }
+        public static void PatchWhenTacticowlEnabled()
+        {
+            HashSet<CompProperties_Ammo> compProperties = (from thingDef in DefDatabase<ThingDef>.AllDefs
+                                                           let prop = thingDef.GetCompProperties<CompProperties_Ammo>()
+                                                           where prop != null
+                                                           select prop).ToHashSet();
+            foreach (var p in compProperties)
+            { 
+                p.canMoveWhenReload = true;
+            }
         }
     }
 }

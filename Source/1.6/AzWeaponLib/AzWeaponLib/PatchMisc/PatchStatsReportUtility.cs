@@ -14,7 +14,7 @@ using Verse;
 namespace AzWeaponLib
 {
     [HarmonyPatch(typeof(ThingDef))]
-    public class PatchThingDef
+    internal class PatchThingDef
     {
         public static readonly HashSet<int> verbPriorities = new HashSet<int>()
         {

@@ -70,6 +70,15 @@ namespace AzWeaponLib.MultiVerb
         public override void CompExposeData()
         {
             base.CompExposeData();
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
+                if (Eq_Comp == null)
+                {
+                    compShouldRemove = true;
+                    return;
+                }
+                verbIndexCache = Eq_Comp.verbIndex;
+            }
         }
     }
 }

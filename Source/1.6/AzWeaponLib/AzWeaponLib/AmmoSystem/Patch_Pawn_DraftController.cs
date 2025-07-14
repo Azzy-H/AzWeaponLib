@@ -10,7 +10,7 @@ using Verse;
 namespace AzWeaponLib
 {
     [HarmonyPatch(typeof(Pawn_DraftController))]
-    public class Patch_Pawn_DraftController
+    internal class Patch_Pawn_DraftController
     {
         [HarmonyPatch("set_Drafted")]
         [HarmonyPostfix]

@@ -11,7 +11,7 @@ using Verse;
 namespace AzWeaponLib
 {
     [StaticConstructorOnStartup]
-    public static class NonPublicFields
+    internal static class NonPublicFields
     {
         public static FieldInfo SiegeBlueprintPlacer_center = AccessTools.Field(typeof(SiegeBlueprintPlacer), "center");
 

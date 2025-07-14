@@ -11,7 +11,7 @@ using Verse.AI;
 namespace AzWeaponLib
 {
     [HarmonyPatch(typeof(JobDriver_Hunt))]
-    public static class Patch_JobDriver_Hunt
+    internal static class Patch_JobDriver_Hunt
     {
         [HarmonyPatch("StartCollectCorpseToil")]
         [HarmonyPostfix]

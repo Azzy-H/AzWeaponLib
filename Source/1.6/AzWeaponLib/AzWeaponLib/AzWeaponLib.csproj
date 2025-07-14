@@ -68,6 +68,8 @@
   <ItemGroup>
     <Compile Include="AmmoSystem\AmmoUtility.cs" />
     <Compile Include="AmmoSystem\FloatMenuOptionProvider_ReloadWeapon.cs" />
+    <Compile Include="AmmoSystem\Patch_FloatMenuOptionProvider_DraftedMove.cs" />
+    <Compile Include="AmmoSystem\Patch_JobGiver_ConfigurableHostilityResponse.cs" />
     <Compile Include="AWL_DefOf.cs" />
     <Compile Include="AmmoSystem\CompAmmo.cs" />
     <Compile Include="AmmoSystem\Gizmo_AmmoStatus.cs" />
@@ -84,12 +86,12 @@
     <Compile Include="HeavyWeapon\ApparelGroupDef.cs" />
     <Compile Include="HeavyWeapon\CompApparelWithHeavyWeapon.cs" />
     <Compile Include="HeavyWeapon\HeavyWeaponDef.cs" />
-    <Compile Include="HeavyWeapon\PatchEquipmentUtility.cs" />
+    <Compile Include="HeavyWeapon\Patch_EquipmentUtility.cs" />
     <Compile Include="HediffTurret\Hediff_TurretGun.cs" />
     <Compile Include="IStatable.cs" />
     <Compile Include="MultiVerb\Comp_MultiVerb.cs" />
     <Compile Include="MultiVerb\HediffComp_MultiVerbSelect.cs" />
-    <Compile Include="MultiVerb\PatchVerbTracker.cs" />
+    <Compile Include="MultiVerb\Patch_VerbTracker.cs" />
     <Compile Include="NonPublicFields.cs" />
     <Compile Include="NonPublicProperties.cs" />
     <Compile Include="PatchMisc\PatchMain.cs" />

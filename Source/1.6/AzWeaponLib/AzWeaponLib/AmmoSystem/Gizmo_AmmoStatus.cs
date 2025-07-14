@@ -18,7 +18,7 @@ namespace AzWeaponLib.AmmoSystem
         public int amunitionRemained;
         public bool autoReload;
         public Func<bool> autoReloadToggle;
-        public Action<bool> makeReloadJob;
+        public Action<bool, bool> makeReloadJob;
         public bool canAutoReloadToggleNow = true;
         public bool canReloadNow = true;
         public int backupAmmo;
@@ -78,7 +78,7 @@ namespace AzWeaponLib.AmmoSystem
                 {
                     if (canReloadNow)
                     {
-                        makeReloadJob.Invoke(true);
+                        makeReloadJob.Invoke(true, KeyBindingDefOf.QueueOrder.IsDownEvent);
                         if (autoReload)
                         {
                             SoundDefOf.Tick_Low.PlayOneShotOnCamera();

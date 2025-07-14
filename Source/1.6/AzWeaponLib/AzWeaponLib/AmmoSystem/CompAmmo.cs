@@ -29,6 +29,7 @@ namespace AzWeaponLib.AmmoSystem
         public ThingDef exhaustedDef;
         public int maxBackupAmmo = 10;
         public int ammoCountPerAmmunitionBox = 3;
+        public bool canMoveWhenReload = false;
         private const int displayPriority = 300;
         private static StatCategoryDef statCategoryDef;
         public CompProperties_Ammo()
@@ -57,6 +58,7 @@ namespace AzWeaponLib.AmmoSystem
             if (singleShotLoading) yield return SingleShotLoadingDisp(ref priority, compAmmo);
             yield return AmmunitionCapacityDisp(ref priority, compAmmo);
             yield return ReloadingTimeDisp(ref priority, compAmmo);
+            if (canMoveWhenReload) yield return MoveReloadDisp(ref priority, compAmmo);
             if (ammunitionDef != null)
             {
                 yield return AmmunitionCostDisp(ref priority, compAmmo);
@@ -147,6 +149,14 @@ namespace AzWeaponLib.AmmoSystem
             string Label = "AWL_MaxBackupAmmoLabel".Translate();
             string Text = "AWL_MaxBackupAmmoText".Translate();
             return new StatDrawEntry(reportText: StatDispUtility.StringBuilderInit(Text, num).ToString(), category: statCategoryDef, label: Label, valueString: num.ToString(), displayPriorityWithinCategory: displayPriority - priorityOffset);
+        }
+        private StatDrawEntry MoveReloadDisp(ref int priorityOffset, CompAmmo compAmmo = null)
+        {
+            priorityOffset--;
+            var num = canMoveWhenReload;
+            string Label = "AWL_MoveReloadLabel".Translate();
+            string Text = "AWL_MoveReloadText".Translate();
+            return new StatDrawEntry(reportText: StatDispUtility.StringBuilderInit(Text, num).ToString(), category: statCategoryDef, label: Label, valueString: num ? "Yes".Translate() : "No".Translate(), displayPriorityWithinCategory: displayPriority - priorityOffset);
         }
 
     }
@@ -407,7 +417,14 @@ namespace AzWeaponLib.AmmoSystem
             }
             else 
             {
-                pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: true, cancelBusyStances: false);
+                if (pawn.CurJobDef == JobDefOf.Goto)
+                {
+                    pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: !Props.canMoveWhenReload, cancelBusyStances: false);
+                }
+                else 
+                {
+                    pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: true, cancelBusyStances: false);
+                }
             }
         }
         public void TryMakeReloadJob(bool forced = false)

@@ -9,7 +9,7 @@ using Verse;
 namespace AzWeaponLib.MultiVerb
 {
     [HarmonyPatch(typeof(VerbTracker))]
-    public class Patch_VerbTracker
+    internal class Patch_VerbTracker
     {
         [HarmonyPatch("get_PrimaryVerb")]
         [HarmonyPrefix]

@@ -19,6 +19,7 @@ namespace AzWeaponLib.AmmoSystem
     /// </summary>
     public class JobDriver_ReloadWeapon : JobDriver
     {
+        public bool canMove => compAmmo.Props.canMoveWhenReload;
         private ThingWithComps weapon => TargetB.Thing as ThingWithComps;
         private CompAmmo compAmmoInt;
         private CompAmmo compAmmo
@@ -48,7 +49,7 @@ namespace AzWeaponLib.AmmoSystem
         {
             int reloadTick = Mathf.Min(compAmmo.GetReloadTicks(), compAmmo.MaxReloadTick);
             this.FailOn(() => (useAmmo && compAmmo.NoBackupAmmo) || !compAmmo.NeedReload);
-            Toil waitForAvaliable = Toils_General.Wait(int.MaxValue);
+            Toil waitForAvaliable = ReloadWait(int.MaxValue, canMove: true);
             waitForAvaliable.tickAction = delegate
             {
                 if (!pawn.stances.curStance.StanceBusy) ReadyForNextToil();
@@ -57,9 +58,9 @@ namespace AzWeaponLib.AmmoSystem
             int loop = compAmmo.ReloadLoop(job.playerForced);
             do
             {
-                Toil wait = Toils_General.Wait(reloadTick);
-                wait.WithProgressBarToilDelay(TargetIndex.A);
-                yield return wait;
+                Toil reload = ReloadWait(reloadTick, canMove: canMove);
+                reload.WithProgressBarToilDelay(TargetIndex.A);
+                yield return reload;
                 switch (useAmmo)
                 {
                     case false://无需弹药
@@ -73,7 +74,41 @@ namespace AzWeaponLib.AmmoSystem
                 }
                 loop--;
             } while (loop > 0);
+            if (canMove)
+            {
+                Toil toil = ToilMaker.MakeToil("TryGoToDest");
+                toil.initAction = delegate {
+                    if (pawn.pather.Moving)
+                    {
+                        Job job = JobMaker.MakeJob(JobDefOf.Goto, pawn.pather.Destination);
+                        pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+                    }
+                };
+                yield return toil;
+            }
             
+        }
+        public static Toil ReloadWait(int ticks, TargetIndex face = TargetIndex.None, bool canMove = false)
+        {
+            Toil toil = ToilMaker.MakeToil("Reload");
+            if (!canMove)
+            {
+                toil.initAction = delegate
+                {
+                    toil.actor.pather.StopDead();
+                };
+            }
+            toil.defaultCompleteMode = ToilCompleteMode.Delay;
+            toil.defaultDuration = ticks;
+            if (face != TargetIndex.None)
+            {
+                toil.handlingFacing = true;
+                toil.tickIntervalAction = delegate
+                {
+                    toil.actor.rotationTracker.FaceTarget(toil.actor.CurJob.GetTarget(face));
+                };
+            }
+            return toil;
         }
     }
 }

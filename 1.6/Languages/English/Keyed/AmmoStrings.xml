@@ -26,4 +26,7 @@
     <AWL_ReloadingTimeFactor>reload multipiler</AWL_ReloadingTimeFactor>
     <AWL_ReloadingTimeFactor_Tips>The reload multipiler of this pawn.</AWL_ReloadingTimeFactor_Tips>
 
+    <AWL_MoveReloadLabel>mobile reload</AWL_MoveReloadLabel>
+    <AWL_MoveReloadText>This weapon can be reloaded while moving.</AWL_MoveReloadText>
+
 </LanguageData>
