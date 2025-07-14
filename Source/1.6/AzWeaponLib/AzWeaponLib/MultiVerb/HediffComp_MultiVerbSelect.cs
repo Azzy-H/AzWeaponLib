@@ -70,7 +70,7 @@ namespace AzWeaponLib.MultiVerb
         public override void CompExposeData()
         {
             base.CompExposeData();
-            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 if (Eq_Comp == null)
                 {
