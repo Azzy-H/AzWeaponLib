@@ -287,12 +287,12 @@ namespace AzWeaponLib.AmmoSystem
             else if (signal == "AWL_Undrafted" || signal == "AWL_Released")
             {
                 if (!pawn.Spawned) return;
-                TryMakeReloadJob();
+                TryMakeReloadJob(forced: false);
             }
             else if (signal == "AWL_Reloaded")
             {
                 if (!pawn.Spawned) return;
-                TryMakeReloadJob();
+                TryMakeReloadJob(forced: false);
             }
             else if (signal == "AWL_HuntFinished")
             {
@@ -389,7 +389,7 @@ namespace AzWeaponLib.AmmoSystem
         protected virtual void NotifyReloaded()
         { 
         }
-        public virtual void TryMakeReloadJob(bool forced, bool delay)
+        public virtual void TryMakeReloadJob(bool forced = false, bool delay = false, bool resumeCurJob = true)
         {
             if (!canReloadNow) return;
             if (!forced && (GetReloadTicks() > MaxReloadTick || !autoReload)) return;
@@ -419,17 +419,13 @@ namespace AzWeaponLib.AmmoSystem
             {
                 if (pawn.CurJobDef == JobDefOf.Goto)
                 {
-                    pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: !Props.canMoveWhenReload, cancelBusyStances: false);
+                    pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: !Props.canMoveWhenReload && resumeCurJob, cancelBusyStances: false);
                 }
                 else 
                 {
-                    pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: true, cancelBusyStances: false);
+                    pawn.jobs.StartJob(reload, lastJobEndCondition: JobCondition.InterruptOptional, resumeCurJobAfterwards: resumeCurJob, cancelBusyStances: false);
                 }
             }
-        }
-        public void TryMakeReloadJob(bool forced = false)
-        {
-            TryMakeReloadJob(forced, false);
         }
         public virtual IEnumerable<Gizmo> GetAmmoGizmos()
         {

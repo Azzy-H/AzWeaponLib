@@ -17,8 +17,6 @@ namespace AzWeaponLib.AmmoSystem
         public float retargetRange = 0f;
         public float shotgunRetargetRange = 0f;
         public SimpleCurve shotgunRetargetChanceFromRange;
-        public bool useCompAmmo = true;
-        
         public IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req)
         {
             StatCategoryDef statCat = StatCategoryDefOf.Weapon_Ranged;
@@ -120,7 +118,7 @@ namespace AzWeaponLib.AmmoSystem
         {
             if (useAmmoSystem && !canShootNow)
             {
-                if(CompAmmo.autoReload) CompAmmo.TryMakeReloadJob();
+                if(CompAmmo.autoReload) CompAmmo.TryMakeReloadJob(forced: false);
                 return false;
             }
             return base.TryStartCastOn(castTarg, destTarg, surpriseAttack, canHitNonTargetPawns, preventFriendlyFire, nonInterruptingSelfCast);
