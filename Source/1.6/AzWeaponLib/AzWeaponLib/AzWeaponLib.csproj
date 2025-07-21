@@ -89,6 +89,7 @@
     <Compile Include="HeavyWeapon\Patch_EquipmentUtility.cs" />
     <Compile Include="HediffTurret\Hediff_TurretGun.cs" />
     <Compile Include="IStatable.cs" />
+    <Compile Include="MultiVerb\Command_VerbTargetInvisible.cs" />
     <Compile Include="MultiVerb\Comp_MultiVerb.cs" />
     <Compile Include="MultiVerb\HediffComp_MultiVerbSelect.cs" />
     <Compile Include="MultiVerb\Patch_VerbTracker.cs" />
@@ -96,7 +97,8 @@
     <Compile Include="NonPublicProperties.cs" />
     <Compile Include="PatchMisc\PatchMain.cs" />
     <Compile Include="PatchMisc\PatchStatsReportUtility.cs" />
-    <Compile Include="PatchMisc\Patch_Pawn_StanceTracker.cs" />
+    <Compile Include="AmmoSystem\Patch_Pawn_StanceTracker.cs" />
+    <Compile Include="PatchMisc\Patch_Find.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalUtility.cs" />
     <Compile Include="SpecialProjectile\CompProperties_AbilityLaunchProjectileShowEffectArea.cs" />

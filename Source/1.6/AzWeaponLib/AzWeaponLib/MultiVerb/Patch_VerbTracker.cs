@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,47 @@ namespace AzWeaponLib.MultiVerb
     [HarmonyPatch(typeof(VerbTracker))]
     internal class Patch_VerbTracker
     {
+        //public static readonly Dictionary<VerbTracker, Verb> VerbDict = new Dictionary<VerbTracker, Verb>();
+        public static readonly Dictionary<CompEquippable, CompMultiVerb> MultiVerbDict = new Dictionary<CompEquippable, CompMultiVerb>();
+        public static Verb verb = null;
         [HarmonyPatch("get_PrimaryVerb")]
-        [HarmonyPrefix]
-        public static bool Prefix_get_PrimaryVerb(VerbTracker __instance, ref Verb __result)
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+        {
+            List<CodeInstruction> list = instructions.ToList();
+            MethodInfo methodInfo = AccessTools.Method(typeof(Patch_VerbTracker), "PrefixMethod_get_PrimaryVerb");
+            MethodInfo methodInfo2 = AccessTools.Method(typeof(Patch_VerbTracker), "MakeCache");
+            FieldInfo fieldInfo = AccessTools.Field(typeof(Patch_VerbTracker), "verb");
+            Label endTag_prefix = generator.DefineLabel();
+            list[0].labels.Add(endTag_prefix);
+            List<CodeInstruction> prefix = new List<CodeInstruction>
+        {
+            new CodeInstruction(OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Call, methodInfo),
+            new CodeInstruction(OpCodes.Stsfld, fieldInfo),
+            new CodeInstruction(OpCodes.Ldsfld, fieldInfo),
+            new CodeInstruction(OpCodes.Brfalse_S, endTag_prefix),//prefix未获取则继续原始方法
+            new CodeInstruction(OpCodes.Ldsfld, fieldInfo),
+            new CodeInstruction(OpCodes.Ret)
+        };
+            list.InsertRange(0, prefix);
+            return list;
+        }
+        public static Verb PrefixMethod_get_PrimaryVerb(VerbTracker __instance)
         {
             if (__instance.directOwner is CompEquippable Eq)
             {
-                CompMultiVerb comp_MultiVerb = Eq.parent.TryGetComp<CompMultiVerb>();
+                if (!MultiVerbDict.TryGetValue(Eq, out CompMultiVerb comp_MultiVerb))
+                {
+                    comp_MultiVerb = Eq.parent.GetComp<CompMultiVerb>();
+                    MultiVerbDict.Add(Eq, comp_MultiVerb);
+                }
                 if (comp_MultiVerb != null)
                 {
-                    __result = __instance.AllVerbs[comp_MultiVerb.verbIndex];
-                    return false;
+                    return __instance.AllVerbs[comp_MultiVerb.verbIndex];
                 }
             }
-            return true;
+            return null;
         }
         [HarmonyPatch("CreateVerbTargetCommand")]
         [HarmonyPostfix]
@@ -42,9 +70,5 @@ namespace AzWeaponLib.MultiVerb
                 }
             }
         }
-    }
-    public class Command_VerbTargetInvisible : Command_VerbTarget
-    {
-        public override bool Visible => false;
     }
 }
