@@ -4,7 +4,7 @@
 
     <!-- 服装组信息 -->
 
-    <AWL_ApparelGroupDefLabel>Whether a certain apparel needs to be worn</AWL_ApparelGroupDefLabel>
+    <AWL_ApparelGroupDefLabel>Certain apparel needs</AWL_ApparelGroupDefLabel>
     <AWL_ApparelGroupDefText>Only pawns wearing the following clothing could use this weapon:</AWL_ApparelGroupDefText>
 
     <AWL_NoAvailableApparel>Not wearing the corresponding clothes</AWL_NoAvailableApparel>

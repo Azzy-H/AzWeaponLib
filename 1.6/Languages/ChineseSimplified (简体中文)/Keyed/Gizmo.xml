@@ -12,4 +12,7 @@
     <AWL_DisposableWeapon>一次性武器无法装填</AWL_DisposableWeapon>
     <AWL_NoNeedToReload>满弹药</AWL_NoNeedToReload>
 
+    <AWL_StopForceTarget>取消强制攻击（炮台）</AWL_StopForceTarget>
+    <AWL_StopForceTargetDesc>清除炮台锁定的目标</AWL_StopForceTargetDesc>
+
 </LanguageData>

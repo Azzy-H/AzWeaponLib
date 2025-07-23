@@ -1,13 +1,14 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
-using RimWorld;
+using UnityEngine;
 using Verse;
 using Verse.AI;
+using static System.Collections.Specialized.BitVector32;
 using static UnityEngine.GraphicsBuffer;
 
 namespace AzWeaponLib.HediffTurret
@@ -16,9 +17,11 @@ namespace AzWeaponLib.HediffTurret
     {
         public BuildingProperties turret;
     }
+    [StaticConstructorOnStartup]
     public class Hediff_TurretGun : HediffWithComps, IAttackTargetSearcher
     {
         protected static readonly CachedTexture ToggleTurretIcon = new CachedTexture("UI/Gizmos/ToggleTurret");
+        protected static readonly CachedTexture CancelCommandTex = new CachedTexture("UI/Designators/Cancel");
         protected virtual CachedTexture ToggleIcon => ToggleTurretIcon;
         public HediffDef_TurretGun turretGunDef => def.GetModExtension<HediffDef_TurretGun>();
         private bool targetFindingActive = true;
@@ -33,6 +36,12 @@ namespace AzWeaponLib.HediffTurret
                 targetFindingActive = value;
             }
         }//是否寻找下一个目标
+        private bool forced = false;
+        public bool Forced
+        {
+            get { return forced; }
+            set { forced = value; }
+        }
         public Thing gun;
         protected int burstCooldownTicksLeft;//内置冷却时间
         private CompEquippable gunCompEq;
@@ -167,6 +176,7 @@ namespace AzWeaponLib.HediffTurret
         }
         protected void ResetCurrentTarget()
         {
+            Forced = false;
             currentTargetInt = LocalTargetInfo.Invalid;
             burstWarmupTicksLeft = 0;
         }
@@ -194,7 +204,7 @@ namespace AzWeaponLib.HediffTurret
             {
                 if (BurstCooldownTime() > 0 || turretGunDef.turret.turretBurstWarmupTime.min > 0 || sw.verb.Equals(AttackVerb)) return;
             }
-            if (TargetFindingActive) 
+            if (TargetFindingActive && !Forced) 
             {
                 //Log.Message("Try Find Target at tick: " + GenTicks.TicksGame);
                 currentTargetInt = TryFindNewTarget(); 
@@ -243,6 +253,7 @@ namespace AzWeaponLib.HediffTurret
                     {
                         targetFindingActive = !targetFindingActive;
                         burstWarmupTicksLeft = 0;
+                        ResetCurrentTarget();
                     },
                     activateSound = SoundDef.Named("Click"),
                     groupKey = 476313,
@@ -260,6 +271,7 @@ namespace AzWeaponLib.HediffTurret
                 }
                 command_Target.action = delegate (LocalTargetInfo target)
                 {
+                    Forced = true;
                     currentTargetInt = target;
                     if (currentTargetInt.IsValid && burstCooldownTicksLeft <= 0)
                     {
@@ -280,6 +292,20 @@ namespace AzWeaponLib.HediffTurret
                 };
                 command_Target.groupKey = 928765;
                 yield return command_Target;
+                if (Forced)
+                {
+                    Command_Action stop_Force = new Command_Action();
+                    stop_Force.defaultLabel = "AWL_StopForceTarget".Translate();
+                    stop_Force.defaultDesc = "AWL_StopForceTargetDesc".Translate();
+                    stop_Force.hotKey = null;
+                    stop_Force.icon = CancelCommandTex.Texture;
+                    stop_Force.action = delegate ()
+                    {
+                        Forced = false;
+                    };
+                    stop_Force.groupKey = 127345;
+                    yield return stop_Force;
+                }
             }
             //if (DebugSettings.ShowDevGizmos)
             //{
@@ -295,6 +321,7 @@ namespace AzWeaponLib.HediffTurret
         {
             base.ExposeData();
             Scribe_Values.Look(ref targetFindingActive, "targetFindingActive", true);
+            Scribe_Values.Look(ref forced, "forced", false);
             Scribe_Deep.Look(ref gun, "gun", null);
             Scribe_Values.Look(ref burstCooldownTicksLeft, "burstCooldownTicksLeft", 0);
             Scribe_TargetInfo.Look(ref currentTargetInt, "currentTargetInt", null);

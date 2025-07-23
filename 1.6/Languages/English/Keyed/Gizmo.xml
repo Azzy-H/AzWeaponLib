@@ -12,4 +12,7 @@
     <AWL_DisposableWeapon>Disposable weapons cannot be loaded</AWL_DisposableWeapon>
     <AWL_NoNeedToReload>magazine is full</AWL_NoNeedToReload>
 
+    <AWL_StopForceTarget>Cancel Forced Attack (Turret)</AWL_StopForceTarget>
+    <AWL_StopForceTargetDesc>Remove the target locked on the turret</AWL_StopForceTargetDesc>
+
 </LanguageData>

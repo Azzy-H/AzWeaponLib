@@ -14,7 +14,6 @@ namespace AzWeaponLib.SpecialProjectile
     [HarmonyPatch(typeof(Projectile))]
     public class Patch_Projectile
     {
-        private static List<Thing> thingsInCell = new List<Thing>();
         public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
         [HarmonyPatch("CheckForFreeIntercept")]
         [HarmonyPostfix]
