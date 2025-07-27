@@ -118,7 +118,7 @@ namespace AzWeaponLib.AmmoSystem
         {
             if (useAmmoSystem && !canShootNow)
             {
-                if(CompAmmo.autoReload) CompAmmo.TryMakeReloadJob(forced: false);
+                if(CompAmmo.autoReload && (!(CasterPawn?.pather.Moving ?? false) || CompAmmo.Props.canMoveWhenReload)) CompAmmo.TryMakeReloadJob(forced: false);
                 return false;
             }
             return base.TryStartCastOn(castTarg, destTarg, surpriseAttack, canHitNonTargetPawns, preventFriendlyFire, nonInterruptingSelfCast);
