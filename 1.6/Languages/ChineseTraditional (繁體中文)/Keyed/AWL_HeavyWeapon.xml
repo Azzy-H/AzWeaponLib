@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageData>
+
+    <!-- 服裝組信息 -->
+    <AWL_ApparelGroupDefLabel>是否需要穿著某件衣物</AWL_ApparelGroupDefLabel>
+    <AWL_ApparelGroupDefText>只有穿著下列衣物的殖民者能使用該武器：</AWL_ApparelGroupDefText>
+
+    <AWL_NoAvailableApparel>沒有穿著對應衣物</AWL_NoAvailableApparel>
+</LanguageData>

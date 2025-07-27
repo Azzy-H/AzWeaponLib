@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: ammo gizmo disp -->
+  <AWL_AmmoGizmoDisp.label>顯示彈藥</AWL_AmmoGizmoDisp.label>
+  <!-- EN: Ammo Gizmo Disp. -->
+  <AWL_AmmoGizmoDisp.description>用于顯示彈藥界面。</AWL_AmmoGizmoDisp.description>
+  
+  <!-- EN: multi verb select -->
+  <AWL_MultiVerbSelect.label>顯示武器模式切換</AWL_MultiVerbSelect.label>
+  <!-- EN: Multi Verb Select. -->
+  <AWL_MultiVerbSelect.description>用于顯示武器模式切換界面。</AWL_MultiVerbSelect.description>
+  
+</LanguageData>

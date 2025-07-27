@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+    <!--Ammo System-->
+    <AWL_AmmunitionGizmoLabel>彈藥</AWL_AmmunitionGizmoLabel>
+    <AWL_AmmunitionGizmoTip>當前彈藥/彈匣上限(備彈)</AWL_AmmunitionGizmoTip>
+
+    <AWL_PawnTooltipReload>左鍵主動換彈，右鍵切換自動換彈模式</AWL_PawnTooltipReload>
+    <AWL_LowManipulation>單位的操作能力不足</AWL_LowManipulation>
+    <AWL_NoEnoughBackupAmmo>備彈不足</AWL_NoEnoughBackupAmmo>
+    <AWL_DisposableWeapon>一次性武器無法裝填</AWL_DisposableWeapon>
+    <AWL_NoNeedToReload>滿彈藥</AWL_NoNeedToReload>
+
+    <AWL_StopForceTarget>取消強制攻擊（炮臺）</AWL_StopForceTarget>
+    <AWL_StopForceTargetDesc>清除炮臺鎖定的目標</AWL_StopForceTargetDesc>
+
+</LanguageData>

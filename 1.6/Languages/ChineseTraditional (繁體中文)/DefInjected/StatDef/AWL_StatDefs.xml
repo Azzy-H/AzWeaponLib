@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: reloading time -->
+  <AWL_ReloadingTimeFactor.label>裝填時間</AWL_ReloadingTimeFactor.label>
+  <!-- EN: How long it takes to reload the magazine after it's used up. -->
+  <AWL_ReloadingTimeFactor.description>該單位裝填武器所消耗的時間。</AWL_ReloadingTimeFactor.description>
+  
+</LanguageData>

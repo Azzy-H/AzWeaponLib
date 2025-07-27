@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageData>
+
+    <AWL_BulletsPerShot>霰彈彈丸數</AWL_BulletsPerShot>
+    <AWL_Stat_BulletsPerShot_Desc>該武器在每次射擊中發射的子彈數量。</AWL_Stat_BulletsPerShot_Desc>
+
+    <AWL_ShotgunRetargetRange>霰彈擴散距離</AWL_ShotgunRetargetRange>
+    <AWL_Stat_ShotgunRetargetRange_Desc>該武器射擊時彈丸的散布半徑。越高的數值會使得彈丸可擊中目標的選取范圍越廣。該數值不影響對單體敵人的命中率。</AWL_Stat_ShotgunRetargetRange_Desc>
+
+    <AWL_MechineGun>機槍</AWL_MechineGun>
+    <AWL_MechineGun_Desc>該武器能夠持續開火。</AWL_MechineGun_Desc>
+
+    <AWL_Retarget>轉移目標</AWL_Retarget>
+    <AWL_Stat_Retarget_Desc>該武器能夠在攻擊過程中轉移目標的索敵半徑。</AWL_Stat_Retarget_Desc>
+
+</LanguageData>

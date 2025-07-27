@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+    <AWL_ExtraDamageLabel>額外傷害</AWL_ExtraDamageLabel>
+    <AWL_ExtraDamageText>該武器造成的額外傷害值。\n\n這可能會被目標的護甲抵消或減輕。該數據不受武器品質影響。</AWL_ExtraDamageText>
+
+    <AWL_ExtraDamageAmount>傷害值</AWL_ExtraDamageAmount>
+    <AWL_ExtraDamagePenetration>護甲穿透</AWL_ExtraDamagePenetration>
+    <AWL_ExtraDamageChance>概率</AWL_ExtraDamageChance>
+    <AWL_ExtraDamageChance_Must>必定觸發</AWL_ExtraDamageChance_Must>
+
+</LanguageData>
