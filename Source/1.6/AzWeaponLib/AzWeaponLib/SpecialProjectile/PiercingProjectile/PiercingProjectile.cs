@@ -18,7 +18,7 @@ namespace AzWeaponLib.SpecialProjectile
         public float minDistanceToAffectAlly = 3.9f;
         public float minDistanceToAffectAny = 1.1f;
         public int penetratingPowerCostByShield = 255;
-        public bool alwaysHitPawnInCell = true;
+        public bool alwaysHitStandingEnemy = false;
         private static StatCategoryDef statCategoryDef;
         private const int displayPriority = 5300;
 
@@ -281,9 +281,14 @@ namespace AzWeaponLib.SpecialProjectile
             if (thing is Pawn pawn)
             {
                 chanceToHit = 0.4f * Mathf.Clamp(pawn.BodySize, 0.1f, 2f);
-                if (launcher != null && pawn.Faction != null && launcher.Faction != null && !pawn.Faction.HostileTo(launcher.Faction))
+                bool pawnStanding = pawn.GetPosture() == PawnPosture.Standing;
+                if (!pawnStanding)
                 {
-                    if (preventFriendlyFire || pawn.Position.DistanceToSquared(startPosition.ToIntVec3()) < (piercingProjectileDef.minDistanceToAffectAlly * piercingProjectileDef.minDistanceToAffectAlly))//友军判定
+                    chanceToHit *= 0.1f;
+                }
+                if (launcher != null && pawn.Faction != null && launcher.Faction != null && !pawn.Faction.HostileTo(launcher.Faction))//友军判定
+                {
+                    if (preventFriendlyFire || pawn.Position.DistanceToSquared(startPosition.ToIntVec3()) < (piercingProjectileDef.minDistanceToAffectAlly * piercingProjectileDef.minDistanceToAffectAlly))
                     {
                         chanceToHit = 0f;
                     }
@@ -292,7 +297,7 @@ namespace AzWeaponLib.SpecialProjectile
                         chanceToHit *= Find.Storyteller.difficulty.friendlyFireChanceFactor;
                     }
                 }
-                else if (piercingProjectileDef.alwaysHitPawnInCell)
+                else if (pawnStanding && piercingProjectileDef.alwaysHitStandingEnemy)//敌军判定
                 {
                     return true;
                 }

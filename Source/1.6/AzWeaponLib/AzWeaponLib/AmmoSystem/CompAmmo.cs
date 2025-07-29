@@ -215,6 +215,8 @@ namespace AzWeaponLib.AmmoSystem
             set 
             {
                 ammo = value;
+                //if (value <= 0) NotifyExhausted();
+                //else if (value > ammo) NotifyReloaded();
             }
         }
 
@@ -367,12 +369,14 @@ namespace AzWeaponLib.AmmoSystem
         public virtual void UsedOnce()
         {
             ammo--;
+            if (ammo <= 0) NotifyExhausted();
         }
         public virtual void UsedByNum(int num)
         {
-            ammo -= num;
+            Ammo -= num;
+            if (ammo <= 0) NotifyExhausted();
         }
-        public virtual void AmmoExhausted()
+        public virtual void NotifyExhausted()
         {
             if (!Props.exhaustable) return;
             Pawn p = pawn;

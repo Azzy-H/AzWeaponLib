@@ -38,9 +38,10 @@ namespace AzWeaponLib
             List<VerbProperties> verbProperties = __instance.Verbs;
             List<DefModExtension> defModExtensions = __instance.modExtensions;
             List<CompProperties> compProperties = __instance.comps;
-            
+            bool isTurret = __instance.building?.IsTurret ?? false;
+
             var resultList = new List<StatDrawEntry>(__result);
-            if (verbProperties != null && !AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs)
+            if (verbProperties != null && !AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs && !isTurret)
             {
                 resultList.RemoveAll(x => x.category == (((__instance.category == ThingCategory.Pawn) ? StatCategoryDefOf.PawnCombat : null) ?? StatCategoryDefOf.Weapon_Ranged) && verbPriorities.Contains(x.DisplayPriorityWithinCategory));
                 CompProperties_MultiVerb multiVerb = __instance.GetCompProperties<CompProperties_MultiVerb>();
