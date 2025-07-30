@@ -8,6 +8,7 @@ namespace AzWeaponLib
     {
         AWL_Settings settings;
         public static string contentDir;
+        public static bool MVCF_Feature_VerbComps = false;
         public static bool MVCF_Feature_ExtraEquipmentVerbs = false;
         public AWL_Mod(ModContentPack content) : base(content)
         {
