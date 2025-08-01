@@ -82,6 +82,7 @@
     <Compile Include="AmmoSystem\Verb_ShootWithAmmo.cs" />
     <Compile Include="Gas\DebugToolsGas.cs" />
     <Compile Include="Gas\AWLGas.cs" />
+    <Compile Include="Gas\Projectile_Gas.cs" />
     <Compile Include="GizmoInfo.cs" />
     <Compile Include="HeavyWeapon\ApparelGroupDef.cs" />
     <Compile Include="HeavyWeapon\CompApparelWithHeavyWeapon.cs" />
