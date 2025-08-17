@@ -354,7 +354,7 @@ namespace AzWeaponLib.AmmoSystem
                 //if((!currentTarget.HasThing) || !(currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing.Destroyed)) burstShotsLeft++;
                 if (CasterPawn.jobs.curJob.def == JobDefOf.Wait_Combat || (CasterPawn.jobs.curJob.def == JobDefOf.AttackStatic && (jobTarget.Cell == CurrentTarget.Cell || jobTarget.Thing == CurrentTarget.Thing)))
                 {
-                    if (currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing.Destroyed) goto end;
+                    if (currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing?.Destroyed ?? false) goto end;
                     burstShotsLeft++;
                 }
             }

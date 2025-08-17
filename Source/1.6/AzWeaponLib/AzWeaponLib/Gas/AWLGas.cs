@@ -44,20 +44,23 @@ namespace AzWeaponLib.Gas
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             float spawnDensity = initDensity;
-            List<Thing> thingList = Position.GetThingList(map);
-            for (int i = thingList.Count - 1; i >= 0; i--)
+            if (!respawningAfterLoad)
             {
-                if (thingList[i].def.category == ThingCategory.Gas)
+                List<Thing> thingList = Position.GetThingList(map);
+                for (int i = thingList.Count - 1; i >= 0; i--)
                 {
-                    if (thingList[i] is AWLGas awlgas && awlgas != this && awlgas.def == this.def)
+                    if (thingList[i].def.category == ThingCategory.Gas)
                     {
-                        spawnDensity += awlgas.density;
-                        awlgas.Destroy();
+                        if (thingList[i] is AWLGas awlgas && awlgas != this && awlgas.def == this.def)
+                        {
+                            spawnDensity += awlgas.density;
+                            awlgas.Destroy();
+                        }
                     }
                 }
             }
             base.SpawnSetup(map, respawningAfterLoad);
-            SetDensityTo(Mathf.Min(1f, spawnDensity));
+            if (!respawningAfterLoad) SetDensityTo(Mathf.Min(1f, spawnDensity));
             TryDoEffectToCell();
         }
         protected override void Tick()

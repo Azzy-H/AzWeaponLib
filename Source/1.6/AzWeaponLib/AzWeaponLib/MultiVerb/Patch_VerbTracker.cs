@@ -66,6 +66,11 @@ namespace AzWeaponLib.MultiVerb
                     if (verb != __instance.AllVerbs[compMultiVerb.verbIndex])
                     {
                         __result = new Command_VerbTargetInvisible();
+                        __result.defaultDesc = ownerThing.LabelCap + ": " + ownerThing.def.description.CapitalizeFirst();
+                        __result.ownerThing = ownerThing;
+                        __result.tutorTag = "VerbTarget";
+                        __result.verb = verb;
+                        __result.Disable("SR_DisabledByCompMultiVerb".Translate());
                     }
                 }
             }
