@@ -182,7 +182,7 @@ namespace AzWeaponLib.AmmoSystem
                 return (Props.maxBackupAmmo - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
             }
         }
-        public int maxAmmoNeeded => (Props.maxBackupAmmo - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
+        public virtual int maxAmmoNeeded => (Props.maxBackupAmmo - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
         public bool isEmpty
         {
             get
