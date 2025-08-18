@@ -33,11 +33,13 @@ namespace AzWeaponLib.SpecialProjectile
         }
         public int conductTickLeft;
         protected bool extra;
-        protected List<Thing> victim = new List<Thing>();
+        protected List<Thing> victims = new List<Thing>();
         protected float damageMultiplierByConduct = 1f;
+        protected virtual float ArcDamageMultiplierOverall => damageMultiplierByConduct;
+        public override int DamageAmount => GenMath.RoundRandom(base.DamageAmount * ArcDamageMultiplierOverall);
         public override void Launch(Thing launcher, Vector3 origin, LocalTargetInfo usedTarget, LocalTargetInfo intendedTarget, ProjectileHitFlags hitFlags, bool preventFriendlyFire = false, Thing equipment = null, ThingDef targetCoverDef = null)
         {
-            victim.Add(launcher);
+            victims.Add(launcher);
             base.Launch(launcher, origin, usedTarget, intendedTarget, hitFlags, preventFriendlyFire, equipment, targetCoverDef);
             if (electricArcDef.noDeviation)
             {
@@ -166,10 +168,10 @@ namespace AzWeaponLib.SpecialProjectile
                     List<Thing> thingList = c.GetThingList(Map);
                     for (int j = 0; j < thingList.Count; j++)
                     {
-                        if ((thingList[j] is Pawn && (thingList[j].Faction != launcher.Faction || thingList[j].Faction != null || Rand.Chance(Find.Storyteller.difficulty.friendlyFireChanceFactor) || i == 0)) ||
+                        if ((thingList[j] is Pawn && (thingList[j].Faction != launcher.Faction || thingList[j].Faction != null || (!preventFriendlyFire && !Rand.Chance(Find.Storyteller.difficulty.friendlyFireChanceFactor)) || i == 0)) ||
                             (thingList[j] is Building && (thingList[j].HostileTo(this) || i == 0)))
                         {
-                            if (victim.Contains(thingList[j]))
+                            if (victims.Contains(thingList[j]))
                             {
                                 continue;
                             }
@@ -204,7 +206,7 @@ namespace AzWeaponLib.SpecialProjectile
                 extra = electricArcDef.ShouldExtra(hitThing, map);
                 Position = hitThing.Position;
                 exactPositionInt = Position.ToVector3();
-                victim.Add(hitThing);
+                victims.Add(hitThing);
                 damageMultiplierByConduct *= electricArcDef.damageMultiplierPerConduct;
                 bool instigatorGuilty = !(launcher is Pawn pawn) || !pawn.Drafted;
                 DamageInfo dinfo;
@@ -212,13 +214,13 @@ namespace AzWeaponLib.SpecialProjectile
                 int maxConductNum;
                 if (extra)
                 {
-                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount * electricArcDef.damageMultiplierExtra * damageMultiplierByConduct, ArmorPenetration * electricArcDef.penetrationMultiplierExtra, ExactRotation.eulerAngles.y, launcher, null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing, instigatorGuilty);
+                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount * electricArcDef.damageMultiplierExtra, ArmorPenetration * electricArcDef.penetrationMultiplierExtra, ExactRotation.eulerAngles.y, launcher, null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing, instigatorGuilty);
                     conductChance = electricArcDef.conductChanceExtra;
                     maxConductNum = electricArcDef.maxConductNumExtra;
                 }
                 else
                 {
-                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount * damageMultiplierByConduct, ArmorPenetration, ExactRotation.eulerAngles.y, launcher, null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing, instigatorGuilty);
+                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount, ArmorPenetration, ExactRotation.eulerAngles.y, launcher, null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing, instigatorGuilty);
                     conductChance = electricArcDef.conductChance;
                     maxConductNum = electricArcDef.maxConductNum;
                 }
@@ -241,7 +243,7 @@ namespace AzWeaponLib.SpecialProjectile
                 {
                     hitThing.TryAttachFire(1, launcher);
                 }
-                if (!Rand.Chance(conductChance) || (maxConductNum > 0 && victim.Count >= maxConductNum)) { Destroy(); }
+                if (!Rand.Chance(conductChance) || (maxConductNum > 0 && victims.Count >= maxConductNum)) { Destroy(); }
                 return;
             }
             if (Rand.Chance(def.projectile.explosionChanceToStartFire))
@@ -282,7 +284,7 @@ namespace AzWeaponLib.SpecialProjectile
             Scribe_Values.Look(ref exactPositionInt, "exactPosition");
             Scribe_Values.Look(ref extra, "extra");
             Scribe_Values.Look(ref damageMultiplierByConduct, "damageMultiplierByConduct");
-            Scribe_Collections.Look(ref victim, "victim");
+            Scribe_Collections.Look(ref victims, "victim");
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 ReflectInit();
