@@ -67,9 +67,10 @@ namespace AzWeaponLib.MultiVerb
                     {
                         __result = new Command_VerbTargetInvisible();
                         __result.defaultDesc = ownerThing.LabelCap + ": " + ownerThing.def.description.CapitalizeFirst();
-                        __result.ownerThing = ownerThing;
+                        __result.ownerThing = null;//用于取消合并
                         __result.tutorTag = "VerbTarget";
                         __result.verb = verb;
+                        __result.drawRadius = false;
                         __result.Disable("SR_DisabledByCompMultiVerb".Translate());
                     }
                 }
