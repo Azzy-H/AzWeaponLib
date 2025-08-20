@@ -46,7 +46,10 @@ namespace AzWeaponLib.SpecialProjectile
 
             ModExtension_Cone modExtension = def.GetModExtension<ModExtension_Cone>();
 
-            DoExplosion();
+            if (def.projectile.explosionRadius >= float.Epsilon)
+            {
+                DoExplosion();
+            }
 
             if (modExtension != null)
             {
