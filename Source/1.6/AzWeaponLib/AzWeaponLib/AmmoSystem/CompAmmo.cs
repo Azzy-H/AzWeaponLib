@@ -286,12 +286,12 @@ namespace AzWeaponLib.AmmoSystem
                 ReloadToMax();
                 BackupAmmo = Props.maxBackupAmmo;
             }
-            else if (signal == "AWL_Undrafted" || signal == "AWL_Released")
+            else if (signal == "AWL_Undrafted" || signal == "AWL_Released" || signal == "AWL_Reloaded")
             {
                 if (!pawn.Spawned) return;
                 TryMakeReloadJob(forced: false);
             }
-            else if (signal == "AWL_Reloaded")
+            else if (signal == "AWL_GoTo" && Props.canMoveWhenReload)
             {
                 if (!pawn.Spawned) return;
                 TryMakeReloadJob(forced: false);
@@ -391,7 +391,7 @@ namespace AzWeaponLib.AmmoSystem
             parent.Destroy();
         }
         protected virtual void NotifyReloaded()
-        { 
+        {
         }
         public virtual void TryMakeReloadJob(bool forced = false, bool delay = false, bool resumeCurJob = true)
         {
@@ -399,7 +399,7 @@ namespace AzWeaponLib.AmmoSystem
             if (!forced && (GetReloadTicks() > MaxReloadTick || !autoReload)) return;
             if (pawn.CurJobDef == AWL_DefOf.AWL_ReloadWeapon) 
             { 
-                if (pawn.CurJob.playerForced)
+                if (pawn.CurJob.playerForced || !forced)
                 {
                     return;
                 } 

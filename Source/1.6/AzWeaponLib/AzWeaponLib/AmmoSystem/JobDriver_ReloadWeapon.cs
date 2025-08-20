@@ -48,32 +48,40 @@ namespace AzWeaponLib.AmmoSystem
         protected override IEnumerable<Toil> MakeNewToils()
         {
             int reloadTick = Mathf.Min(compAmmo.GetReloadTicks(), compAmmo.MaxReloadTick);
-            this.FailOn(() => (useAmmo && compAmmo.NoBackupAmmo) || !compAmmo.NeedReload);
+            this.FailOn(() => (useAmmo && compAmmo.NoBackupAmmo));
             Toil waitForAvaliable = ReloadWait(int.MaxValue, canMove: true);
             waitForAvaliable.tickAction = delegate
             {
                 if (!pawn.stances.curStance.StanceBusy) ReadyForNextToil();
             };
             yield return waitForAvaliable;
+
             int loop = compAmmo.ReloadLoop(job.playerForced);
-            do
+
+            Toil reload = ReloadWait(reloadTick, canMove: canMove);
+            reload.WithProgressBarToilDelay(TargetIndex.A);
+            yield return reload;
+            switch (useAmmo)
             {
-                Toil reload = ReloadWait(reloadTick, canMove: canMove);
-                reload.WithProgressBarToilDelay(TargetIndex.A);
-                yield return reload;
-                switch (useAmmo)
-                {
-                    case false://无需弹药
-                        if (compAmmo.Props.singleShotLoading) yield return Toils_General.Do(compAmmo.ReloadByOne);
-                        else yield return Toils_General.Do(compAmmo.ReloadToMax);
-                        break;
-                    case true: //需要弹药
-                        if (compAmmo.Props.singleShotLoading) yield return Toils_General.Do(compAmmo.ReloadByBackupAmmoOnce);
-                        else yield return Toils_General.Do(compAmmo.ReloadByBackupAmmo);
-                        break;
-                }
-                loop--;
-            } while (loop > 0);
+                case false://无需弹药
+                    if (compAmmo.Props.singleShotLoading) yield return Toils_General.Do(compAmmo.ReloadByOne);
+                    else yield return Toils_General.Do(compAmmo.ReloadToMax);
+                    break;
+                case true: //需要弹药
+                    if (compAmmo.Props.singleShotLoading) yield return Toils_General.Do(compAmmo.ReloadByBackupAmmoOnce);
+                    else yield return Toils_General.Do(compAmmo.ReloadByBackupAmmo);
+                    break;
+            }
+
+            Toil jump = Toils_Jump.JumpIf(reload, delegate {
+                return ((--loop) > 0) && compAmmo.NeedReload;
+            });
+            reload.tickAction = delegate
+            {
+                if (!compAmmo.NeedReload) reload.actor.jobs.curDriver.JumpToToil(jump);
+            };
+            yield return jump;
+
             if (canMove)
             {
                 Toil toil = ToilMaker.MakeToil("TryGoToDest");
