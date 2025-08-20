@@ -31,7 +31,6 @@ namespace AzWeaponLib.SpecialProjectile
 
         public override void Launch(Thing launcher, Vector3 origin, LocalTargetInfo usedTarget, LocalTargetInfo intendedTarget, ProjectileHitFlags hitFlags, bool preventFriendlyFire = false, Thing equipment = null, ThingDef targetCoverDef = null)
         {
-            bool flag = false;
             if (usedTarget.HasThing && usedTarget.Thing is IAttackTarget)
             {
                 if (Rand.Chance(GetHitChance(usedTarget.Thing)))
@@ -39,21 +38,19 @@ namespace AzWeaponLib.SpecialProjectile
                     hitFlags |= ProjectileHitFlags.IntendedTarget;
                     intendedTarget = usedTarget;
                     //Log.Message("应该击中");
-                    flag = true;
+                    goto skipMiss;
                 }
             }
-            else if (Rand.Chance(GetHitChance(intendedTarget.Thing)))
+            if (Rand.Chance(GetHitChance(intendedTarget.Thing)))
             {
                 hitFlags |= ProjectileHitFlags.IntendedTarget;
                 usedTarget = intendedTarget;
                 //Log.Message("应该击中");
-                flag = true;
+                goto skipMiss;
             }
-            if(flag)
-            {
-                hitFlags &= ~ProjectileHitFlags.IntendedTarget;
-                //Log.Message("应该脱靶");
-            }
+            //Log.Message("应该脱靶");
+            hitFlags &= ~ProjectileHitFlags.IntendedTarget;
+        skipMiss:
             base.Launch(launcher, origin, usedTarget, intendedTarget, hitFlags, preventFriendlyFire, equipment, targetCoverDef);
             exactPositionInt = origin.Yto0() + Vector3.up * def.Altitude;
             Vector3 aimBase = (destination - origin).Yto0().normalized;
