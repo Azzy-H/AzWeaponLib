@@ -234,7 +234,7 @@ namespace AzWeaponLib.AmmoSystem
                 backupAmmo = value;
             }
         }
-        public virtual bool NoBackupAmmo => Props.ammunitionDef != null && BackupAmmo <= 0 && (pawn?.Faction?.IsPlayer ?? false);
+        public virtual bool NoBackupAmmo => Props.ammunitionDef != null && BackupAmmo <= 0 && (pawn?.Faction?.IsPlayer ?? false) && AWL_Settings.enableBackupAmmoSystem;
         public virtual int MaxReloadTick => Props.reloadingTime.SecondsToTicks() * 3;
         public virtual bool useBackupAmmo => Props.ammunitionDef != null && AWL_Settings.enableAmmoSystem && AWL_Settings.enableBackupAmmoSystem;
         public override void Notify_Equipped(Pawn pawn)
