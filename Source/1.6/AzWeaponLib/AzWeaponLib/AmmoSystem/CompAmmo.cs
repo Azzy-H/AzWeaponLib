@@ -19,6 +19,7 @@ namespace AzWeaponLib.AmmoSystem
 {
     public class CompProperties_Ammo : CompProperties
     {
+        public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
         public bool singleShotLoading = false;
         public int ammunitionCapacity = 1;
         public bool canLoadExtra = false;
@@ -27,11 +28,12 @@ namespace AzWeaponLib.AmmoSystem
         public ThingDef ammunitionDef;
         public bool exhaustable;
         public ThingDef exhaustedDef;
-        public int maxBackupAmmo = 10;
+        protected int maxBackupAmmo = 10;
         public int ammoCountPerAmmunitionBox = 3;
         public bool canMoveWhenReload = false;
         private const int displayPriority = 300;
         private static StatCategoryDef statCategoryDef;
+        public virtual int MaxBackupAmmo => Mathf.CeilToInt(maxBackupAmmo * AWL_Settings.backupAmmoMultipiler);
         public CompProperties_Ammo()
         {
             compClass = typeof(CompAmmo);
@@ -145,7 +147,7 @@ namespace AzWeaponLib.AmmoSystem
         private StatDrawEntry MaxBackupAmmoDisp(ref int priorityOffset, CompAmmo compAmmo = null)
         {
             priorityOffset--;
-            var num = maxBackupAmmo;
+            var num = MaxBackupAmmo;
             string Label = "AWL_MaxBackupAmmoLabel".Translate();
             string Text = "AWL_MaxBackupAmmoText".Translate();
             return new StatDrawEntry(reportText: StatDispUtility.StringBuilderInit(Text, num).ToString(), category: statCategoryDef, label: Label, valueString: num.ToString(), displayPriorityWithinCategory: displayPriority - priorityOffset);
@@ -179,10 +181,10 @@ namespace AzWeaponLib.AmmoSystem
         {
             get
             {
-                return (Props.maxBackupAmmo - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
+                return (Props.MaxBackupAmmo - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
             }
         }
-        public virtual int maxAmmoNeeded => (Props.maxBackupAmmo - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
+        public virtual int maxAmmoNeeded => (Props.MaxBackupAmmo - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
         public bool isEmpty
         {
             get
@@ -284,7 +286,7 @@ namespace AzWeaponLib.AmmoSystem
             if (signal == "AWL_SetMaxAmmo")
             {
                 ReloadToMax();
-                BackupAmmo = Props.maxBackupAmmo;
+                BackupAmmo = Props.MaxBackupAmmo;
             }
             else if (signal == "AWL_Undrafted" || signal == "AWL_Released" || signal == "AWL_Reloaded")
             {
@@ -501,7 +503,7 @@ namespace AzWeaponLib.AmmoSystem
                         onHover = null,
                         action = delegate
                         {
-                            BackupAmmo = Props.maxBackupAmmo;
+                            BackupAmmo = Props.MaxBackupAmmo;
                         },
                         activateSound = SoundDef.Named("Click"),
                         hotKey = null

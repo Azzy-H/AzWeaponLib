@@ -25,6 +25,7 @@ namespace AzWeaponLib
             {
                 settings.enableAmmoSystem = !ModsConfig.IsActive("ceteam.combatextended");
                 settings.enableBackupAmmoSystem = true;
+                settings.backupAmmoMultipiler = 1f;
                 settings.onlyShowAmmoGizmoWhenSelectedOneThing = true;
                 settings.randomWeaponModeForNonPlayerPawn = true;
             }
@@ -33,14 +34,20 @@ namespace AzWeaponLib
             if (settings.enableAmmoSystem)
             {
                 listingStandard.Gap(5);
-                listingStandard.CheckboxLabeled("-" + "EnableBackupAmmoSystemLabel".Translate(), ref settings.enableBackupAmmoSystem, "EnableBackupAmmoSystemLabelDesc".Translate());
+                listingStandard.CheckboxLabeled("-" + "EnableBackupAmmoSystemLabel".Translate(), ref settings.enableBackupAmmoSystem, "EnableBackupAmmoSystemDesc".Translate());
+                if (settings.enableBackupAmmoSystem)
+                {
+                    string backupAmmoMultipilerBuffer = settings.backupAmmoMultipiler.ToString();
+                    listingStandard.Gap(5);
+                    listingStandard.Label("-" + "BackupAmmoMultipilerLabel".Translate(), -1f, "BackupAmmoMultipilerDesc".Translate());
+                    listingStandard.TextFieldNumeric(ref settings.backupAmmoMultipiler, ref backupAmmoMultipilerBuffer, 0, 100);
+                }
                 listingStandard.Gap(5);
                 listingStandard.CheckboxLabeled("-" + "OnlyShowAmmoGizmoWhenSelectedOneThingLabel".Translate(), ref settings.onlyShowAmmoGizmoWhenSelectedOneThing, "OnlyShowAmmoGizmoWhenSelectedOneThingDesc".Translate());
             }
             listingStandard.Gap(5);
             listingStandard.CheckboxLabeled("RandomWeaponModeForNonPlayerPawnLabel".Translate(), ref settings.randomWeaponModeForNonPlayerPawn, "RandomWeaponModeForNonPlayerPawnDesc".Translate());
             listingStandard.End();
-            base.DoSettingsWindowContents(inRect);
         }
 
         public override string SettingsCategory()
@@ -52,6 +59,7 @@ namespace AzWeaponLib
     {
         public bool enableAmmoSystem = true;
         public bool enableBackupAmmoSystem = true;
+        public float backupAmmoMultipiler = 1f;
         public bool onlyShowAmmoGizmoWhenSelectedOneThing = true;
         public bool randomWeaponModeForNonPlayerPawn = true;
 
@@ -59,6 +67,7 @@ namespace AzWeaponLib
         {
             Scribe_Values.Look(ref enableAmmoSystem, "enableAmmoSystem", true);
             Scribe_Values.Look(ref enableBackupAmmoSystem, "enableBackupAmmoSystem", true);
+            Scribe_Values.Look(ref backupAmmoMultipiler, "backupAmmoMultipiler", 1f);
             Scribe_Values.Look(ref onlyShowAmmoGizmoWhenSelectedOneThing, "onlyShowAmmoGizmoWhenSelectedOneThing", true);
             Scribe_Values.Look(ref randomWeaponModeForNonPlayerPawn, "randomWeaponModeForNonPlayerPawn", true);
 

@@ -11,6 +11,9 @@
     <EnableBackupAmmoSystemLabel>Use the backup ammunition system</EnableBackupAmmoSystemLabel>
     <EnableBackupAmmoSystemDesc>When checked, some weapons will need to be loaded by resources.</EnableBackupAmmoSystemDesc>
 
+    <BackupAmmoMultipilerLabel>Global multiplier for backup ammo capacity</BackupAmmoMultipilerLabel>
+    <BackupAmmoMultipilerDesc>The backup ammo capacity limit of all weapons using the backup ammo system will be multiplied by this value.</BackupAmmoMultipilerDesc>
+
     <OnlyShowAmmoGizmoWhenSelectedOneThingLabel>Ammunition gizmo is displayed only when a pawn is selected</OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
     <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>Ammunition gizmo is displayed only when a pawn is selected.</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
 

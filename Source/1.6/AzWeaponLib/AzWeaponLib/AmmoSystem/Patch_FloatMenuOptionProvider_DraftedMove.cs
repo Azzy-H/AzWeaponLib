@@ -19,7 +19,6 @@ namespace AzWeaponLib.AmmoSystem
         [HarmonyPrefix]
         public static bool Prefix_PawnGotoAction(IntVec3 clickCell, Pawn pawn, IntVec3 gotoLoc)
         {
-            pawn.BroadcastCompSignalToPawn("AWL_GoTo");
             if (pawn.CurJobDef == AWL_DefOf.AWL_ReloadWeapon && ((JobDriver_ReloadWeapon)pawn.CurJob.GetCachedDriver(pawn)).canMove)
             {
                 if (pawn.Position == gotoLoc)
@@ -32,8 +31,10 @@ namespace AzWeaponLib.AmmoSystem
                     Job job = JobMaker.MakeJob(JobDefOf.Goto, gotoLoc);
                 }
                 FleckMaker.Static(gotoLoc, pawn.Map, FleckDefOf.FeedbackGoto);
+                pawn.BroadcastCompSignalToPawn("AWL_GoTo");
                 return false;
             }
+            pawn.BroadcastCompSignalToPawn("AWL_GoTo");
             return true;
         }
     }

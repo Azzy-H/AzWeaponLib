@@ -11,6 +11,9 @@
     <EnableBackupAmmoSystemLabel>使用備用彈藥系統</EnableBackupAmmoSystemLabel>
     <EnableBackupAmmoSystemDesc>當勾選時，部分武器將會需要裝填。</EnableBackupAmmoSystemDesc>
 
+    <BackupAmmoMultipilerLabel>備用彈藥上限全局乘數</BackupAmmoMultipilerLabel>
+    <BackupAmmoMultipilerDesc>所有使用備用彈藥系統的武器的備彈上限均會乘以這個值。</BackupAmmoMultipilerDesc>
+
     <OnlyShowAmmoGizmoWhenSelectedOneThingLabel>僅在選擇一個殖民者時顯示彈藥數據</OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
     <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>僅在選擇一個殖民者時顯示彈藥數據。</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
 
