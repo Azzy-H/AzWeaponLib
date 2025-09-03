@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 using Verse.AI;
+using Verse.AI.Group;
 using static HarmonyLib.Code;
 
 namespace AzWeaponLib.AmmoSystem
@@ -249,7 +250,11 @@ namespace AzWeaponLib.AmmoSystem
         {
             this.pawn = null;
             base.Notify_Unequipped(pawn);
-            if (hediff != null) pawn.health.RemoveHediff(hediff);
+            if (hediff != null) 
+            { 
+                //if(pawn.Downed && pawn?.lord?.CurLordToil is LordToil_HateChant) pawn.GetLord()?.Notify_PawnLost(pawn, PawnLostCondition.Incapped);
+                pawn.health.RemoveHediff(hediff); 
+            }
             hediff = null;
         }
         public override void PostExposeData()

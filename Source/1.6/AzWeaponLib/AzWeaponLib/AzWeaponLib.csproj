@@ -99,6 +99,7 @@
     <Compile Include="PatchMisc\PatchStatsReportUtility.cs" />
     <Compile Include="AmmoSystem\Patch_Pawn_StanceTracker.cs" />
     <Compile Include="PatchMisc\Patch_Find.cs" />
+    <Compile Include="PatchMisc\Patch_LordToil_HateChant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalUtility.cs" />
     <Compile Include="SpecialProjectile\CompProperties_AbilityLaunchProjectileShowEffectArea.cs" />
