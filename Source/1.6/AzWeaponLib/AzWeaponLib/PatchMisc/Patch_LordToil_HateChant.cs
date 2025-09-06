@@ -43,7 +43,6 @@ namespace AzWeaponLib.PatchMisc
             {
                 if (codes[i].operand is FieldInfo field && field.Name == nameof(Pawn_MindState.duty)) 
                 {
-                    Log.Message(1);
                     index1 = i;
                     break; 
                 }
@@ -52,14 +51,12 @@ namespace AzWeaponLib.PatchMisc
             {
                 if (codes[j].operand is MethodInfo method && method.Name == nameof(Pawn_HealthTracker.AddHediff))
                 {
-                    Log.Message(2);
                     index2 = j;
                     break;
                 }
             }
             if (index1 >= 0 && index2 >= 0)
             {
-                Log.Message(3);
                 var label = new Label();
                 codes[index2 + 2].labels.Add(label);
                 var addList = new List<CodeInstruction>();
