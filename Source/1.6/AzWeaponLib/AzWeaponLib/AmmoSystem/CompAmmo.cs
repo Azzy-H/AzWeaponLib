@@ -301,7 +301,7 @@ namespace AzWeaponLib.AmmoSystem
             else if (signal == "AWL_GoTo" && Props.canMoveWhenReload)
             {
                 if (!pawn.Spawned) return;
-                TryMakeReloadJob(forced: false);
+                TryMakeReloadJob(forced: false, delay: false, resumeCurJob: false);
             }
             else if (signal == "AWL_HuntFinished")
             {
