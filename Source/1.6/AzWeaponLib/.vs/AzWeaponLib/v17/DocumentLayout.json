@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|D:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\ammosystem\\patch_floatmenuoptionprovider_draftedmove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\ammosystem\\patch_floatmenuoptionprovider_draftedmove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|d:\\program files (x86)\\steam\\steamapps\\common\\rimworld\\mods\\azweaponlib\\source\\1.6\\azweaponlib\\azweaponlib\\ammosystem\\compammo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\ammosystem\\compammo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|D:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\ammosystem\\patch_floatmenuoptionprovider_draftedmove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\ammosystem\\patch_floatmenuoptionprovider_draftedmove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,33 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "CompAmmo.cs",
               "DocumentMoniker": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
               "ToolTip": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
               "RelativeToolTip": "AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
-              "ViewState": "AgIAAO8AAAAAAAAAAAAgwF0BAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACIBAAAAAAAAAAA7wDgBAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-07T13:14:06.193Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Patch_FloatMenuOptionProvider_DraftedMove.cs",
               "DocumentMoniker": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\Patch_FloatMenuOptionProvider_DraftedMove.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\Patch_FloatMenuOptionProvider_DraftedMove.cs",
               "ToolTip": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\Patch_FloatMenuOptionProvider_DraftedMove.cs",
               "RelativeToolTip": "AzWeaponLib\\AmmoSystem\\Patch_FloatMenuOptionProvider_DraftedMove.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvxsAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwoAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T03:14:47.231Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-20T03:14:47.231Z"
             }
           ]
         }

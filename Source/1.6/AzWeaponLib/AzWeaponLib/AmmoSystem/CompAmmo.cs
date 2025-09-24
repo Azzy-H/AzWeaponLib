@@ -239,7 +239,8 @@ namespace AzWeaponLib.AmmoSystem
         }
         public virtual bool NoBackupAmmo => Props.ammunitionDef != null && BackupAmmo <= 0 && (pawn?.Faction?.IsPlayer ?? false) && AWL_Settings.enableBackupAmmoSystem;
         public virtual int MaxReloadTick => Props.reloadingTime.SecondsToTicks() * 3;
-        public virtual bool useBackupAmmo => Props.ammunitionDef != null && AWL_Settings.enableAmmoSystem && AWL_Settings.enableBackupAmmoSystem;
+        protected bool infiniteBackupAmmo = false;
+        public virtual bool useBackupAmmo => Props.ammunitionDef != null && AWL_Settings.enableAmmoSystem && AWL_Settings.enableBackupAmmoSystem && !infiniteBackupAmmo;
         public override void Notify_Equipped(Pawn pawn)
         {
             this.pawn = pawn;
@@ -266,6 +267,7 @@ namespace AzWeaponLib.AmmoSystem
             Scribe_Values.Look(ref ammo, "ammo_CompAmmo");
             Scribe_Values.Look(ref autoReload, "autoReload_CompAmmo");
             Scribe_Values.Look(ref backupAmmo, "backupAmmo_CompAmmo");
+            Scribe_Values.Look(ref infiniteBackupAmmo, "infiniteBackupAmmo");
             if (Scribe.mode == LoadSaveMode.Saving)
             {
                 if(!enableReloadOverall.Accepted) reason = enableReloadOverall.Reason;
@@ -307,6 +309,14 @@ namespace AzWeaponLib.AmmoSystem
             {
                 if (!pawn.Spawned) return;
                 TryMakeReloadJob(forced: false, delay: true);
+            }
+            else if (signal == "AWL_InfiniteBackupAmmo")
+            {
+                infiniteBackupAmmo = true;
+            }
+            else if (signal == "AWL_ResetInfiniteBackupAmmo")
+            {
+                infiniteBackupAmmo = false;
             }
         }
         public override IEnumerable<StatDrawEntry> SpecialDisplayStats()
