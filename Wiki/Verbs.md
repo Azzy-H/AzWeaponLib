@@ -31,8 +31,10 @@
   Verb_ShootWithAmmo
   Verb_ShootWithAmmoConstantly
   ```
-  Verb_ShootWithAmmo为基类，Verb_ShootWithAmmoConstantly实现了机枪的连续射击功能
-  通过继承重写这些类，可以使用自定义的verb调用弹药系统
+  Verb_ShootWithAmmo为基类，Verb_ShootWithAmmoConstantly实现了机枪的连续射击功能。
+
+  通过继承重写这些类，可以使用自定义的verb调用弹药系统。
+  
   example：
   - HellDivers Weapon Pack: 
   ```HDWeapon.Verb_ShootLaserWithAmmo```
