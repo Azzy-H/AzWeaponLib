@@ -15,7 +15,7 @@ namespace AzWeaponLib.MultiVerb
         public List<GizmoInfo> gizmoInfos;
         public CompProperties_MultiVerb()
         {
-            //compClass = typeof(Comp_MultiVerb);
+            compClass = typeof(CompMultiVerbByHediff);
         }
         public override IEnumerable<string> ConfigErrors(ThingDef parentDef)
         {

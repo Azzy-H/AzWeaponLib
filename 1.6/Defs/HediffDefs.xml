@@ -5,6 +5,7 @@
         <description>Multi Verb Select.</description>
         <hediffClass>HediffWithComps</hediffClass>
         <scenarioCanAdd>false</scenarioCanAdd>
+        <isBad>false</isBad>
         <comps>
             <li Class="AzWeaponLib.MultiVerb.HediffCompProperties_MultiVerbSelect" />
         </comps>
@@ -21,6 +22,7 @@
         <description>Ammo Gizmo Disp.</description>
         <hediffClass>HediffWithComps</hediffClass>
         <scenarioCanAdd>false</scenarioCanAdd>
+        <isBad>false</isBad>
         <comps>
             <li Class="AzWeaponLib.AmmoSystem.HediffCompProperties_AmmoGizmoDisp" />
         </comps>

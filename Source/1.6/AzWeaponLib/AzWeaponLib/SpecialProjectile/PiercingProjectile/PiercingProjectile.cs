@@ -16,7 +16,7 @@ namespace AzWeaponLib.SpecialProjectile
         public bool reachMaxRangeAlways;
         public float? rangeOverride = null;
         public float minDistanceToAffectAlly = 3.9f;
-        public float minDistanceToAffectAny = 1.1f;
+        public float minDistanceToAffectAny = 1.9f;
         public int penetratingPowerCostByShield = 255;
         public bool alwaysHitStandingEnemy = false;
         private static StatCategoryDef statCategoryDef;

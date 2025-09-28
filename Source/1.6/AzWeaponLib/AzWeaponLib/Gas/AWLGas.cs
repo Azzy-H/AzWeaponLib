@@ -116,11 +116,11 @@ namespace AzWeaponLib.Gas
         }//用于处理受到特定伤害消散
         public virtual void DestroyWithPreAndPost(DestroyMode mode = DestroyMode.Vanish)
         {
-            PreDestroy();
+            PreDestroy(mode);
             Destroy(mode);
-            PostDestroy();
+            PostDestroy(mode);
         }//用于处理消散特效
-        protected virtual void PreDestroy()
+        protected virtual void PreDestroy(DestroyMode mode)
         {
             if (Rand.Chance(gasProps.preDestroySpawnThingChance) && Position.Walkable(base.Map))
             {
@@ -138,7 +138,7 @@ namespace AzWeaponLib.Gas
                 }
             }
         }
-        protected virtual void PostDestroy()
+        protected virtual void PostDestroy(DestroyMode mode)
         { }
     }
 

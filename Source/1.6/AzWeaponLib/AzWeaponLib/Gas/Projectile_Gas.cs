@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
 
 namespace AzWeaponLib.Gas
@@ -25,12 +26,20 @@ namespace AzWeaponLib.Gas
             IEnumerable<IntVec3> cells = DamageDefOf.Bomb.Worker.ExplosionCellsToHit(Position, map, gasExplosionDef.radius);
             foreach (IntVec3 cell in cells)
             {
-                Thing t = ThingMaker.MakeThing(gasExplosionDef.gasDef);
-                if (t is AWLGas gas)
+                AWLGas gas = cell.GetFirstThing(map, gasExplosionDef.gasDef) as AWLGas;
+                if (gas != null)
                 {
-                    gas.initDensity = gasExplosionDef.density;
+                    gas.SetDensityTo(Mathf.Min(gas.density + gasExplosionDef.density, 1f));
                 }
-                GenSpawn.Spawn(t, cell, map);
+                else 
+                {
+                    gas = ThingMaker.MakeThing(gasExplosionDef.gasDef) as AWLGas;
+                    if (gas != null)
+                    {
+                        gas.initDensity = gasExplosionDef.density;
+                        GenSpawn.Spawn(gas, cell, map);
+                    }
+                }
             }
             base.Explode();
         }

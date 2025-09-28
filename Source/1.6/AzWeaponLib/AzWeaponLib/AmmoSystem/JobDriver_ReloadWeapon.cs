@@ -48,6 +48,12 @@ namespace AzWeaponLib.AmmoSystem
         protected override IEnumerable<Toil> MakeNewToils()
         {
             int reloadTick = Mathf.Min(compAmmo.GetReloadTicks(), compAmmo.MaxReloadTick);
+            this.AddFinishAction((JobCondition jc) => {
+                if (pawn.stances.curStance is Stance_Reload)
+                {
+                    pawn.stances.SetStance(new Stance_Mobile());
+                }
+            });
             this.FailOn(() => (useAmmo && compAmmo.NoBackupAmmo));
             Toil waitForAvaliable = ReloadWait(int.MaxValue, canMove: true);
             waitForAvaliable.tickAction = delegate
@@ -55,6 +61,12 @@ namespace AzWeaponLib.AmmoSystem
                 if (!pawn.stances.curStance.StanceBusy) ReadyForNextToil();
             };
             yield return waitForAvaliable;
+
+            Toil makeStance = Toils_General.Do(
+                delegate {
+                    pawn.stances.SetStance(new Stance_Reload(int.MaxValue, Find.TickManager.TicksGame - pawn.LastAttackTargetTick <= 300 ? pawn.LastAttackedTarget : null));
+                });
+            yield return makeStance;
 
             int loop = compAmmo.ReloadLoop(job.playerForced);
 
