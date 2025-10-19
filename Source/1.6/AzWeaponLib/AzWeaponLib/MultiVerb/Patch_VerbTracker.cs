@@ -9,18 +9,18 @@ using Verse;
 
 namespace AzWeaponLib.MultiVerb
 {
-    [HarmonyPatch(typeof(VerbTracker))]
+    //[HarmonyPatch(typeof(VerbTracker))]
     internal class Patch_VerbTracker
     {
         //public static readonly Dictionary<VerbTracker, Verb> VerbDict = new Dictionary<VerbTracker, Verb>();
         public static readonly Dictionary<CompEquippable, CompMultiVerb> MultiVerbDict = new Dictionary<CompEquippable, CompMultiVerb>();
         public static Verb verb = null;
-        [HarmonyPatch("get_PrimaryVerb")]
-        [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+        //[HarmonyPatch("get_PrimaryVerb")]
+        //[HarmonyTranspiler]
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             List<CodeInstruction> list = instructions.ToList();
-            MethodInfo methodInfo = AccessTools.Method(typeof(Patch_VerbTracker), "PrefixMethod_get_PrimaryVerb");
+            MethodInfo methodInfo = AccessTools.Method(typeof(Patch_VerbTracker), nameof(Patch_VerbTracker.PrefixMethod_get_PrimaryVerb));
             MethodInfo methodInfo2 = AccessTools.Method(typeof(Patch_VerbTracker), "MakeCache");
             FieldInfo fieldInfo = AccessTools.Field(typeof(Patch_VerbTracker), "verb");
             Label endTag_prefix = generator.DefineLabel();
@@ -38,7 +38,7 @@ namespace AzWeaponLib.MultiVerb
             list.InsertRange(0, prefix);
             return list;
         }
-        public static Verb PrefixMethod_get_PrimaryVerb(VerbTracker __instance)
+        private static Verb PrefixMethod_get_PrimaryVerb(VerbTracker __instance)
         {
             if (__instance.directOwner is CompEquippable Eq)
             {
@@ -54,9 +54,9 @@ namespace AzWeaponLib.MultiVerb
             }
             return null;
         }
-        [HarmonyPatch("CreateVerbTargetCommand")]
-        [HarmonyPostfix]
-        public static void Postfix_CreateVerbTargetCommand(Thing ownerThing, Verb verb, VerbTracker __instance, ref Command_VerbTarget __result)
+        //[HarmonyPatch("CreateVerbTargetCommand")]
+        //[HarmonyPostfix]
+        internal static void Postfix_CreateVerbTargetCommand(Thing ownerThing, Verb verb, VerbTracker __instance, ref Command_VerbTarget __result)
         {
             if (__instance.directOwner is CompEquippable Eq)
             {

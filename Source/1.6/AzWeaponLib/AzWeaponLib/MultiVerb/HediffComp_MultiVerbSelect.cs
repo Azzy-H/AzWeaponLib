@@ -36,6 +36,7 @@ namespace AzWeaponLib.MultiVerb
         }
         public override IEnumerable<Gizmo> CompGetGizmos()
         {
+            if (CompMultiVerb.GlobalDisabled) yield break;
             Command_Action Verb_Switch = new Command_Action
             {
                 icon = ContentFinder<Texture2D>.Get(Eq_Comp.Props.gizmoInfos[verbIndexCache].iconPath),

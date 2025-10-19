@@ -33,26 +33,81 @@ namespace AzWeaponLib
         };
         [HarmonyPatch("SpecialDisplayStats")]
         [HarmonyPostfix]
-        public static void Postfix_SpecialDisplayStats(ThingDef __instance, ref IEnumerable<StatDrawEntry> __result, StatRequest req)
+        [HarmonyAfter(new string[] { "legodude17.mvcf" })]
+        //[HarmonyPriority(Priority.VeryLow)]
+        //public static void Postfix_SpecialDisplayStats(ThingDef __instance, ref IEnumerable<StatDrawEntry> __result, StatRequest req)
+        //{
+        //    List<VerbProperties> verbProperties = __instance.Verbs;
+        //    List<DefModExtension> defModExtensions = __instance.modExtensions;
+        //    List<CompProperties> compProperties = __instance.comps;
+        //    bool isTurret = __instance.building?.IsTurret ?? false;
+
+        //    var resultList = new List<StatDrawEntry>(__result);
+        //    if (verbProperties != null && !isTurret)
+        //    {
+        //        Log.Message(1);
+        //        resultList.RemoveAll(x => x.category == (((__instance.category == ThingCategory.Pawn) ? StatCategoryDefOf.PawnCombat : null) ?? StatCategoryDefOf.Weapon_Ranged) && verbPriorities.Contains(x.DisplayPriorityWithinCategory));
+        //        CompProperties_MultiVerb multiVerb = __instance.GetCompProperties<CompProperties_MultiVerb>();
+        //        if (verbProperties.Count > 1 && multiVerb != null)
+        //        {
+        //            Log.Message(2);
+        //            int dispPriorityOffset = 0;
+        //            // char postfixChar = 'A';
+        //            for (int i = 0; i < verbProperties.Count; i++)
+        //            {
+        //                //postfixChar++;
+        //                string prefixString = multiVerb.gizmoInfos[i].defaultLabel + ": ";//("AWL_VerbDescPostFix_" + postfixChar).Translate();
+        //                resultList.AddRange(GetStatDrawEntries_VerbProps(verbProperties[i], __instance.category, dispPriorityOffset, req, prefixString));
+        //                dispPriorityOffset -= 10000;
+        //            }
+        //        }
+        //        else if (verbProperties.Count == 1)
+        //        {
+        //            Log.Message(3);
+        //            resultList.AddRange(GetStatDrawEntries_VerbProps(verbProperties.First(), __instance.category, 0, req));
+        //        }
+        //    }
+        //    if (defModExtensions != null)
+        //    {
+        //        foreach (DefModExtension ext in defModExtensions)
+        //        {
+        //            if (ext is IStatable statable)
+        //            {
+        //                resultList.AddRange(statable.GetStatDrawEntries(req));
+        //            }
+        //        }
+        //    }
+        //    //if (compProperties != null && !req.HasThing)
+        //    //{
+        //    //    foreach (CompProperties compProp in compProperties)
+        //    //    {
+        //    //        if (compProp is IStatable statable)
+        //    //        {
+        //    //            resultList.AddRange(statable.GetStatDrawEntries(req.Thing));
+        //    //        }
+        //    //    }
+        //    //}
+        //    __result = resultList;
+        //    return;
+        //}
+        public static IEnumerable<StatDrawEntry> Postfix_SpecialDisplayStats(IEnumerable<StatDrawEntry> entries, ThingDef __instance, StatRequest req)
         {
             List<VerbProperties> verbProperties = __instance.Verbs;
             List<DefModExtension> defModExtensions = __instance.modExtensions;
             List<CompProperties> compProperties = __instance.comps;
             bool isTurret = __instance.building?.IsTurret ?? false;
 
-            var resultList = new List<StatDrawEntry>(__result);
-            if (verbProperties != null && !AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs && !isTurret)
+            var resultList = new List<StatDrawEntry>(entries);
+            if (verbProperties != null && !isTurret)
             {
                 resultList.RemoveAll(x => x.category == (((__instance.category == ThingCategory.Pawn) ? StatCategoryDefOf.PawnCombat : null) ?? StatCategoryDefOf.Weapon_Ranged) && verbPriorities.Contains(x.DisplayPriorityWithinCategory));
                 CompProperties_MultiVerb multiVerb = __instance.GetCompProperties<CompProperties_MultiVerb>();
                 if (verbProperties.Count > 1 && multiVerb != null)
                 {
                     int dispPriorityOffset = 0;
-                    // char postfixChar = 'A';
                     for (int i = 0; i < verbProperties.Count; i++)
                     {
-                        //postfixChar++;
-                        string prefixString = multiVerb.gizmoInfos[i].defaultLabel + ": ";//("AWL_VerbDescPostFix_" + postfixChar).Translate();
+                        string prefixString = multiVerb.gizmoInfos[i].defaultLabel + ": ";
                         resultList.AddRange(GetStatDrawEntries_VerbProps(verbProperties[i], __instance.category, dispPriorityOffset, req, prefixString));
                         dispPriorityOffset -= 10000;
                     }
@@ -72,18 +127,7 @@ namespace AzWeaponLib
                     }
                 }
             }
-            //if (compProperties != null && !req.HasThing)
-            //{
-            //    foreach (CompProperties compProp in compProperties)
-            //    {
-            //        if (compProp is IStatable statable)
-            //        {
-            //            resultList.AddRange(statable.GetStatDrawEntries(req.Thing));
-            //        }
-            //    }
-            //}
-            __result = resultList;
-            return;
+            return resultList;
         }
         public static IEnumerable<StatDrawEntry> GetStatDrawEntries_VerbProps(VerbProperties verb, ThingCategory category, int dispPriorityOffset, StatRequest req, string prefix = "", string postfix = "")
         {

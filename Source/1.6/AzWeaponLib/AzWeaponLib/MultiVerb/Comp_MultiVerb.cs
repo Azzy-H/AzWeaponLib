@@ -1,4 +1,6 @@
-﻿using RimWorld;
+﻿using AzWeaponLib.PatchMisc;
+using HarmonyLib;  
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +29,13 @@ namespace AzWeaponLib.MultiVerb
     }
     public abstract class CompMultiVerb : ThingComp
     {
+        public static bool GlobalDisabled = false;
         public CompProperties_MultiVerb Props => (CompProperties_MultiVerb)props;
         public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
         public int verbIndex = 0;
         public override void Notify_Equipped(Pawn pawn)
         {
+            if (GlobalDisabled) return;
             if (AWL_Settings.randomWeaponModeForNonPlayerPawn && (pawn.Faction == null || !pawn.Faction.IsPlayer))
             {
                 verbIndex = Rand.Range(0, parent.def.Verbs.Count);
@@ -46,8 +50,21 @@ namespace AzWeaponLib.MultiVerb
         }
         public override void PostExposeData()
         {
-            base.PostExposeData();
             Scribe_Values.Look(ref verbIndex, "verbIndex", 0);
+        }
+        public static void DoHarmonyPatch(Harmony instance)
+        {
+            MethodInfo VerbTracker_get_PrimaryVerb = AccessTools.Method(typeof(VerbTracker), "get_PrimaryVerb");
+            MethodInfo VerbTracker_get_PrimaryVerb_Transpiler = AccessTools.Method(typeof(Patch_VerbTracker), nameof(Patch_VerbTracker.Transpiler));
+            instance.Patch(VerbTracker_get_PrimaryVerb, transpiler: VerbTracker_get_PrimaryVerb_Transpiler);
+
+            MethodInfo VerbTracker_CreateVerbTargetCommand = AccessTools.Method(typeof(VerbTracker), "CreateVerbTargetCommand");
+            MethodInfo VerbTracker_CreateVerbTargetCommand_Postfix = AccessTools.Method(typeof(Patch_VerbTracker), nameof(Patch_VerbTracker.Postfix_CreateVerbTargetCommand));
+            instance.Patch(VerbTracker_CreateVerbTargetCommand, postfix: VerbTracker_CreateVerbTargetCommand_Postfix);
+
+            MethodInfo Find_ClearCache = AccessTools.Method(typeof(Find), nameof(Find.ClearCache));
+            MethodInfo Find_ClearCache_Postfix = AccessTools.Method(typeof(Patch_Find), nameof(Patch_Find.Postfix_ClearCache));
+            instance.Patch(Find_ClearCache, postfix: Find_ClearCache_Postfix);
         }
     }
     public class CompMultiVerbByHediff : CompMultiVerb
@@ -57,12 +74,14 @@ namespace AzWeaponLib.MultiVerb
         public override void Notify_Equipped(Pawn pawn)
         {
             base.Notify_Equipped(pawn);
+            if (GlobalDisabled) return;
             hediff = HediffMaker.MakeHediff(hediffDef, pawn);
             pawn.health.AddHediff(hediff);
         }
         public override void Notify_Unequipped(Pawn pawn)
         {
             base.Notify_Unequipped(pawn);
+            if (GlobalDisabled) return;
             if (hediff != null) pawn.health.RemoveHediff(hediff);
             hediff = null;
         }

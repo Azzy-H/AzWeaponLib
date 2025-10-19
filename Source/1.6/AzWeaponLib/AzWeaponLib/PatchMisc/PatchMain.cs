@@ -29,6 +29,10 @@ namespace AzWeaponLib
                 Log.Message("[AWL]Notify MVCF exsists");
                 LongEventHandler.ExecuteWhenFinished(StartUpLib.PatchWhenMVCFEnabled);
             }
+            else 
+            {
+                CompMultiVerb.DoHarmonyPatch(instance);
+            }
             if (ModLister.GetActiveModWithIdentifier("Owlchemist.Tacticowl") != null)
             {
                 Log.Message("[AWL]Notify Tacticowl exsists");
@@ -68,7 +72,6 @@ namespace AzWeaponLib
             Type MVCF = AccessTools.TypeByName("MVCF.MVCF");
             MethodInfo MVCF_EnableFeature = AccessTools.Method(MVCF, "EnableFeature");
 
-
             Type Feature_VerbCompsType = AccessTools.TypeByName("MVCF.Features.Feature_VerbComps");
             object Feature_VerbCompsObj = MVCF
                 .GetMethod("GetFeature", BindingFlags.Static | BindingFlags.Public)
@@ -81,6 +84,7 @@ namespace AzWeaponLib
                 .GetMethod("GetFeature", BindingFlags.Static | BindingFlags.Public)
                 .MakeGenericMethod(Feature_ExtraEquipmentVerbsType).Invoke(null, null);
             FieldInfo ExtraEquipmentVerbs_EnabledField = Feature_ExtraEquipmentVerbsType.GetField("Enabled");
+            //MVCF_EnableFeature.Invoke(null, new object[] { Feature_ExtraEquipmentVerbsObj });
 
             AWL_Mod.MVCF_Feature_VerbComps = (bool)VerbComps_EnabledField.GetValue(Feature_VerbCompsObj);
             AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs = (bool)ExtraEquipmentVerbs_EnabledField.GetValue(Feature_ExtraEquipmentVerbsObj);
@@ -93,27 +97,29 @@ namespace AzWeaponLib
             }
             if (AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs)
             {
-                
-                Log.Message("[AWL]MVCF.Features.Feature_ExtraEquipmentVerbs is enabled, try to remove CompProperties_MultiVerb");
-                StringBuilder log = new StringBuilder();
-                List<ThingDef> MultiVerbWeapon = DefDatabase<ThingDef>.AllDefs.Where(x => x.HasComp<CompMultiVerb>()).ToList();
-                foreach (ThingDef item in MultiVerbWeapon)
-                {
-                    try
-                    {
-                        item.comps.Remove(item.GetCompProperties<CompProperties_MultiVerb>());
-                        log.AppendLine("Success in removing " + item.ToString() + "'s CompProperties_MultiVerb");
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error($"Error removing CompProperties_MultiVerb {item.defName}: {ex.Message}");
-                    }
-                }
-                Log.Message(log);
+                Log.Message("[AWL]MVCF.Features.Feature_ExtraEquipmentVerbs is enabled, try to disable CompMultiVerb");
+                CompMultiVerb.GlobalDisabled = true;
+                //Log.Message("[AWL]MVCF.Features.Feature_ExtraEquipmentVerbs is enabled, try to remove CompProperties_MultiVerb");
+                //StringBuilder log = new StringBuilder();
+                //List<ThingDef> MultiVerbWeapon = DefDatabase<ThingDef>.AllDefs.Where(x => x.HasComp<CompMultiVerb>()).ToList();
+                //foreach (ThingDef item in MultiVerbWeapon)
+                //{
+                //    try
+                //    {
+                //        item.comps.Remove(item.GetCompProperties<CompProperties_MultiVerb>());
+                //        log.AppendLine("Success in removing " + item.ToString() + "'s CompProperties_MultiVerb");
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        Log.Error($"Error removing CompProperties_MultiVerb {item.defName}: {ex.Message}");
+                //    }
+                //}
+                //Log.Message(log);
             }
             else
             {
-                Log.Message("[AWL]No need to patch MVCF.");
+                Log.Message("[AWL]No need to handle MVCF.");
+                CompMultiVerb.DoHarmonyPatch(PatchMain.instance);
             }
             
         }

@@ -161,15 +161,8 @@
   |extraProjectile|朝当前格或者击中目标射击额外的投射物，用于生成特殊效果（如电弧导弹或者气体导弹）|
   |speedChangePerTick|速度变化率，用于实现中段加速|
   |speedRangeOverride|速度分布，用于一次性发射多枚导弹时从视觉上将其分开，缺省则用ProjectileProperties数据|
-  |damageMultiplierPerConduct|伤害衰减乘数|
-  |conductTicks|传导间隔|
-  |noDeviation|是否采用原版子弹偏移，true为不采用|
-  |fleckDef|传导特效|
-  |hediffDefsToExtra|目标若有该hediff则满足特殊条件（或运算）|
-  |weatherDefsToExtra|特殊条件天气（或运算）|
-  |gameConditionDefsToExtra|特殊条件环境（或运算）|
   
-  2. ModExtension_Cone
+  1. ModExtension_Cone
 
   |字段|含义|
   |:--:|:--:|
