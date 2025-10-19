@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace AzWeaponLib.MultiVerb
 {
@@ -65,7 +66,16 @@ namespace AzWeaponLib.MultiVerb
             if (Eq_Comp == null) compShouldRemove = true;
             else
             {
-                verbIndexCache = Eq_Comp.SetNextVerbIndex();
+
+                if (parent.pawn.CurJob.verbToUse == Eq_Comp.VerbByIndex(verbIndexCache))
+                {
+                    verbIndexCache = Eq_Comp.SetNextVerbIndex();
+                    parent.pawn.CurJob.verbToUse = Eq_Comp.VerbByIndex(verbIndexCache);
+                }
+                else 
+                {
+                    verbIndexCache = Eq_Comp.SetNextVerbIndex();
+                } 
             }
         }
         public override void CompExposeData()

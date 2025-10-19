@@ -48,6 +48,10 @@ namespace AzWeaponLib.MultiVerb
                 verbIndex = 0;
             return verbIndex;
         }
+        public Verb VerbByIndex(int index)
+        {
+            return parent.GetComp<CompEquippable>().AllVerbs[index];
+        }
         public override void PostExposeData()
         {
             Scribe_Values.Look(ref verbIndex, "verbIndex", 0);

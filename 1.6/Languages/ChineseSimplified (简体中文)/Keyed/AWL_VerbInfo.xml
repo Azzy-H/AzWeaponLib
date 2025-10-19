@@ -1,17 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
-    <AWL_BulletsPerShot>霰弹弹丸数</AWL_BulletsPerShot>
-    <AWL_Stat_BulletsPerShot_Desc>该武器在每次射击中发射的子弹数量。</AWL_Stat_BulletsPerShot_Desc>
+    <!-- EN: Shotgun pellets counts -->
+  <AWL_BulletsPerShot>霰弹弹丸数</AWL_BulletsPerShot>
+    <!-- EN: The number of bullets fired by this weapon in each shot. -->
+  <AWL_Stat_BulletsPerShot_Desc>该武器在每次射击中发射的子弹数量。</AWL_Stat_BulletsPerShot_Desc>
 
-    <AWL_ShotgunRetargetRange>霰弹扩散距离</AWL_ShotgunRetargetRange>
-    <AWL_Stat_ShotgunRetargetRange_Desc>该武器射击时弹丸的散布半径。越高的数值会使得弹丸可击中目标的选取范围越广。该数值不影响对单体敌人的命中率。</AWL_Stat_ShotgunRetargetRange_Desc>
+    <!-- EN: Shotgun diffusion distance -->
+  <AWL_ShotgunRetargetRange>霰弹扩散距离</AWL_ShotgunRetargetRange>
+    <!-- EN: The dispersion radius of the projectiles when the weapon is fired. The higher the value, the wider the selection range of the target that the projectile can hit. This value does not affect the hit rate against a single enemy. -->
+  <AWL_Stat_ShotgunRetargetRange_Desc>该武器射击时弹丸的散布半径。越高的数值会使得弹丸可击中目标的选取范围越广。该数值不影响对单体敌人的命中率。</AWL_Stat_ShotgunRetargetRange_Desc>
 
-    <AWL_MechineGun>机枪</AWL_MechineGun>
-    <AWL_MechineGun_Desc>该武器能够持续开火。</AWL_MechineGun_Desc>
+    <!-- EN: Mechine gun -->
+  <AWL_MechineGun>机枪</AWL_MechineGun>
+    <!-- EN: This weapon is capable of firing continuously. -->
+  <AWL_MechineGun_Desc>该武器能够持续开火。</AWL_MechineGun_Desc>
 
-    <AWL_Retarget>转移目标</AWL_Retarget>
-    <AWL_Stat_Retarget_Desc>该武器能够在攻击过程中转移目标的索敌半径。</AWL_Stat_Retarget_Desc>
+    <!-- EN: Shift target -->
+  <AWL_Retarget>转移目标</AWL_Retarget>
+    <!-- EN: This weapon is capable of shifting the enemy's radius of the target during the attack. -->
+  <AWL_Stat_Retarget_Desc>该武器能够在攻击过程中转移目标的索敌半径。</AWL_Stat_Retarget_Desc>
 
 </LanguageData>

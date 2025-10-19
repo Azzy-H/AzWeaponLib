@@ -71,6 +71,7 @@
     <Compile Include="AmmoSystem\Patch_FloatMenuOptionProvider_DraftedMove.cs" />
     <Compile Include="AmmoSystem\Patch_JobGiver_ConfigurableHostilityResponse.cs" />
     <Compile Include="AmmoSystem\Stance_Reload.cs" />
+    <Compile Include="AmmoSystem\StatWorker_ReloadTime.cs" />
     <Compile Include="AWL_DefOf.cs" />
     <Compile Include="AmmoSystem\CompAmmo.cs" />
     <Compile Include="AmmoSystem\Gizmo_AmmoStatus.cs" />

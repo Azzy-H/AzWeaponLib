@@ -13,7 +13,48 @@
     <valueIfMissing>1</valueIfMissing>
     <minValue>0</minValue>
     <!-- <showIfUndefined>false</showIfUndefined> -->
+    <displayPriorityInCategory>4999</displayPriorityInCategory>
+  </StatDef>
+
+  <StatDef>
+    <defName>AWL_ReloadingTime</defName>
+    <label>reload time</label>
+    <description>How long it takes to reload this weapon.</description>
+    <workerClass>AzWeaponLib.AmmoSystem.StatWorker_ReloadTime</workerClass>
+    <category>Weapon</category>
+    <toStringStyle>FloatOne</toStringStyle>
+    <defaultBaseValue>0</defaultBaseValue>
+    <valueIfMissing>0</valueIfMissing>
+    <hideAtValue>-1</hideAtValue>
+    <minValue>-1</minValue>
+    <showIfUndefined>false</showIfUndefined>
     <displayPriorityInCategory>5000</displayPriorityInCategory>
+  </StatDef>
+
+  <StatDef>
+    <defName>AWL_AmmoCapacity</defName>
+    <label>ammo capacity</label>
+    <description>The amount of ammunition filled in a magazine.</description>
+    <category>Weapon</category>
+    <toStringStyle>Integer</toStringStyle>
+    <defaultBaseValue>0</defaultBaseValue>
+    <valueIfMissing>0</valueIfMissing>
+    <minValue>0</minValue>
+    <showIfUndefined>false</showIfUndefined>
+    <displayPriorityInCategory>5001</displayPriorityInCategory>
+  </StatDef>
+
+  <StatDef>
+    <defName>AWL_BackAmmoCapacity</defName>
+    <label>maximum ammunition available</label>
+    <description>The maximum number of spare ammunition for this weapon.</description>
+    <category>Weapon</category>
+    <toStringStyle>Integer</toStringStyle>
+    <defaultBaseValue>0</defaultBaseValue>
+    <valueIfMissing>0</valueIfMissing>
+    <minValue>0</minValue>
+    <showIfUndefined>false</showIfUndefined>
+    <displayPriorityInCategory>5002</displayPriorityInCategory>
   </StatDef>
 
 </Defs>

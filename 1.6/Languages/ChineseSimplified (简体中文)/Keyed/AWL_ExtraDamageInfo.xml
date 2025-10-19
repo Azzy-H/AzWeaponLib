@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
-    <AWL_ExtraDamageLabel>额外伤害</AWL_ExtraDamageLabel>
-    <AWL_ExtraDamageText>该武器造成的额外伤害值。\n\n这可能会被目标的护甲抵消或减轻。该数据不受武器品质影响。</AWL_ExtraDamageText>
+    <!-- EN: extra damage -->
+  <AWL_ExtraDamageLabel>额外伤害</AWL_ExtraDamageLabel>
+    <!-- EN: The amount of extra damage this weapon deals.\n\nThis may be deflected or mitigated by the target's armor.该数据不受武器品质影响。 -->
+  <AWL_ExtraDamageText>该武器造成的额外伤害值。\n\n这可能会被目标的护甲抵消或减轻。该数据不受武器品质影响。</AWL_ExtraDamageText>
 
-    <AWL_ExtraDamageAmount>伤害值</AWL_ExtraDamageAmount>
-    <AWL_ExtraDamagePenetration>护甲穿透</AWL_ExtraDamagePenetration>
-    <AWL_ExtraDamageChance>概率</AWL_ExtraDamageChance>
-    <AWL_ExtraDamageChance_Must>必定触发</AWL_ExtraDamageChance_Must>
+    <!-- EN: damage -->
+  <AWL_ExtraDamageAmount>伤害值</AWL_ExtraDamageAmount>
+    <!-- EN: penetration -->
+  <AWL_ExtraDamagePenetration>护甲穿透</AWL_ExtraDamagePenetration>
+    <!-- EN: chance -->
+  <AWL_ExtraDamageChance>概率</AWL_ExtraDamageChance>
+    <!-- EN: surely be triggered -->
+  <AWL_ExtraDamageChance_Must>必定触发</AWL_ExtraDamageChance_Must>
 
 </LanguageData>

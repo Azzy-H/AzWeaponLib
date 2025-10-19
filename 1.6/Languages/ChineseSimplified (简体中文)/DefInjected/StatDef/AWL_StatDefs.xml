@@ -1,6 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
   
+  <!-- EN: ammo capacity -->
+  <AWL_AmmoCapacity.label>备弹量</AWL_AmmoCapacity.label>
+  <!-- EN: The amount of ammunition filled in a magazine. -->
+  <AWL_AmmoCapacity.description>一个弹匣所装填的弹药量。</AWL_AmmoCapacity.description>
+  
+  <!-- EN: maximum ammunition available -->
+  <AWL_BackAmmoCapacity.label>最大备弹数</AWL_BackAmmoCapacity.label>
+  <!-- EN: The maximum number of spare ammunition for this weapon. -->
+  <AWL_BackAmmoCapacity.description>该武器最大备用弹匣。</AWL_BackAmmoCapacity.description>
+  
+  <!-- EN: reload time -->
+  <AWL_ReloadingTime.label>上弹所需时间</AWL_ReloadingTime.label>
+  <!-- EN: How long it takes to reload this weapon. -->
+  <AWL_ReloadingTime.description>更换弹匣或单发装填所需秒数。</AWL_ReloadingTime.description>
+  
   <!-- EN: reloading time -->
   <AWL_ReloadingTimeFactor.label>装填时间</AWL_ReloadingTimeFactor.label>
   <!-- EN: How long it takes to reload the magazine after it's used up. -->

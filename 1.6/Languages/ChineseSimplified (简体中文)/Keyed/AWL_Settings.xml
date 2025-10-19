@@ -1,23 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
-    <AWL_Mod>Azzy的武器库</AWL_Mod>
+    <!-- EN: Azzy's Weapon Library -->
+  <AWL_Mod>Azzy的武器库</AWL_Mod>
 
-    <Reset>重置为默认</Reset>
-    
-    <EnableAmmoSystem>使用弹药系统</EnableAmmoSystem>
-    <EnableTheAmmoSystem>当勾选时，启用弹药系统。</EnableTheAmmoSystem>
+    <!-- EN: Reset to default -->
+  <Reset>重置为默认</Reset>
 
-    <EnableBackupAmmoSystemLabel>使用备用弹药系统</EnableBackupAmmoSystemLabel>
-    <EnableBackupAmmoSystemDesc>当勾选时，部分武器将会需要装填。</EnableBackupAmmoSystemDesc>
+    <!-- EN: Use ammunition system -->
+  <EnableAmmoSystem>使用弹药系统</EnableAmmoSystem>
+    <!-- EN: When checked, the ammunition system is enabled. -->
+  <EnableTheAmmoSystem>当勾选时，启用弹药系统。</EnableTheAmmoSystem>
 
-    <BackupAmmoMultipilerLabel>备用弹药上限全局乘数</BackupAmmoMultipilerLabel>
-    <BackupAmmoMultipilerDesc>所有使用备用弹药系统的武器的备弹上限均会乘以这个值。</BackupAmmoMultipilerDesc>
+    <!-- EN: Use the backup ammunition system -->
+  <EnableBackupAmmoSystemLabel>使用备用弹药系统</EnableBackupAmmoSystemLabel>
+    <!-- EN: When checked, some weapons will need to be loaded by resources. -->
+  <EnableBackupAmmoSystemDesc>当勾选时，部分武器将会需要装填。</EnableBackupAmmoSystemDesc>
 
-    <OnlyShowAmmoGizmoWhenSelectedOneThingLabel>仅在选择一个殖民者时显示弹药数据</OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
-    <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>仅在选择一个殖民者时显示弹药数据。</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
+    <!-- EN: Global multiplier for backup ammo capacity -->
+  <BackupAmmoMultipilerLabel>备用弹药上限全局乘数</BackupAmmoMultipilerLabel>
+    <!-- EN: The backup ammo capacity limit of all weapons using the backup ammo system will be multiplied by this value. -->
+  <BackupAmmoMultipilerDesc>所有使用备用弹药系统的武器的备弹上限均会乘以这个值。</BackupAmmoMultipilerDesc>
 
-    <RandomWeaponModeForNonPlayerPawnLabel>非玩家单位随机切换武器模式</RandomWeaponModeForNonPlayerPawnLabel>
-    <RandomWeaponModeForNonPlayerPawnDesc>启用后，如果非玩家单位装备了具有多个模式的武器，将会自动切换至其中一种模式。\n\n关闭则仅使用默认模式。</RandomWeaponModeForNonPlayerPawnDesc>
+    <!-- EN: Ammunition gizmo is displayed only when a pawn is selected -->
+  <OnlyShowAmmoGizmoWhenSelectedOneThingLabel>仅在选择一个殖民者时显示弹药数据</OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
+    <!-- EN: Ammunition gizmo is displayed only when a pawn is selected. -->
+  <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>仅在选择一个殖民者时显示弹药数据。</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
+
+    <!-- EN: Non-player controled pawn randomly switch weapon modes -->
+  <RandomWeaponModeForNonPlayerPawnLabel>非玩家单位随机切换武器模式</RandomWeaponModeForNonPlayerPawnLabel>
+    <!-- EN: After activation, if a controled pawn is equipped with weapons of multiple modes, it will automatically switch to one of the modes.\n\nWhen turned off, only the default mode is used. -->
+  <RandomWeaponModeForNonPlayerPawnDesc>启用后，如果非玩家单位装备了具有多个模式的武器，将会自动切换至其中一种模式。\n\n关闭则仅使用默认模式。</RandomWeaponModeForNonPlayerPawnDesc>
 
 </LanguageData>

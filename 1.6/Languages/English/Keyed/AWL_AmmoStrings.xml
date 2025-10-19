@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LanguageData>
-
-    <AWL_AmmunitionCapacityLabel>ammunition capacity</AWL_AmmunitionCapacityLabel>
-    <AWL_AmmunitionCapacityText>The amount of ammunition filled in a magazine.</AWL_AmmunitionCapacityText>
-
-    <AWL_ReloadingTimeLabel>reload time</AWL_ReloadingTimeLabel>
-    <AWL_ReloadingTimeText>How long it takes to reload this weapon.</AWL_ReloadingTimeText>
     <AWL_Disposable>Disposable</AWL_Disposable>
 
     <AWL_SingleShotLoadingLabel>single reload</AWL_SingleShotLoadingLabel>
@@ -14,9 +8,7 @@
 
     <AWL_AmmunitionCostLabel>ammunition cost</AWL_AmmunitionCostLabel>
     <AWL_AmmunitionCostText>The amount of ammunition provided by each item.</AWL_AmmunitionCostText>
-
-    <AWL_MaxBackupAmmoLabel>maximum ammunition available</AWL_MaxBackupAmmoLabel>
-    <AWL_MaxBackupAmmoText>The maximum number of spare ammunition for this weapon.</AWL_MaxBackupAmmoText>
+    
     <AWL_CanLoadExtra>Ammunition can be stored in the barrel</AWL_CanLoadExtra>
 
     <AWL_ShootingSkillMultipiler>shooting skill multipiler</AWL_ShootingSkillMultipiler>

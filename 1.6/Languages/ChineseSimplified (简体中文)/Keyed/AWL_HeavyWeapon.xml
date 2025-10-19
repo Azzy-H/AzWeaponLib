@@ -1,10 +1,13 @@
-<?xml version="1.0" encoding="utf-8" ?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
     <!-- 服装组信息 -->
-    <AWL_ApparelGroupDefLabel>是否需要穿着某件衣物</AWL_ApparelGroupDefLabel>
-    <AWL_ApparelGroupDefText>只有穿着下列衣物的殖民者能使用该武器：</AWL_ApparelGroupDefText>
 
-    <AWL_NoAvailableApparel>没有穿着对应衣物</AWL_NoAvailableApparel>
+    <!-- EN: Certain apparel needs -->
+  <AWL_ApparelGroupDefLabel>是否需要穿着某件衣物</AWL_ApparelGroupDefLabel>
+    <!-- EN: Only pawns wearing the following clothing could use this weapon: -->
+  <AWL_ApparelGroupDefText>只有穿着下列衣物的殖民者能使用该武器：</AWL_ApparelGroupDefText>
+
+    <!-- EN: Not wearing the corresponding clothes -->
+  <AWL_NoAvailableApparel>没有穿着对应衣物</AWL_NoAvailableApparel>
 </LanguageData>

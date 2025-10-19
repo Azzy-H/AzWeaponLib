@@ -1,18 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
     <!--Ammo System-->
-    <AWL_AmmunitionGizmoLabel>弹药</AWL_AmmunitionGizmoLabel>
-    <AWL_AmmunitionGizmoTip>当前弹药/弹匣上限(备弹)</AWL_AmmunitionGizmoTip>
+    <!-- EN: Ammunition -->
+  <AWL_AmmunitionGizmoLabel>弹药</AWL_AmmunitionGizmoLabel>
+    <!-- EN: Current ammunition/magazine upper limit (available ammunition) -->
+  <AWL_AmmunitionGizmoTip>当前弹药/弹匣上限(备弹)</AWL_AmmunitionGizmoTip>
 
-    <AWL_PawnTooltipReload>左键主动换弹，右键切换自动换弹模式</AWL_PawnTooltipReload>
-    <AWL_LowManipulation>单位的操作能力不足</AWL_LowManipulation>
-    <AWL_NoEnoughBackupAmmo>备弹不足</AWL_NoEnoughBackupAmmo>
-    <AWL_DisposableWeapon>一次性武器无法装填</AWL_DisposableWeapon>
-    <AWL_NoNeedToReload>满弹药</AWL_NoNeedToReload>
+    <!-- EN: Left-click active reloading, right-click to switch to automatic reloading mode -->
+  <AWL_PawnTooltipReload>左键主动换弹，右键切换自动换弹模式</AWL_PawnTooltipReload>
+    <!-- EN: pawn is incapable of manipulation -->
+  <AWL_LowManipulation>单位的操作能力不足</AWL_LowManipulation>
+    <!-- EN: Insufficient ammunition reserves -->
+  <AWL_NoEnoughBackupAmmo>备弹不足</AWL_NoEnoughBackupAmmo>
+    <!-- EN: Disposable weapons cannot be loaded -->
+  <AWL_DisposableWeapon>一次性武器无法装填</AWL_DisposableWeapon>
+    <!-- EN: magazine is full -->
+  <AWL_NoNeedToReload>满弹药</AWL_NoNeedToReload>
 
-    <AWL_StopForceTarget>取消强制攻击（炮台）</AWL_StopForceTarget>
-    <AWL_StopForceTargetDesc>清除炮台锁定的目标</AWL_StopForceTargetDesc>
+    <!-- EN: Cancel Forced Attack (Turret) -->
+  <AWL_StopForceTarget>取消强制攻击（炮台）</AWL_StopForceTarget>
+    <!-- EN: Remove the target locked on the turret -->
+  <AWL_StopForceTargetDesc>清除炮台锁定的目标</AWL_StopForceTargetDesc>
 
 </LanguageData>

@@ -22,26 +22,52 @@ namespace AzWeaponLib.AmmoSystem
     {
         public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
         public bool singleShotLoading = false;
-        public int ammunitionCapacity = 1;
+        [Obsolete]
+        public int ammunitionCapacity = -1;
         public bool canLoadExtra = false;
-        public float reloadingTime = 1f;
+        [Obsolete]
+        public float reloadingTime = -1f;
         public bool pawnStatsAffectReloading = true;
         public ThingDef ammunitionDef;
         public bool exhaustable;
         public ThingDef exhaustedDef;
-        protected int maxBackupAmmo = 10;
+        [Obsolete]
+        protected int maxBackupAmmo = -1;
         public int ammoCountPerAmmunitionBox = 3;
         public bool canMoveWhenReload = false;
         private const int displayPriority = 300;
         private static StatCategoryDef statCategoryDef;
-        public virtual int MaxBackupAmmo => Mathf.CeilToInt(maxBackupAmmo * AWL_Settings.backupAmmoMultipiler);
+        //public virtual int MaxBackupAmmo => Mathf.CeilToInt(maxBackupAmmo * AWL_Settings.backupAmmoMultipiler);
         public CompProperties_Ammo()
         {
             compClass = typeof(CompAmmo);
         }
         public override void ResolveReferences(ThingDef parentDef)
         {
-            //base.ResolveReferences(parentDef);
+            if (ammunitionCapacity > 1)
+            {
+                Log.Warning(parentDef.ToString() + " has Obsolete field  \"ammunitionCapacity\", which is replaced by stats.");
+                StatModifier statModifier = new StatModifier();
+                statModifier.stat = AWL_DefOf.AWL_AmmoCapacity;
+                statModifier.value = ammunitionCapacity;
+                parentDef.statBases.Add(statModifier);
+            }
+            if (maxBackupAmmo > 0)
+            {
+                Log.Warning(parentDef.ToString() + " has Obsolete field  \"maxBackupAmmo\", which is replaced by stats.");
+                StatModifier statModifier = new StatModifier();
+                statModifier.stat = AWL_DefOf.AWL_BackAmmoCapacity;
+                statModifier.value = maxBackupAmmo;
+                parentDef.statBases.Add(statModifier);
+            }
+            if (reloadingTime > 0)
+            {
+                Log.Warning(parentDef.ToString() + " has Obsolete field  \"reloadingTime\", which is replaced by stats.");
+                StatModifier statModifier = new StatModifier();
+                statModifier.stat = AWL_DefOf.AWL_ReloadingTime;
+                statModifier.value = reloadingTime;
+                parentDef.statBases.Add(statModifier);
+            }
             statCategoryDef = StatCategoryDefOf.Weapon_Ranged;
         }
         public override IEnumerable<StatDrawEntry> SpecialDisplayStats(StatRequest req)
@@ -59,13 +85,13 @@ namespace AzWeaponLib.AmmoSystem
             }
             int priority = 0;
             if (singleShotLoading) yield return SingleShotLoadingDisp(ref priority, compAmmo);
-            yield return AmmunitionCapacityDisp(ref priority, compAmmo);
-            yield return ReloadingTimeDisp(ref priority, compAmmo);
+            //yield return AmmunitionCapacityDisp(ref priority, compAmmo);
+            //yield return ReloadingTimeDisp(ref priority, compAmmo);
             if (canMoveWhenReload) yield return MoveReloadDisp(ref priority, compAmmo);
             if (ammunitionDef != null)
             {
                 yield return AmmunitionCostDisp(ref priority, compAmmo);
-                yield return MaxBackupAmmoDisp(ref priority, compAmmo);
+                //yield return MaxBackupAmmoDisp(ref priority, compAmmo);
             }
         }
         private StatDrawEntry SingleShotLoadingDisp(ref int priorityOffset, CompAmmo compAmmo = null)
@@ -76,67 +102,67 @@ namespace AzWeaponLib.AmmoSystem
             string Text = "AWL_SingleShotLoadingText".Translate();
             return new StatDrawEntry(reportText: StatDispUtility.StringBuilderInit(Text, num).ToString(), category: statCategoryDef, label: Label, valueString: num ? "Yes".Translate() : "No".Translate(), displayPriorityWithinCategory: displayPriority - priorityOffset);
         }
-        private StatDrawEntry AmmunitionCapacityDisp(ref int priorityOffset, CompAmmo compAmmo = null)
-        {
-            priorityOffset--;
-            int num = ammunitionCapacity;
-            string valueString;
-            string Label = "AWL_AmmunitionCapacityLabel".Translate();
-            string Text = "AWL_AmmunitionCapacityText".Translate();
-            StringBuilder resultStringBuilder = new StringBuilder(Text);
-            resultStringBuilder.AppendLine();
-            resultStringBuilder.AppendLine();
-            resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString());
-            if (canLoadExtra)
-            {
-                resultStringBuilder.Append("--");
-                resultStringBuilder.AppendLine("AWL_CanLoadExtra".Translate() + ": (+1)");
-                valueString = num.ToString() + "(" + (num + 1).ToString() + ")";
-            }
-            else 
-            {
-                valueString = num.ToString();
-            }
-            resultStringBuilder.AppendLine();
-            return new StatDrawEntry(reportText: resultStringBuilder.ToString(), category: statCategoryDef, label: Label, valueString: valueString, displayPriorityWithinCategory: displayPriority - priorityOffset);
-        }
-        private StatDrawEntry ReloadingTimeDisp(ref int priorityOffset, CompAmmo compAmmo = null)
-        {
-            priorityOffset--;
-            float num = reloadingTime;
-            string Label = "AWL_ReloadingTimeLabel".Translate();
-            string Text = "AWL_ReloadingTimeText".Translate();
-            StringBuilder resultStringBuilder = new StringBuilder(Text);
-            if (reloadingTime < 0)
-            {
-                resultStringBuilder.AppendLine();
-                resultStringBuilder.AppendLine();
-                resultStringBuilder.Append("--");
-                resultStringBuilder.AppendLine("AWL_Disposable".Translate());
-                resultStringBuilder.AppendLine();
-                resultStringBuilder.AppendLine("StatsReport_FinalValue".Translate() + ": " + "NotUsable".Translate());
-                return new StatDrawEntry(reportText: resultStringBuilder.ToString(), category: statCategoryDef, label: Label, valueString: "NotUsable".Translate(), displayPriorityWithinCategory: displayPriority - priorityOffset);
-            }
-            resultStringBuilder.AppendLine();
-            resultStringBuilder.AppendLine();
-            resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString("0.##") + " " + "LetterSecond".Translate());
-            if (compAmmo != null && pawnStatsAffectReloading)
-            {
-                Dictionary<string, float> d = AmmoUtility.GetReloadMultipilerFactors(compAmmo.pawn, compAmmo.parent);
-                foreach (string s in d.Keys)
-                {
-                    resultStringBuilder.Append("--");
-                    resultStringBuilder.AppendLine(s.Translate() + ": " + "*" + d[s].ToString("F2"));
-                    resultStringBuilder.AppendLine((s + "_Tips").Translate());
-                    resultStringBuilder.AppendLine();
-                    num *= d[s];
-                }
-                resultStringBuilder.AppendLine();
-                resultStringBuilder.AppendLine("StatsReport_FinalValue".Translate() + ": " + num.ToString("0.##") + " " + "LetterSecond".Translate());
-            }
-            resultStringBuilder.AppendLine();
-            return new StatDrawEntry(reportText: resultStringBuilder.ToString(), category: statCategoryDef, label: Label, valueString: num.ToString("F2"), displayPriorityWithinCategory: displayPriority - priorityOffset);
-        }
+        //private StatDrawEntry AmmunitionCapacityDisp(ref int priorityOffset, CompAmmo compAmmo = null)
+        //{
+        //    priorityOffset--;
+        //    int num = ammunitionCapacity;
+        //    string valueString;
+        //    string Label = "AWL_AmmunitionCapacityLabel".Translate();
+        //    string Text = "AWL_AmmunitionCapacityText".Translate();
+        //    StringBuilder resultStringBuilder = new StringBuilder(Text);
+        //    resultStringBuilder.AppendLine();
+        //    resultStringBuilder.AppendLine();
+        //    resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString());
+        //    if (canLoadExtra)
+        //    {
+        //        resultStringBuilder.Append("--");
+        //        resultStringBuilder.AppendLine("AWL_CanLoadExtra".Translate() + ": (+1)");
+        //        valueString = num.ToString() + "(" + (num + 1).ToString() + ")";
+        //    }
+        //    else 
+        //    {
+        //        valueString = num.ToString();
+        //    }
+        //    resultStringBuilder.AppendLine();
+        //    return new StatDrawEntry(reportText: resultStringBuilder.ToString(), category: statCategoryDef, label: Label, valueString: valueString, displayPriorityWithinCategory: displayPriority - priorityOffset);
+        //}
+        //private StatDrawEntry ReloadingTimeDisp(ref int priorityOffset, CompAmmo compAmmo = null)
+        //{
+        //    priorityOffset--;
+        //    float num = reloadingTime;
+        //    string Label = "AWL_ReloadingTimeLabel".Translate();
+        //    string Text = "AWL_ReloadingTimeText".Translate();
+        //    StringBuilder resultStringBuilder = new StringBuilder(Text);
+        //    if (reloadingTime < 0)
+        //    {
+        //        resultStringBuilder.AppendLine();
+        //        resultStringBuilder.AppendLine();
+        //        resultStringBuilder.Append("--");
+        //        resultStringBuilder.AppendLine("AWL_Disposable".Translate());
+        //        resultStringBuilder.AppendLine();
+        //        resultStringBuilder.AppendLine("StatsReport_FinalValue".Translate() + ": " + "NotUsable".Translate());
+        //        return new StatDrawEntry(reportText: resultStringBuilder.ToString(), category: statCategoryDef, label: Label, valueString: "NotUsable".Translate(), displayPriorityWithinCategory: displayPriority - priorityOffset);
+        //    }
+        //    resultStringBuilder.AppendLine();
+        //    resultStringBuilder.AppendLine();
+        //    resultStringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + num.ToString("0.##") + " " + "LetterSecond".Translate());
+        //    if (compAmmo != null && pawnStatsAffectReloading)
+        //    {
+        //        Dictionary<string, float> d = AmmoUtility.GetReloadMultipilerFactors(compAmmo.pawn, compAmmo.parent);
+        //        foreach (string s in d.Keys)
+        //        {
+        //            resultStringBuilder.Append("--");
+        //            resultStringBuilder.AppendLine(s.Translate() + ": " + "*" + d[s].ToString("F2"));
+        //            resultStringBuilder.AppendLine((s + "_Tips").Translate());
+        //            resultStringBuilder.AppendLine();
+        //            num *= d[s];
+        //        }
+        //        resultStringBuilder.AppendLine();
+        //        resultStringBuilder.AppendLine("StatsReport_FinalValue".Translate() + ": " + num.ToString("0.##") + " " + "LetterSecond".Translate());
+        //    }
+        //    resultStringBuilder.AppendLine();
+        //    return new StatDrawEntry(reportText: resultStringBuilder.ToString(), category: statCategoryDef, label: Label, valueString: num.ToString("F2"), displayPriorityWithinCategory: displayPriority - priorityOffset);
+        //}
         private StatDrawEntry AmmunitionCostDisp(ref int priorityOffset, CompAmmo compAmmo = null)
         {
             priorityOffset--;
@@ -145,14 +171,14 @@ namespace AzWeaponLib.AmmoSystem
             string Text = "AWL_AmmunitionCostText".Translate();
             return new StatDrawEntry(reportText: StatDispUtility.StringBuilderInit(Text, num).ToString(), category: statCategoryDef, label: Label, valueString: ammunitionDef.label, displayPriorityWithinCategory: displayPriority - priorityOffset);
         }
-        private StatDrawEntry MaxBackupAmmoDisp(ref int priorityOffset, CompAmmo compAmmo = null)
-        {
-            priorityOffset--;
-            var num = MaxBackupAmmo;
-            string Label = "AWL_MaxBackupAmmoLabel".Translate();
-            string Text = "AWL_MaxBackupAmmoText".Translate();
-            return new StatDrawEntry(reportText: StatDispUtility.StringBuilderInit(Text, num).ToString(), category: statCategoryDef, label: Label, valueString: num.ToString(), displayPriorityWithinCategory: displayPriority - priorityOffset);
-        }
+        //private StatDrawEntry MaxBackupAmmoDisp(ref int priorityOffset, CompAmmo compAmmo = null)
+        //{
+        //    priorityOffset--;
+        //    var num = MaxBackupAmmo;
+        //    string Label = "AWL_MaxBackupAmmoLabel".Translate();
+        //    string Text = "AWL_MaxBackupAmmoText".Translate();
+        //    return new StatDrawEntry(reportText: StatDispUtility.StringBuilderInit(Text, num).ToString(), category: statCategoryDef, label: Label, valueString: num.ToString(), displayPriorityWithinCategory: displayPriority - priorityOffset);
+        //}
         private StatDrawEntry MoveReloadDisp(ref int priorityOffset, CompAmmo compAmmo = null)
         {
             priorityOffset--;
@@ -167,8 +193,9 @@ namespace AzWeaponLib.AmmoSystem
     {
         public CompProperties_Ammo Props => (CompProperties_Ammo)props;
         public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
-        private int ammunitionCapacity => Props.ammunitionCapacity;
-        private float reloadingTime => Props.reloadingTime;
+        protected int ammunitionCapacity => Mathf.CeilToInt(parent.GetStatValue(AWL_DefOf.AWL_AmmoCapacity));//Props.ammunitionCapacity;
+        protected int backAmmunitionCapacity => Mathf.CeilToInt(parent.GetStatValue(AWL_DefOf.AWL_BackAmmoCapacity) * AWL_Settings.backupAmmoMultipiler);
+        protected float reloadingTime => parent.GetStatValue(AWL_DefOf.AWL_ReloadingTime);
         protected virtual HediffDef hediffDef => AWL_DefOf.AWL_AmmoGizmoDisp;
         protected Hediff hediff;
         public bool NeedReload
@@ -182,10 +209,10 @@ namespace AzWeaponLib.AmmoSystem
         {
             get
             {
-                return (Props.MaxBackupAmmo - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
+                return (backAmmunitionCapacity - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
             }
         }
-        public virtual int maxAmmoNeeded => (Props.MaxBackupAmmo - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
+        public virtual int maxAmmoNeeded => (backAmmunitionCapacity - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
         public bool isEmpty
         {
             get
@@ -201,7 +228,7 @@ namespace AzWeaponLib.AmmoSystem
             {
                 //float manipulation = pawn.health?.capacities?.GetLevel(PawnCapacityDefOf.Manipulation) ?? 1f;
                 //if (manipulation < 0.5f) return false;
-                if (Props.reloadingTime < 0) return false;//一次性
+                if (reloadingTime < 0) return false;//一次性
                 if (!NeedReload) return false;//满弹
                 if (!enableReloadOverall) return false;//弹药架殉爆
                 return !useBackupAmmo || !NoBackupAmmo;
@@ -238,7 +265,7 @@ namespace AzWeaponLib.AmmoSystem
             }
         }
         public virtual bool NoBackupAmmo => Props.ammunitionDef != null && BackupAmmo <= 0 && (pawn?.Faction?.IsPlayer ?? false) && AWL_Settings.enableBackupAmmoSystem;
-        public virtual int MaxReloadTick => Props.reloadingTime.SecondsToTicks() * 3;
+        public virtual int MaxReloadTick => reloadingTime.SecondsToTicks() * 3;
         protected bool infiniteBackupAmmo = false;
         public virtual bool useBackupAmmo => Props.ammunitionDef != null && AWL_Settings.enableAmmoSystem && AWL_Settings.enableBackupAmmoSystem && !infiniteBackupAmmo;
         public override void Notify_Equipped(Pawn pawn)
@@ -282,8 +309,8 @@ namespace AzWeaponLib.AmmoSystem
         public override void Initialize(CompProperties props)
         {
             base.Initialize(props);
-            ammo = Props.ammunitionCapacity;
-            if (Props.reloadingTime < 0)
+            ammo = ammunitionCapacity;
+            if (reloadingTime < 0)
             {
                 autoReload = false;
             }
@@ -293,7 +320,7 @@ namespace AzWeaponLib.AmmoSystem
             if (signal == "AWL_SetMaxAmmo")
             {
                 ReloadToMax();
-                BackupAmmo = Props.MaxBackupAmmo;
+                BackupAmmo = backAmmunitionCapacity;
             }
             else if (signal == "AWL_Undrafted" || signal == "AWL_Released" || signal == "AWL_Reloaded")
             {
@@ -518,7 +545,7 @@ namespace AzWeaponLib.AmmoSystem
                         onHover = null,
                         action = delegate
                         {
-                            BackupAmmo = Props.MaxBackupAmmo;
+                            BackupAmmo = backAmmunitionCapacity;
                         },
                         activateSound = SoundDef.Named("Click"),
                         hotKey = null
@@ -535,13 +562,13 @@ namespace AzWeaponLib.AmmoSystem
                 autoReload = autoReload,
                 autoReloadToggle = AutoReloadToggle,
                 makeReloadJob = TryMakeReloadJob,
-                canAutoReloadToggleNow = Props.reloadingTime > 0,
+                canAutoReloadToggleNow = reloadingTime > 0,
                 canReloadNow = canReloadNow,
                 backupAmmo = !useBackupAmmo ? -1 : BackupAmmo
             };
             if (!canReloadNow)
             {
-                if (Props.reloadingTime < 0)
+                if (reloadingTime < 0)
                 {
                     gizmo_AmmoStatus.failedReason = "AWL_DisposableWeapon".Translate().Colorize(Color.yellow);
                 }
@@ -571,8 +598,9 @@ namespace AzWeaponLib.AmmoSystem
         }
         public virtual int GetReloadTicks()
         {
-            if (!Props.pawnStatsAffectReloading) return GenTicks.SecondsToTicks(reloadingTime);
-            return GenTicks.SecondsToTicks(reloadingTime * AmmoUtility.GetReloadMultipiler(pawn, parent));
+            return GenTicks.SecondsToTicks(reloadingTime);
+            //if (!Props.pawnStatsAffectReloading) return GenTicks.SecondsToTicks(reloadingTime);
+            //return GenTicks.SecondsToTicks(reloadingTime * AmmoUtility.GetReloadMultipiler(pawn, parent));
         }
         /// <summary>
         /// 获取本次job的重复次数

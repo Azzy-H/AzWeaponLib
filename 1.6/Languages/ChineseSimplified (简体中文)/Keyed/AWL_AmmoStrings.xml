@@ -1,32 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+    <!-- EN: Disposable -->
+  <AWL_Disposable>一次性武器</AWL_Disposable>
 
-    <AWL_AmmunitionCapacityLabel>备弹量</AWL_AmmunitionCapacityLabel>
-    <AWL_AmmunitionCapacityText>一个弹匣所装填的弹药量。</AWL_AmmunitionCapacityText>
+    <!-- EN: single reload -->
+  <AWL_SingleShotLoadingLabel>单发装填</AWL_SingleShotLoadingLabel>
+    <!-- EN: This weapon is a single-reload weapon. -->
+  <AWL_SingleShotLoadingText>该武器采用单发装填。</AWL_SingleShotLoadingText>
 
-    <AWL_ReloadingTimeLabel>上弹所需时间</AWL_ReloadingTimeLabel>
-    <AWL_ReloadingTimeText>更换弹匣或单发装填所需秒数。</AWL_ReloadingTimeText>
-    <AWL_Disposable>一次性武器</AWL_Disposable>
+    <!-- EN: ammunition cost -->
+  <AWL_AmmunitionCostLabel>装填消耗物品</AWL_AmmunitionCostLabel>
+    <!-- EN: The amount of ammunition provided by each item. -->
+  <AWL_AmmunitionCostText>每一个物品提供的弹药数。</AWL_AmmunitionCostText>
+    
+    <!-- EN: Ammunition can be stored in the barrel -->
+  <AWL_CanLoadExtra>枪膛可存弹药</AWL_CanLoadExtra>
 
-    <AWL_SingleShotLoadingLabel>单发装填</AWL_SingleShotLoadingLabel>
-    <AWL_SingleShotLoadingText>该武器采用单发装填。</AWL_SingleShotLoadingText>
+    <!-- EN: shooting skill multipiler -->
+  <AWL_ShootingSkillMultipiler>射击技能乘数</AWL_ShootingSkillMultipiler>
+    <!-- EN: The calculation formula for the shooting skill multiplier is 28/(20+ the shooting skill level of the current unit) -->
+  <AWL_ShootingSkillMultipiler_Tips>射击技能乘数的计算公式为28/(20+当前单位的射击技能等级)</AWL_ShootingSkillMultipiler_Tips>
+    <!-- EN: manipulation capability multiplier -->
+  <AWL_ManipulationMultipiler>操作能力乘数</AWL_ManipulationMultipiler>
+    <!-- EN: The calculation formula for the operational capability multiplier is 150%/(50%+ operational capability (up to 200%)). -->
+  <AWL_ManipulationMultipiler_Tips>操作能力乘数的计算公式为150%/(50%+操作能力(最高200%))</AWL_ManipulationMultipiler_Tips>
+    <!-- EN: reload multipiler -->
+  <AWL_ReloadingTimeFactor>装填时间</AWL_ReloadingTimeFactor>
+    <!-- EN: The reload multipiler of this pawn. -->
+  <AWL_ReloadingTimeFactor_Tips>该单位的装填时间。</AWL_ReloadingTimeFactor_Tips>
 
-    <AWL_AmmunitionCostLabel>装填消耗物品</AWL_AmmunitionCostLabel>
-    <AWL_AmmunitionCostText>每一个物品提供的弹药数。</AWL_AmmunitionCostText>
-
-    <AWL_MaxBackupAmmoLabel>最大备弹数</AWL_MaxBackupAmmoLabel>
-    <AWL_MaxBackupAmmoText>该武器最大备用弹匣。</AWL_MaxBackupAmmoText>
-    <AWL_CanLoadExtra>枪膛可存弹药</AWL_CanLoadExtra>
-
-    <AWL_ShootingSkillMultipiler>射击技能乘数</AWL_ShootingSkillMultipiler>
-    <AWL_ShootingSkillMultipiler_Tips>射击技能乘数的计算公式为28/(20+当前单位的射击技能等级)</AWL_ShootingSkillMultipiler_Tips>
-    <AWL_ManipulationMultipiler>操作能力乘数</AWL_ManipulationMultipiler>
-    <AWL_ManipulationMultipiler_Tips>操作能力乘数的计算公式为150%/(50%+操作能力(最高200%))</AWL_ManipulationMultipiler_Tips>
-    <AWL_ReloadingTimeFactor>装填时间</AWL_ReloadingTimeFactor>
-    <AWL_ReloadingTimeFactor_Tips>该单位的装填时间。</AWL_ReloadingTimeFactor_Tips>
-
-    <AWL_MoveReloadLabel>移动装填</AWL_MoveReloadLabel>
-    <AWL_MoveReloadText>该武器可以在移动中装填。</AWL_MoveReloadText>
+    <!-- EN: mobile reload -->
+  <AWL_MoveReloadLabel>移动装填</AWL_MoveReloadLabel>
+    <!-- EN: This weapon can be reloaded while moving. -->
+  <AWL_MoveReloadText>该武器可以在移动中装填。</AWL_MoveReloadText>
 
 </LanguageData>
