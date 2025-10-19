@@ -33,6 +33,11 @@ namespace AzWeaponLib.AmmoSystem
             {
                 return 0f;
             }
+            float baseValueFor = GetBaseValueFor(req);
+            if (baseValueFor < 0)
+            {
+                return baseValueFor;
+            }
             if (req.Thing != null)
             {
                 return base.GetValueUnfinalized(req, applyPostProcess) * AmmoUtility.GetReloadMultipiler(GetCurrentWeaponUser(req.Thing), req.Thing as ThingWithComps);
@@ -46,6 +51,11 @@ namespace AzWeaponLib.AmmoSystem
             if (baseValueFor != 0f || stat.showZeroBaseValue)
             {
                 stringBuilder.AppendLine("StatsReport_BaseValue".Translate() + ": " + stat.ValueToString(baseValueFor, numberSense));
+            }
+            if (baseValueFor < 0)
+            {
+                stringBuilder.AppendLine("AWL_Disposable".Translate());
+                return stringBuilder.ToString();
             }
             GetOffsetsAndFactorsExplanation(req, stringBuilder, baseValueFor);
             if (req.Thing != null && (req.Thing.def.GetCompProperties<CompProperties_Ammo>()?.pawnStatsAffectReloading ?? false))
