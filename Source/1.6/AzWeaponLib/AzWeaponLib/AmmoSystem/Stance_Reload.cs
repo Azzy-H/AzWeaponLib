@@ -16,5 +16,6 @@ namespace AzWeaponLib.AmmoSystem
             startedTick = Find.TickManager.TicksGame;
             this.focusTarg = focusTarg;
         }
+        public Stance_Reload() : base() { }
     }
 }
