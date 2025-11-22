@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|e:\\steamlibrary\\steamapps\\common\\rimworld\\mods\\azweaponlib\\source\\1.6\\azweaponlib\\azweaponlib\\ammosystem\\stance_reload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\ammosystem\\stance_reload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\specialprojectile\\piercingprojectile\\piercingprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\specialprojectile\\piercingprojectile\\piercingprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\specialprojectile\\piercingprojectile\\patch_projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\specialprojectile\\piercingprojectile\\patch_projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|e:\\steamlibrary\\steamapps\\common\\rimworld\\mods\\azweaponlib\\source\\1.6\\azweaponlib\\azweaponlib\\ammosystem\\compammo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\ammosystem\\compammo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\specialprojectile\\electricarc\\electricarc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\specialprojectile\\electricarc\\electricarc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\ammosystem\\gizmo_ammostatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\ammosystem\\gizmo_ammostatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\ammosystem\\stance_reload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|solutionrelative:azweaponlib\\ammosystem\\stance_reload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8EC426F2-A3EF-456A-8C67-20338DD2E962}|AzWeaponLib\\AzWeaponLib.csproj|E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\azweaponlib\\ammosystem\\statworker_reloadtime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,24 +90,73 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Patch_Projectile.cs",
+              "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\Patch_Projectile.cs",
+              "RelativeDocumentMoniker": "AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\Patch_Projectile.cs",
+              "ToolTip": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\Patch_Projectile.cs",
+              "RelativeToolTip": "AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\Patch_Projectile.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAADwvxEAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T04:04:58.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "PiercingProjectile.cs",
+              "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\PiercingProjectile.cs",
+              "RelativeDocumentMoniker": "AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\PiercingProjectile.cs",
+              "ToolTip": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\PiercingProjectile.cs*",
+              "RelativeToolTip": "AzWeaponLib\\SpecialProjectile\\PiercingProjectile\\PiercingProjectile.cs*",
+              "ViewState": "AgIAACQAAAAAAAAAAAAIwDgAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T04:03:32.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ElectricArc.cs",
+              "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\SpecialProjectile\\ElectricArc\\ElectricArc.cs",
+              "RelativeDocumentMoniker": "AzWeaponLib\\SpecialProjectile\\ElectricArc\\ElectricArc.cs",
+              "ToolTip": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\SpecialProjectile\\ElectricArc\\ElectricArc.cs",
+              "RelativeToolTip": "AzWeaponLib\\SpecialProjectile\\ElectricArc\\ElectricArc.cs",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAqwKoAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T03:57:27.999Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Gizmo_AmmoStatus.cs",
+              "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\Gizmo_AmmoStatus.cs",
+              "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\Gizmo_AmmoStatus.cs",
+              "ToolTip": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\Gizmo_AmmoStatus.cs",
+              "RelativeToolTip": "AzWeaponLib\\AmmoSystem\\Gizmo_AmmoStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T02:06:21.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Stance_Reload.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\Stance_Reload.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\Stance_Reload.cs",
               "ToolTip": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\Stance_Reload.cs",
               "RelativeToolTip": "AzWeaponLib\\AmmoSystem\\Stance_Reload.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T01:48:56.453Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-18T01:48:56.453Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "AmmoUtility.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\AmmoUtility.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\AmmoUtility.cs",
@@ -103,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "StatWorker_ReloadTime.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\StatWorker_ReloadTime.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\StatWorker_ReloadTime.cs",
@@ -115,7 +180,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
+              "Title": "CompAmmo.cs",
+              "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
+              "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
+              "ToolTip": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
+              "RelativeToolTip": "AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAmwDQAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T15:07:11.087Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Command_VerbTargetInvisible.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\MultiVerb\\Command_VerbTargetInvisible.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\MultiVerb\\Command_VerbTargetInvisible.cs",
@@ -127,20 +205,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CompAmmo.cs",
-              "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
-              "RelativeDocumentMoniker": "AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
-              "ToolTip": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
-              "RelativeToolTip": "AzWeaponLib\\AmmoSystem\\CompAmmo.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAiwIkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T15:07:11.087Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "SignalUtility.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\SignalUtility.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\SignalUtility.cs",
@@ -152,7 +217,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "Patch_LordToil_HateChant.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\PatchMisc\\Patch_LordToil_HateChant.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\PatchMisc\\Patch_LordToil_HateChant.cs",
@@ -164,7 +229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "Comp_MultiVerb.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\MultiVerb\\Comp_MultiVerb.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\MultiVerb\\Comp_MultiVerb.cs",
@@ -176,7 +241,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "HediffComp_MultiVerbSelect.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\MultiVerb\\HediffComp_MultiVerbSelect.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\MultiVerb\\HediffComp_MultiVerbSelect.cs",
@@ -188,7 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "Patch_VerbTracker.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\MultiVerb\\Patch_VerbTracker.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\MultiVerb\\Patch_VerbTracker.cs",
@@ -200,7 +265,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "NonPublicFields.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\NonPublicFields.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\NonPublicFields.cs",
@@ -212,7 +277,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "IStatable.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\IStatable.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\IStatable.cs",
@@ -224,7 +289,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "AWL_DefOf.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\AWL_DefOf.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\AWL_DefOf.cs",
@@ -236,7 +301,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "PatchStatsReportUtility.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\PatchMisc\\PatchStatsReportUtility.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\PatchMisc\\PatchStatsReportUtility.cs",
@@ -248,7 +313,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "Patch_Find.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\PatchMisc\\Patch_Find.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\PatchMisc\\Patch_Find.cs",
@@ -260,7 +325,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "PatchMain.cs",
               "DocumentMoniker": "E:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AzWeaponLib\\Source\\1.6\\AzWeaponLib\\AzWeaponLib\\PatchMisc\\PatchMain.cs",
               "RelativeDocumentMoniker": "AzWeaponLib\\PatchMisc\\PatchMain.cs",

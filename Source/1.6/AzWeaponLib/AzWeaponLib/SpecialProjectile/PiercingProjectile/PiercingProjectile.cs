@@ -15,7 +15,7 @@ namespace AzWeaponLib.SpecialProjectile
         public int penetratingPower = 255;
         public bool reachMaxRangeAlways;
         public float? rangeOverride = null;
-        public float minDistanceToAffectAlly = 3.9f;
+        public float minDistanceToAffectAlly = 5f;
         public float minDistanceToAffectAny = 1.9f;
         public int penetratingPowerCostByShield = 255;
         public bool alwaysHitStandingEnemy = false;
@@ -65,10 +65,7 @@ namespace AzWeaponLib.SpecialProjectile
         }
         private int penetratingPowerLeft;
         public int PenetratingPowerLeft => penetratingPowerLeft;
-        private Vector3 prevPosition;
         private HashSet<Thing> hitHashSet = new HashSet<Thing>();
-        //private List<Thing> hitList;
-        private Vector3 startPosition;
         public override bool AnimalsFleeImpact => true;
         public static readonly HashSet<AltitudeLayer> altitudeLayersBlackList = new HashSet<AltitudeLayer>
     {
@@ -103,8 +100,6 @@ namespace AzWeaponLib.SpecialProjectile
                 return;
             }
             penetratingPowerLeft = piercingProjectileDef.penetratingPower;
-            prevPosition = new Vector3(origin.x, 0f, origin.z);
-            startPosition = new Vector3(origin.x, 0f, origin.z);
             if (piercingProjectileDef.rangeOverride != null)
             {
                 SetRangeTo(piercingProjectileDef.rangeOverride.Value);
@@ -163,79 +158,6 @@ namespace AzWeaponLib.SpecialProjectile
             }
             throw new Exception("Couldn'hitThing determine max range for " + Label);
         }
-        //public override void Tick()
-        //{
-        //    if (Destroyed) return;
-        //    //if (this.IsHashIntervalTick(piercingProjectileDef.tickDamageRate))
-        //    //{
-        //    //    HitThingsInterval();
-        //    //}
-        //    if (Destroyed) return;
-        //    base.Tick();
-        //}
-        /// <summary>
-        /// 每隔一段时间计算一次结果
-        /// 逻辑挪到Postfix_CheckForFreeIntercept了
-        /// </summary>
-        //private void HitThingsInterval()
-        //{
-        //    if (Map == null)
-        //    {
-        //        Log.Message("NULL map");
-        //        return;
-        //    }
-        //    if (Map.thingGrid == null)
-        //    {
-        //        Log.Message("NULL thingGrid");
-        //        return;
-        //    }
-        //    HashSet<IntVec3> cellsToHit = MakeProjectileLine(prevPosition, DrawPos);
-        //    prevPosition = DrawPos;
-        //    foreach (IntVec3 item in cellsToHit)
-        //    {
-        //        if (Map == null)
-        //        {
-        //            Log.Message("NULL map1");
-        //            return;
-        //        }
-        //        ThingGrid thingGrid = Map.thingGrid;
-        //        if (thingGrid == null)
-        //        {
-        //            Log.Message("NULL thingGrid1");
-        //            return;
-        //        }
-        //        List<Thing> list = Map.thingGrid.ThingsListAt(item);
-        //        if (list == null)
-        //        {
-        //            Log.Message("NULL list");
-        //            return;
-        //        }
-        //        for (int num = list.Count - 1; num >= 0; num--)
-        //        {
-        //            if (Destroyed) return;
-        //            Impact(list[num]);
-        //        }
-        //    }
-        //}
-        /// <summary>
-        /// 获取经过的格子
-        /// </summary>
-        /// <param name="prevPosition"></param>
-        /// <param name="curPosition"></param>
-        /// <returns></returns>
-        //private HashSet<IntVec3> MakeProjectileLine(Vector3 prevPosition, Vector3 curPosition)
-        //{
-            
-        //    HashSet<IntVec3> result = new ShootLine(prevPosition.ToIntVec3(), curPosition.ToIntVec3()).Points().ToHashSet();
-        //    if (piercingProjectileDef.debugMode)
-        //    {
-        //        foreach (IntVec3 item in result)
-        //        {
-        //            Map.debugDrawer.FlashCell(item, 0.5f);
-        //        }
-        //    }
-        //    return result;
-        //}
         /// <summary>
         /// 对Thing的互动总逻辑
         /// </summary>
@@ -276,7 +198,7 @@ namespace AzWeaponLib.SpecialProjectile
             if (intendedTarget.Thing == thing) return true;//目标判定
             if (thing == null) return false;//击中地面判定
             if (altitudeLayersBlackList.Contains(thing.def.altitudeLayer)) return false;//黑名单排除
-            if (thing.Position.DistanceToSquared(startPosition.ToIntVec3()) < piercingProjectileDef.minDistanceToAffectAny * piercingProjectileDef.minDistanceToAffectAny) return false;//全局安全距离判定
+            if (thing.Position.DistanceToSquared(origin.ToIntVec3()) < piercingProjectileDef.minDistanceToAffectAny * piercingProjectileDef.minDistanceToAffectAny) return false;//全局安全距离判定
             float chanceToHit = 0f;
             if (thing is Pawn pawn)
             {
@@ -288,13 +210,13 @@ namespace AzWeaponLib.SpecialProjectile
                 }
                 if (launcher != null && pawn.Faction != null && launcher.Faction != null && !pawn.Faction.HostileTo(launcher.Faction))//友军判定
                 {
-                    if (preventFriendlyFire || pawn.Position.DistanceToSquared(startPosition.ToIntVec3()) < (piercingProjectileDef.minDistanceToAffectAlly * piercingProjectileDef.minDistanceToAffectAlly))
+                    if (preventFriendlyFire || pawn.Position.DistanceToSquared(origin.ToIntVec3()) < (piercingProjectileDef.minDistanceToAffectAlly * piercingProjectileDef.minDistanceToAffectAlly))
                     {
                         chanceToHit = 0f;
                     }
                     else
                     {
-                        chanceToHit *= Find.Storyteller.difficulty.friendlyFireChanceFactor;
+                        chanceToHit *= Find.Storyteller.difficulty.friendlyFireChanceFactor;// * VerbUtility.InterceptChanceFactorFromDistance(origin, pawn.Position);
                     }
                 }
                 else if (pawnStanding && piercingProjectileDef.alwaysHitStandingEnemy)//敌军判定
@@ -419,8 +341,6 @@ namespace AzWeaponLib.SpecialProjectile
         {
             base.ExposeData();
             Scribe_Values.Look(ref penetratingPowerLeft, "penetratingPowerLeft", 1);
-            Scribe_Values.Look(ref prevPosition, "prevPosition");
-            Scribe_Values.Look(ref startPosition, "startPosition");
             Scribe_Collections.Look(ref hitHashSet, "hitHashSet", LookMode.Reference);
             //if (Scribe.mode == LoadSaveMode.Saving)
             //{
