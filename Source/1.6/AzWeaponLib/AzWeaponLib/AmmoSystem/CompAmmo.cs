@@ -21,18 +21,16 @@ namespace AzWeaponLib.AmmoSystem
     public class CompProperties_Ammo : CompProperties
     {
         public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
+        [MustTranslate]
+        public string gizmoLabel;
+        [MustTranslate]
+        public string gizmoTip;
         public bool singleShotLoading = false;
-        [Obsolete]
-        public int ammunitionCapacity = -1;
         public bool canLoadExtra = false;
-        [Obsolete]
-        public float reloadingTime = -1f;
         public bool pawnStatsAffectReloading = true;
         public ThingDef ammunitionDef;
         public bool exhaustable;
         public ThingDef exhaustedDef;
-        [Obsolete]
-        protected int maxBackupAmmo = -1;
         public int ammoCountPerAmmunitionBox = 3;
         public bool canMoveWhenReload = false;
         private const int displayPriority = 300;
@@ -44,30 +42,6 @@ namespace AzWeaponLib.AmmoSystem
         }
         public override void ResolveReferences(ThingDef parentDef)
         {
-            if (ammunitionCapacity > 1)
-            {
-                Log.Warning(parentDef.ToString() + " has Obsolete field  \"ammunitionCapacity\", which is replaced by stats.");
-                StatModifier statModifier = new StatModifier();
-                statModifier.stat = AWL_DefOf.AWL_AmmoCapacity;
-                statModifier.value = ammunitionCapacity;
-                parentDef.statBases.Add(statModifier);
-            }
-            if (maxBackupAmmo > 0)
-            {
-                Log.Warning(parentDef.ToString() + " has Obsolete field  \"maxBackupAmmo\", which is replaced by stats.");
-                StatModifier statModifier = new StatModifier();
-                statModifier.stat = AWL_DefOf.AWL_BackAmmoCapacity;
-                statModifier.value = maxBackupAmmo;
-                parentDef.statBases.Add(statModifier);
-            }
-            if (reloadingTime > 0)
-            {
-                Log.Warning(parentDef.ToString() + " has Obsolete field  \"reloadingTime\", which is replaced by stats.");
-                StatModifier statModifier = new StatModifier();
-                statModifier.stat = AWL_DefOf.AWL_ReloadingTime;
-                statModifier.value = reloadingTime;
-                parentDef.statBases.Add(statModifier);
-            }
             statCategoryDef = StatCategoryDefOf.Weapon_Ranged;
         }
         public override IEnumerable<StatDrawEntry> SpecialDisplayStats(StatRequest req)
@@ -557,6 +531,8 @@ namespace AzWeaponLib.AmmoSystem
         {
             Gizmo_AmmoStatus gizmo_AmmoStatus = new Gizmo_AmmoStatus()
             {
+                gizmoLabel = Props.gizmoLabel ?? "AWL_AmmunitionGizmoLabel".Translate(),
+                gizmoTip = Props.gizmoTip ?? "AWL_AmmunitionGizmoTip".Translate(),
                 ammunitionCapacity = ammunitionCapacity,
                 amunitionRemained = ammo,
                 autoReload = autoReload,
@@ -564,7 +540,7 @@ namespace AzWeaponLib.AmmoSystem
                 makeReloadJob = TryMakeReloadJob,
                 canAutoReloadToggleNow = reloadingTime > 0,
                 canReloadNow = canReloadNow,
-                backupAmmo = !useBackupAmmo ? -1 : BackupAmmo
+                backupAmmo = !useBackupAmmo ? -1 : BackupAmmo,
             };
             if (!canReloadNow)
             {

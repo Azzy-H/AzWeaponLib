@@ -14,6 +14,8 @@ namespace AzWeaponLib.AmmoSystem
     [StaticConstructorOnStartup]
     public class Gizmo_AmmoStatus : Gizmo
     {
+        public string gizmoLabel;
+        public string gizmoTip;
         public int ammunitionCapacity;
         public int amunitionRemained;
         public bool autoReload;
@@ -55,7 +57,7 @@ namespace AzWeaponLib.AmmoSystem
             Rect rect3 = rect2;
             rect3.height = rect.height / 2f;//上方空白占1/2
             Text.Font = GameFont.Tiny;
-            Widgets.Label(rect3, "AWL_AmmunitionGizmoLabel".Translate());//上方说明
+            Widgets.Label(rect3, gizmoLabel);//上方说明
             Rect rect4 = rect2;
             rect4.yMin = rect2.y + rect2.height / 2f;//下方条占1/2
             Widgets.FillableBar(rect4, FillPercent, FullAmmoBarTex, EmptyAmmoBarTex, doBorder: false);
@@ -63,7 +65,7 @@ namespace AzWeaponLib.AmmoSystem
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(rect4, GetInfoDispString());//数字显示
             Text.Anchor = TextAnchor.UpperLeft;
-            TooltipHandler.TipRegion(rect2, "AWL_AmmunitionGizmoTip".Translate());
+            TooltipHandler.TipRegion(rect2, gizmoTip);
 
             Rect rectButtonReload = rect3;
             rectButtonReload.width = rectButtonReload.height;

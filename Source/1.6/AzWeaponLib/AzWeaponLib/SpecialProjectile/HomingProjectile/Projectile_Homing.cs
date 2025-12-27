@@ -79,7 +79,7 @@ namespace AzWeaponLib.SpecialProjectile
             }
             comps = (List<ThingComp>)(NonPublicFields.ThingWithComps_comps.GetValue(this));
         }
-        public float GetHitChance(Thing thing)
+        public virtual float GetHitChance(Thing thing)
         {
             float chance = HomingDef.hitChance;
 
