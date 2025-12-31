@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
-namespace AzWeaponLib
+namespace AzWeaponLib.PatchMisc
 {
     [HarmonyPatch(typeof(ThingDef))]
-    internal class PatchThingDef
+    internal class Patch_ThingDef
     {
         public static readonly HashSet<int> verbPriorities = new HashSet<int>()
         {

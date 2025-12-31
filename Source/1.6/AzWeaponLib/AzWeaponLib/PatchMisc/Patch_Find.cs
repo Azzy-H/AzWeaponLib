@@ -9,11 +9,11 @@ using Verse;
 
 namespace AzWeaponLib.PatchMisc
 {
-    //[HarmonyPatch(typeof(Find))]
+    [HarmonyPatch(typeof(Find))]
     internal class Patch_Find
     {
-        //[HarmonyPatch("ClearCache")]
-        //[HarmonyPostfix]
+        [HarmonyPatch("ClearCache")]
+        [HarmonyPostfix]
         internal static void Postfix_ClearCache()
         {
             Patch_VerbTracker.MultiVerbDict.Clear();

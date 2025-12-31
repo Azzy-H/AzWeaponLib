@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Verse;
 
-namespace AzWeaponLib
+namespace AzWeaponLib.AmmoSystem
 {
     [HarmonyPatch(typeof(Pawn_DraftController))]
     internal class Patch_Pawn_DraftController

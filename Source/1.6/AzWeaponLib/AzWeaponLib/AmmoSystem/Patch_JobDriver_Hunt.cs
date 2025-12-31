@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Verse;
 using Verse.AI;
 
-namespace AzWeaponLib
+namespace AzWeaponLib.AmmoSystem
 {
     [HarmonyPatch(typeof(JobDriver_Hunt))]
     internal static class Patch_JobDriver_Hunt

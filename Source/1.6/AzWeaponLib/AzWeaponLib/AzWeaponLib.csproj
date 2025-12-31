@@ -98,7 +98,7 @@
     <Compile Include="MultiVerb\Patch_VerbTracker.cs" />
     <Compile Include="NonPublicFields.cs" />
     <Compile Include="PatchMisc\PatchMain.cs" />
-    <Compile Include="PatchMisc\PatchStatsReportUtility.cs" />
+    <Compile Include="PatchMisc\Patch_ThingDef.cs" />
     <Compile Include="AmmoSystem\Patch_Pawn_StanceTracker.cs" />
     <Compile Include="PatchMisc\Patch_Find.cs" />
     <Compile Include="PatchMisc\Patch_LordToil_HateChant.cs" />
