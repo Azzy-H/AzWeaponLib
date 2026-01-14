@@ -47,7 +47,7 @@ namespace AzWeaponLib.AmmoSystem
         {
             return 140f;
         }
-        protected virtual float FillPercent => amunitionRemained / Mathf.Max(1f, ammunitionCapacity);
+        protected virtual float FillPercent => Mathf.Min(1, amunitionRemained / Mathf.Max(1f, ammunitionCapacity));
 
         public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
         {

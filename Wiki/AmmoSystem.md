@@ -69,13 +69,6 @@
   ```HDWeapon.CompAmmoSourceable```
 ## 注意事项
 ***
-  下列字段已经废弃，若使用会自动兼容为statBases
-  |字段|含义|
-  |:--:|:--:|
-  |ammunitionCapacity|弹匣容量|
-  |maxBackupAmmo|最大备弹数|
-  |reloadingTime|装填时间，单位为秒|
-
   gizmo绘制是通过hediff实现的，若有mod清除了对应hediff将会使得显示失效，但不影响功能，重新装备也能修复。
   考虑到武器掉落清除hediff曾导致邪教徒吟诵袭击发生递归错误（本mod已修复），如遇到相似情况可向我汇报修复。
   
