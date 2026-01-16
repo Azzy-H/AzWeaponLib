@@ -17,6 +17,8 @@ namespace AzWeaponLib.SpecialProjectile
         public ThingDef extraProjectile;
         public float speedChangePerTick;
         public FloatRange? speedRangeOverride;
+        public float homingRotateErrorRange = -1f;
+        public int recalculateRotateErrorTick = -1;
         public float SpeedChangeTilesPerTickOverride => speedChangePerTick / 100f;
         public FloatRange SpeedRangeTilesPerTickOverride => speedRangeOverride.Value * 0.01f;
     }

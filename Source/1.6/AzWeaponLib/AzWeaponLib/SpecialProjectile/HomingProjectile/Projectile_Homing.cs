@@ -67,6 +67,8 @@ namespace AzWeaponLib.SpecialProjectile
             {
                 curSpeed = initSpeedBase3 * HomingDef.SpeedRangeTilesPerTickOverride.RandomInRange;
             }
+            //初始误差
+            homingRotateError = Rand.Range(-HomingDef.homingRotateErrorRange, HomingDef.homingRotateErrorRange);
             ticksToImpact = int.MaxValue;
             lifetime = int.MaxValue;
             ReflectInit();
@@ -141,6 +143,7 @@ namespace AzWeaponLib.SpecialProjectile
         public Vector3 curSpeed;
         public override Quaternion ExactRotation => Quaternion.LookRotation(curSpeed);
         public bool homing = true;
+        public float homingRotateError;
         public virtual void MovementTick()
         {
             Vector3 expectPosition = ExactPosition + curSpeed;
@@ -148,6 +151,15 @@ namespace AzWeaponLib.SpecialProjectile
             Vector3 distance = (intendedTarget.Cell.ToVector3() - ExactPosition).Yto0();//距离目标的向量
             if (homing)
             {
+                //误差重标定
+                if (HomingDef.recalculateRotateErrorTick > 0 && this.IsHashIntervalTick(HomingDef.recalculateRotateErrorTick))
+                {
+                    homingRotateError = Rand.Range(-HomingDef.homingRotateErrorRange, HomingDef.homingRotateErrorRange);
+                }
+                if (HomingDef.homingRotateErrorRange > 0)
+                {
+                    distance = distance.RotatedBy(homingRotateError);
+                }
                 Vector3 vecDiffNorm = distance.normalized - curSpeed.normalized;
                 if (vecDiffNorm.sqrMagnitude >= 1.414f)//distance和当前速度夹角大于90度
                 {

@@ -78,10 +78,12 @@
     </projectile>
     <modExtensions>
       <li Class="AzWeaponLib.SpecialProjectile.HomingProjectileDef">
-        <speedRangeOverride>28~32</speedRangeOverride>
+        <speedRangeOverride>24~36</speedRangeOverride>
         <hitChance>1</hitChance>
         <homingSpeed>0.07</homingSpeed>
-        <initRotateAngle>45</initRotateAngle>
+        <initRotateAngle>15</initRotateAngle>
+        <homingRotateErrorRange>15</homingRotateErrorRange>
+        <recalculateRotateErrorTick>20</recalculateRotateErrorTick>
         <speedChangePerTick>0.4</speedChangePerTick>
         <proximityFuseRange>1.9</proximityFuseRange><!--近炸距离，大于0为近炸投射物-->
         <destroyTicksAfterLosingTrack>0~2</destroyTicksAfterLosingTrack>
@@ -156,6 +158,8 @@
   |hitChance|该导弹能直接击中目标的概率（高角为0）|
   |homingSpeed|导弹调整角度的速率，若大于1会震荡|
   |initRotateAngle|导弹初始偏转角|
+  |homingRotateErrorRange|导弹寻踪最大误差角，用于实现移动过程中的折线，过大可能导致无法击中目标，缺省为禁用|
+  |recalculateRotateErrorTick|导弹重寻踪时间，配合homingRotateErrorRange实现移动过程中的折线，缺省为禁用|
   |proximityFuseRange|近炸范围（通常用于高角或是和下方锥形爆炸配合，若有数值则击中目标的概率可简单视为1）|
   |destroyTicksAfterLosingTrack|丢失目标后的自毁时间（当目标和当前方向的夹角大于90°时丢失目标）|
   |extraProjectile|朝当前格或者击中目标射击额外的投射物，用于生成特殊效果（如电弧导弹或者气体导弹）|
