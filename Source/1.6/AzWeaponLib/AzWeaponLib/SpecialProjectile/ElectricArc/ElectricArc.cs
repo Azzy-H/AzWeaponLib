@@ -168,7 +168,8 @@ namespace AzWeaponLib.SpecialProjectile
                     List<Thing> thingList = c.GetThingList(Map);
                     for (int j = 0; j < thingList.Count; j++)
                     {
-                        if ((thingList[j] is Pawn && (thingList[j].Faction != launcher?.Faction || thingList[j].Faction == null || (!preventFriendlyFire && !Rand.Chance(Find.Storyteller.difficulty.friendlyFireChanceFactor)) || i == 0)) ||
+
+                        if ((thingList[j] is Pawn pawn && (launcher == null || pawn.Faction == null || launcher.Faction == null || pawn.Faction.HostileTo(launcher.Faction) || (!preventFriendlyFire && !Rand.Chance(Find.Storyteller.difficulty.friendlyFireChanceFactor)) || i == 0)) ||
                             (thingList[j] is Building && (thingList[j].HostileTo(this) || i == 0)))
                         {
                             if (victims.Contains(thingList[j]))
