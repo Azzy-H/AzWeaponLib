@@ -23,4 +23,7 @@
     <!-- EN: Remove the target locked on the turret -->
   <AWL_StopForceTargetDesc>清除炮台锁定的目标</AWL_StopForceTargetDesc>
 
+  <AWL_SwitchToggle>自动切换</AWL_SwitchToggle>
+  <AWL_SwitchToggleDesc>允许此武器自动切换模式</AWL_SwitchToggleDesc>
+
 </LanguageData>

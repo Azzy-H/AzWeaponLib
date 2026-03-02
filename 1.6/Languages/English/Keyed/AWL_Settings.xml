@@ -3,21 +3,19 @@
 <LanguageData>
     <AWL_Mod>Azzy's Weapon Library</AWL_Mod>
 
-    <Reset>Reset to default</Reset>
+    <AWL_EnableAmmoSystem>Use ammunition system</AWL_EnableAmmoSystem>
+    <AWL_EnableTheAmmoSystem>When checked, the ammunition system is enabled.</AWL_EnableTheAmmoSystem>
 
-    <EnableAmmoSystem>Use ammunition system</EnableAmmoSystem>
-    <EnableTheAmmoSystem>When checked, the ammunition system is enabled.</EnableTheAmmoSystem>
+    <AWL_EnableBackupAmmoSystemLabel>Use the backup ammunition system</AWL_EnableBackupAmmoSystemLabel>
+    <AWL_EnableBackupAmmoSystemDesc>When checked, some weapons will need to be loaded by resources.</AWL_EnableBackupAmmoSystemDesc>
 
-    <EnableBackupAmmoSystemLabel>Use the backup ammunition system</EnableBackupAmmoSystemLabel>
-    <EnableBackupAmmoSystemDesc>When checked, some weapons will need to be loaded by resources.</EnableBackupAmmoSystemDesc>
+    <AWL_BackupAmmoMultipilerLabel>Global multiplier for backup ammo capacity</AWL_BackupAmmoMultipilerLabel>
+    <AWL_BackupAmmoMultipilerDesc>The backup ammo capacity limit of all weapons using the backup ammo system will be multiplied by this value.</AWL_BackupAmmoMultipilerDesc>
 
-    <BackupAmmoMultipilerLabel>Global multiplier for backup ammo capacity</BackupAmmoMultipilerLabel>
-    <BackupAmmoMultipilerDesc>The backup ammo capacity limit of all weapons using the backup ammo system will be multiplied by this value.</BackupAmmoMultipilerDesc>
+    <AWL_OnlyShowAmmoGizmoWhenSelectedOneThingLabel>Ammunition gizmo is displayed only when a pawn is selected</AWL_OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
+    <AWL_OnlyShowAmmoGizmoWhenSelectedOneThingDesc>Ammunition gizmo is displayed only when a pawn is selected.</AWL_OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
 
-    <OnlyShowAmmoGizmoWhenSelectedOneThingLabel>Ammunition gizmo is displayed only when a pawn is selected</OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
-    <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>Ammunition gizmo is displayed only when a pawn is selected.</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
-
-    <RandomWeaponModeForNonPlayerPawnLabel>Non-player controled pawn randomly switch weapon modes</RandomWeaponModeForNonPlayerPawnLabel>
-    <RandomWeaponModeForNonPlayerPawnDesc>After activation, if a controled pawn is equipped with weapons of multiple modes, it will automatically switch to one of the modes.\n\nWhen turned off, only the default mode is used.</RandomWeaponModeForNonPlayerPawnDesc>
+    <AWL_RandomWeaponModeForNonPlayerPawnLabel>Non-player controled pawn randomly switch weapon modes</AWL_RandomWeaponModeForNonPlayerPawnLabel>
+    <AWL_RandomWeaponModeForNonPlayerPawnDesc>After activation, if a controled pawn is equipped with weapons of multiple modes, it will automatically switch to one of the modes.\n\nWhen turned off, only the default mode is used.</AWL_RandomWeaponModeForNonPlayerPawnDesc>
 
 </LanguageData>

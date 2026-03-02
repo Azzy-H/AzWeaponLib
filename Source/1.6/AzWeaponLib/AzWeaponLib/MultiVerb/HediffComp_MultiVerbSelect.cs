@@ -17,11 +17,14 @@ namespace AzWeaponLib.MultiVerb
             compClass = typeof(HediffComp_MultiVerbSelect);
         }
     }
+    [StaticConstructorOnStartup]
     public class HediffComp_MultiVerbSelect : HediffComp
     {
+        public static readonly Texture autoSwitchTex = ContentFinder<Texture2D>.Get("MultiVerb/modeSwitch");
+        private const int TickInterval = 600;
+        private const int TickIntervalInCombat = 15;
         private bool compShouldRemove = false;
         public override bool CompShouldRemove => compShouldRemove;
-        private int verbIndexCache = 0;
         private CompMultiVerb Eq_CompInt;
         public CompMultiVerb Eq_Comp
         { 
@@ -40,16 +43,29 @@ namespace AzWeaponLib.MultiVerb
             if (CompMultiVerb.GlobalDisabled) yield break;
             Command_Action Verb_Switch = new Command_Action
             {
-                icon = ContentFinder<Texture2D>.Get(Eq_Comp.Props.gizmoInfos[verbIndexCache].iconPath),
-                defaultLabel = Eq_Comp.Props.gizmoInfos[verbIndexCache].defaultLabel,
-                defaultDesc = Eq_Comp.Props.gizmoInfos[verbIndexCache].defaultDesc,
+                icon = ContentFinder<Texture2D>.Get(Eq_Comp.Props.verbInfos[Eq_Comp.verbIndex].iconPath),
+                defaultLabel = Eq_Comp.Props.verbInfos[Eq_Comp.verbIndex].defaultLabel,
+                defaultDesc = Eq_Comp.Props.verbInfos[Eq_Comp.verbIndex].defaultDesc,
                 onHover = null,
                 activateSound = SoundDef.Named("Click"),
-                groupKey = 85486589 + verbIndexCache,
+                groupKey = 85486589 + Eq_Comp.verbIndex,
                 hotKey = null,
                 action = SwitchToNextVerb
             };
             yield return Verb_Switch;
+            if(!Eq_Comp.Props.CanSwitchVerbAutomatically) yield break;
+            Command_Toggle Verb_Switch_Toggle = new Command_Toggle
+            {
+                icon = autoSwitchTex,
+                defaultLabel = "AWL_SwitchToggle".Translate(),
+                defaultDesc = "AWL_SwitchToggleDesc".Translate(),
+                activateSound = SoundDef.Named("Click"),
+                groupKey = 85486289 + (Eq_Comp.SwitchVerbAutomatically ? 0 : 1),
+                hotKey = null,
+                isActive = () => Eq_Comp.SwitchVerbAutomatically,
+                toggleAction = () => Eq_Comp.SwitchVerbAutomatically = !Eq_Comp.SwitchVerbAutomatically
+            };
+            yield return Verb_Switch_Toggle;
         }
         public override void CompPostMake()
         {
@@ -59,7 +75,6 @@ namespace AzWeaponLib.MultiVerb
                 compShouldRemove = true;
                 return;
             }
-            verbIndexCache = Eq_Comp.verbIndex;
         }
         private void SwitchToNextVerb()
         {
@@ -67,14 +82,14 @@ namespace AzWeaponLib.MultiVerb
             else
             {
 
-                if (parent.pawn.CurJob.verbToUse == Eq_Comp.VerbByIndex(verbIndexCache))
+                if (parent.pawn.CurJob.verbToUse == Eq_Comp.VerbByIndex(Eq_Comp.verbIndex))
                 {
-                    verbIndexCache = Eq_Comp.SetNextVerbIndex();
-                    parent.pawn.CurJob.verbToUse = Eq_Comp.VerbByIndex(verbIndexCache);
+                    Eq_Comp.SetNextVerbIndex();
+                    parent.pawn.CurJob.verbToUse = Eq_Comp.VerbByIndex(Eq_Comp.verbIndex);
                 }
                 else 
                 {
-                    verbIndexCache = Eq_Comp.SetNextVerbIndex();
+                    Eq_Comp.SetNextVerbIndex();
                 } 
             }
         }
@@ -88,7 +103,20 @@ namespace AzWeaponLib.MultiVerb
                     compShouldRemove = true;
                     return;
                 }
-                verbIndexCache = Eq_Comp.verbIndex;
+            }
+        }
+        public override void Notify_PawnUsedVerb(Verb verb, LocalTargetInfo target)
+        {
+            if (CompMultiVerb.GlobalDisabled) return;
+            Eq_Comp.Notify_PawnUsedVerb(verb, target);
+        }
+        public override void CompPostTick(ref float severityAdjustment)
+        {
+            if (CompMultiVerb.GlobalDisabled) return;
+            if (!Eq_Comp.SwitchVerbAutomatically) return;
+            if (Pawn.mindState.WasRecentlyCombatantTicks(TickInterval) ? Pawn.IsHashIntervalTick(TickIntervalInCombat) : Pawn.IsHashIntervalTick(TickInterval))
+            {
+                Eq_Comp.SetVerbIndex(Eq_Comp.GetBestVerbIndex());
             }
         }
     }

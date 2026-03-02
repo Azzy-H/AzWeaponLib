@@ -95,7 +95,10 @@
     <Compile Include="MultiVerb\Command_VerbTargetInvisible.cs" />
     <Compile Include="MultiVerb\Comp_MultiVerb.cs" />
     <Compile Include="MultiVerb\HediffComp_MultiVerbSelect.cs" />
+    <Compile Include="MultiVerb\MultiVerbInfo.cs" />
     <Compile Include="MultiVerb\Patch_VerbTracker.cs" />
+    <Compile Include="MultiVerb\VerbSwitchWorker.cs" />
+    <Compile Include="MultiVerb\VerbSwitchWorker_NoBackupAmmo.cs" />
     <Compile Include="NonPublicFields.cs" />
     <Compile Include="PatchMisc\PatchMain.cs" />
     <Compile Include="PatchMisc\Patch_ThingDef.cs" />

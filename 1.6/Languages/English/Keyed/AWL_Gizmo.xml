@@ -15,4 +15,8 @@
     <AWL_StopForceTarget>Cancel Forced Attack (Turret)</AWL_StopForceTarget>
     <AWL_StopForceTargetDesc>Remove the target locked on the turret</AWL_StopForceTargetDesc>
 
+    <!--MultiVerb-->
+    <AWL_SwitchToggle>auto switch</AWL_SwitchToggle>
+    <AWL_SwitchToggleDesc>Allow this weapon to automatically switch modes</AWL_SwitchToggleDesc>
+
 </LanguageData>

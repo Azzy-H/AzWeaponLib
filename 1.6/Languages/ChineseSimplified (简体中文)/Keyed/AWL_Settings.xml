@@ -3,32 +3,30 @@
     <!-- EN: Azzy's Weapon Library -->
   <AWL_Mod>Azzy的武器库</AWL_Mod>
 
-    <!-- EN: Reset to default -->
-  <Reset>重置为默认</Reset>
 
     <!-- EN: Use ammunition system -->
-  <EnableAmmoSystem>使用弹药系统</EnableAmmoSystem>
+  <AWL_EnableAmmoSystem>使用弹药系统</AWL_EnableAmmoSystem>
     <!-- EN: When checked, the ammunition system is enabled. -->
-  <EnableTheAmmoSystem>当勾选时，启用弹药系统。</EnableTheAmmoSystem>
+  <AWL_EnableTheAmmoSystem>当勾选时，启用弹药系统。</AWL_EnableTheAmmoSystem>
 
     <!-- EN: Use the backup ammunition system -->
-  <EnableBackupAmmoSystemLabel>使用备用弹药系统</EnableBackupAmmoSystemLabel>
+  <AWL_EnableBackupAmmoSystemLabel>使用备用弹药系统</AWL_EnableBackupAmmoSystemLabel>
     <!-- EN: When checked, some weapons will need to be loaded by resources. -->
-  <EnableBackupAmmoSystemDesc>当勾选时，部分武器将会需要装填。</EnableBackupAmmoSystemDesc>
+  <AWL_EnableBackupAmmoSystemDesc>当勾选时，部分武器将会需要装填。</AWL_EnableBackupAmmoSystemDesc>
 
     <!-- EN: Global multiplier for backup ammo capacity -->
-  <BackupAmmoMultipilerLabel>备用弹药上限全局乘数</BackupAmmoMultipilerLabel>
+  <AWL_BackupAmmoMultipilerLabel>备用弹药上限全局乘数</AWL_BackupAmmoMultipilerLabel>
     <!-- EN: The backup ammo capacity limit of all weapons using the backup ammo system will be multiplied by this value. -->
-  <BackupAmmoMultipilerDesc>所有使用备用弹药系统的武器的备弹上限均会乘以这个值。</BackupAmmoMultipilerDesc>
+  <AWL_BackupAmmoMultipilerDesc>所有使用备用弹药系统的武器的备弹上限均会乘以这个值。</AWL_BackupAmmoMultipilerDesc>
 
     <!-- EN: Ammunition gizmo is displayed only when a pawn is selected -->
-  <OnlyShowAmmoGizmoWhenSelectedOneThingLabel>仅在选择一个殖民者时显示弹药数据</OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
+  <AWL_OnlyShowAmmoGizmoWhenSelectedOneThingLabel>仅在选择一个殖民者时显示弹药数据</AWL_OnlyShowAmmoGizmoWhenSelectedOneThingLabel>
     <!-- EN: Ammunition gizmo is displayed only when a pawn is selected. -->
-  <OnlyShowAmmoGizmoWhenSelectedOneThingDesc>仅在选择一个殖民者时显示弹药数据。</OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
+  <AWL_OnlyShowAmmoGizmoWhenSelectedOneThingDesc>仅在选择一个殖民者时显示弹药数据。</AWL_OnlyShowAmmoGizmoWhenSelectedOneThingDesc>
 
     <!-- EN: Non-player controled pawn randomly switch weapon modes -->
-  <RandomWeaponModeForNonPlayerPawnLabel>非玩家单位随机切换武器模式</RandomWeaponModeForNonPlayerPawnLabel>
+  <AWL_RandomWeaponModeForNonPlayerPawnLabel>非玩家单位随机切换武器模式</AWL_RandomWeaponModeForNonPlayerPawnLabel>
     <!-- EN: After activation, if a controled pawn is equipped with weapons of multiple modes, it will automatically switch to one of the modes.\n\nWhen turned off, only the default mode is used. -->
-  <RandomWeaponModeForNonPlayerPawnDesc>启用后，如果非玩家单位装备了具有多个模式的武器，将会自动切换至其中一种模式。\n\n关闭则仅使用默认模式。</RandomWeaponModeForNonPlayerPawnDesc>
+  <AWL_RandomWeaponModeForNonPlayerPawnDesc>启用后，如果非玩家单位装备了具有多个模式的武器，将会自动切换至其中一种模式。\n\n关闭则仅使用默认模式。</AWL_RandomWeaponModeForNonPlayerPawnDesc>
 
 </LanguageData>

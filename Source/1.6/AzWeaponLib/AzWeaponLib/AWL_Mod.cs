@@ -30,23 +30,23 @@ namespace AzWeaponLib
                 settings.randomWeaponModeForNonPlayerPawn = true;
             }
             listingStandard.Gap(5);
-            listingStandard.CheckboxLabeled("EnableAmmoSystem".Translate(), ref settings.enableAmmoSystem, "EnableTheAmmoSystem".Translate());
+            listingStandard.CheckboxLabeled("AWL_EnableAmmoSystem".Translate(), ref settings.enableAmmoSystem, "AWL_EnableTheAmmoSystem".Translate());
             if (settings.enableAmmoSystem)
             {
                 listingStandard.Gap(5);
-                listingStandard.CheckboxLabeled("-" + "EnableBackupAmmoSystemLabel".Translate(), ref settings.enableBackupAmmoSystem, "EnableBackupAmmoSystemDesc".Translate());
+                listingStandard.CheckboxLabeled("-" + "AWL_EnableBackupAmmoSystemLabel".Translate(), ref settings.enableBackupAmmoSystem, "AWL_EnableBackupAmmoSystemDesc".Translate());
                 if (settings.enableBackupAmmoSystem)
                 {
                     string backupAmmoMultipilerBuffer = settings.backupAmmoMultipiler.ToString();
                     listingStandard.Gap(5);
-                    listingStandard.Label("-" + "BackupAmmoMultipilerLabel".Translate(), -1f, "BackupAmmoMultipilerDesc".Translate());
+                    listingStandard.Label("-" + "AWL_BackupAmmoMultipilerLabel".Translate(), -1f, "AWL_BackupAmmoMultipilerDesc".Translate());
                     listingStandard.TextFieldNumeric(ref settings.backupAmmoMultipiler, ref backupAmmoMultipilerBuffer, 0, 100);
                 }
                 listingStandard.Gap(5);
-                listingStandard.CheckboxLabeled("-" + "OnlyShowAmmoGizmoWhenSelectedOneThingLabel".Translate(), ref settings.onlyShowAmmoGizmoWhenSelectedOneThing, "OnlyShowAmmoGizmoWhenSelectedOneThingDesc".Translate());
+                listingStandard.CheckboxLabeled("-" + "AWL_OnlyShowAmmoGizmoWhenSelectedOneThingLabel".Translate(), ref settings.onlyShowAmmoGizmoWhenSelectedOneThing, "AWL_OnlyShowAmmoGizmoWhenSelectedOneThingDesc".Translate());
             }
             listingStandard.Gap(5);
-            listingStandard.CheckboxLabeled("RandomWeaponModeForNonPlayerPawnLabel".Translate(), ref settings.randomWeaponModeForNonPlayerPawn, "RandomWeaponModeForNonPlayerPawnDesc".Translate());
+            listingStandard.CheckboxLabeled("AWL_RandomWeaponModeForNonPlayerPawnLabel".Translate(), ref settings.randomWeaponModeForNonPlayerPawn, "AWL_RandomWeaponModeForNonPlayerPawnDesc".Translate());
             listingStandard.End();
         }
 

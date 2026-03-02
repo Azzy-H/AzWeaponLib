@@ -107,7 +107,7 @@ namespace AzWeaponLib.PatchMisc
                     int dispPriorityOffset = 0;
                     for (int i = 0; i < verbProperties.Count; i++)
                     {
-                        string prefixString = multiVerb.gizmoInfos[i].defaultLabel + ": ";
+                        string prefixString = multiVerb.verbInfos[i].defaultLabel + ": ";
                         resultList.AddRange(GetStatDrawEntries_VerbProps(verbProperties[i], __instance.category, dispPriorityOffset, req, prefixString));
                         dispPriorityOffset -= 10000;
                     }

@@ -15,4 +15,7 @@
     <AWL_StopForceTarget>取消強制攻擊（炮臺）</AWL_StopForceTarget>
     <AWL_StopForceTargetDesc>清除炮臺鎖定的目標</AWL_StopForceTargetDesc>
 
+    <AWL_SwitchToggle>自動切換</AWL_SwitchToggle>
+    <AWL_SwitchToggleDesc>允許此武器自動切換模式</AWL_SwitchToggleDesc>
+
 </LanguageData>
