@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+    <!--Ammo System-->
+    <AWL_AmmunitionGizmoLabel>Ammunition</AWL_AmmunitionGizmoLabel>
+    <AWL_AmmunitionGizmoTip>Current ammunition/magazine upper limit (available ammunition)</AWL_AmmunitionGizmoTip>
+
+    <AWL_PawnTooltipReload>Left-click active reloading, right-click to switch to automatic reloading mode</AWL_PawnTooltipReload>
+    <AWL_LowManipulation>pawn is incapable of manipulation</AWL_LowManipulation>
+    <AWL_NoEnoughBackupAmmo>Insufficient ammunition reserves</AWL_NoEnoughBackupAmmo>
+    <AWL_DisposableWeapon>Disposable weapons cannot be loaded</AWL_DisposableWeapon>
+    <AWL_NoNeedToReload>magazine is full</AWL_NoNeedToReload>
+
+    <AWL_StopForceTarget>Cancel Forced Attack (Turret)</AWL_StopForceTarget>
+    <AWL_StopForceTargetDesc>Remove the target locked on the turret</AWL_StopForceTargetDesc>
+
+    <!--MultiVerb-->
+    <AWL_SwitchToggle>auto switch</AWL_SwitchToggle>
+    <AWL_SwitchToggleDesc>Allow this weapon to automatically switch modes</AWL_SwitchToggleDesc>
+
+</LanguageData>

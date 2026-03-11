@@ -1,0 +1,22 @@
+using HarmonyLib;
+using RimWorld;
+using Verse;
+
+namespace AzWeaponLib.HediffTurret
+{
+    [HarmonyPatch(typeof(Command_Ability), nameof(Command_Ability.Tooltip), MethodType.Getter)]
+    internal static class Patch_Command_Ability_Tooltip
+    {
+        [HarmonyPostfix]
+        private static void Postfix(Command_Ability __instance, ref string __result)
+        {
+            Ability ability = __instance.Ability;
+            if (ability == null || !ability.def.HasModExtension<TurretAbility>())
+            {
+                return;
+            }
+
+            __result += "\n\n" + "AWL_AbilityToggle_Tips".Translate();
+        }
+    }
+}

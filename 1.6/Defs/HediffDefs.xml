@@ -32,4 +32,20 @@
             </li>
         </stages>
     </HediffDef>
+
+
+    <HediffDef>
+        <defName>AWL_AbilityTurret</defName>
+        <label>ability turret</label>
+        <description>Automatically casts enabled abilities.</description>
+        <hediffClass>AzWeaponLib.HediffTurret.Hediff_AbilityTurret</hediffClass>
+        <isBad>false</isBad>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <stages>
+            <li>
+                <becomeVisible>false</becomeVisible>
+            </li>
+        </stages>
+    </HediffDef>
+
 </Defs>

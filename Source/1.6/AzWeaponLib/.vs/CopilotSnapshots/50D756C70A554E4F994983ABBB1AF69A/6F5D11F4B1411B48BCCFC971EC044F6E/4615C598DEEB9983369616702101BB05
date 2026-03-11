@@ -1,0 +1,112 @@
+﻿# HediffAbilityTurret
+***
+## Ŀ��
+***
+  ��pawn�Զ����в�ʩ�Ŵ��� `TurretAbility` ��չ�� Ability����ͨ����ͬ�� `HediffDef` ������ Ability �ֿ����ơ�
+## ����
+***
+  ��򵥵ĵ������ã�
+```
+<AbilityDef>
+  <defName>MyAutoAbility</defName>
+  <label>my auto ability</label>
+  <gizmoClass>Command_Ability</gizmoClass>
+  <aiCanUse>false</aiCanUse>
+  <verbProperties>
+    <!-- ʡ������ Ability �����ֶ� -->
+  </verbProperties>
+  <modExtensions>
+    <li Class="AzWeaponLib.HediffTurret.TurretAbility">
+      <priority>0</priority>
+      <hediffDef IsNull="true" />
+    </li>
+  </modExtensions>
+</AbilityDef>
+```
+  �� `hediffDef` Ϊ��ʱ����ʹ��Ĭ�ϵ� `AWL_AbilityTurret`��
+```
+<HediffDef>
+  <defName>AWL_AbilityTurret</defName>
+  <label>ability turret</label>
+  <description>Automatically casts enabled abilities.</description>
+  <hediffClass>AzWeaponLib.HediffTurret.Hediff_AbilityTurret</hediffClass>
+  <isBad>false</isBad>
+  <scenarioCanAdd>false</scenarioCanAdd>
+  <stages>
+    <li>
+      <becomeVisible>false</becomeVisible>
+    </li>
+  </stages>
+</HediffDef>
+```
+  ���뽫��ͬ Ability �������ͬ���Զ���̨�飬�ɶ��ⶨ���Լ��� `HediffDef`��������չ��ָ����
+```
+<HediffDef>
+  <defName>MyAbilityTurret_Fire</defName>
+  <label>fire ability turret</label>
+  <hediffClass>AzWeaponLib.HediffTurret.Hediff_AbilityTurret</hediffClass>
+  <isBad>false</isBad>
+  <scenarioCanAdd>false</scenarioCanAdd>
+  <stages>
+    <li>
+      <becomeVisible>false</becomeVisible>
+    </li>
+  </stages>
+</HediffDef>
+
+<AbilityDef>
+  <defName>MyFireAbility</defName>
+  <label>fire ability</label>
+  <gizmoClass>Command_Ability</gizmoClass>
+  <verbProperties>
+    <!-- ʡ������ Ability �����ֶ� -->
+  </verbProperties>
+  <modExtensions>
+    <li Class="AzWeaponLib.HediffTurret.TurretAbility">
+      <priority>1</priority>
+      <hediffDef>MyAbilityTurret_Fire</hediffDef>
+    </li>
+  </modExtensions>
+</AbilityDef>
+
+<AbilityDef>
+  <defName>MyIceAbility</defName>
+  <label>ice ability</label>
+  <gizmoClass>Command_Ability</gizmoClass>
+  <verbProperties>
+    <!-- ʡ������ Ability �����ֶ� -->
+  </verbProperties>
+  <modExtensions>
+    <li Class="AzWeaponLib.HediffTurret.TurretAbility">
+      <priority>2</priority>
+      <hediffDef>AWL_AbilityTurret</hediffDef>
+    </li>
+  </modExtensions>
+</AbilityDef>
+```
+## �ֶκ���
+***
+  |�ֶ�|����|
+  |:--:|:--:|
+  |priority|�Զ�ʩ�����ȼ�����ֵԽ��Խ���ȳ���|
+  |hediffDef|�� Ability ������Զ���̨ HediffDef�����ʱʹ�� `AWL_AbilityTurret`|
+## ������ʽ
+***
+  1. pawn ���ϴ��ڴ� `TurretAbility` ��չ�� Ability ʱ�����Զ����϶�Ӧ�� `Hediff_AbilityTurret`��
+  2. ���� Ability ָ��ͬһ�� `hediffDef`�����ǻ���ͬһ�� `Hediff_AbilityTurret` ʵ��ͳһ���ơ�
+  3. ���� Ability ָ��ͬ `hediffDef`��������ɶ�� `Hediff_AbilityTurret`������ֻ�����Լ������ Ability��
+  4. �Զ���̨ÿ 10 tick ���һ�ο��� Ability���� `priority` �Ӹߵ��ͳ������в�ʩ�š�
+  5. �Ҽ� Ability ��ť���л��� Ability �Ƿ������Զ�ʩ�ţ����Ͻ� checkbox �Ǳ����ʾ��ǰ״̬��
+## ע������
+***
+  - `hediffDef` ָ��� `HediffDef` ����ʹ�ã�
+  ```
+  <hediffClass>AzWeaponLib.HediffTurret.Hediff_AbilityTurret</hediffClass>
+  ```
+  ���򲻻�����ϵͳ��
+
+  - ��ϵͳ����ʱ���ƹ� `AbilityDef.aiCanUse`����˼�ʹ `aiCanUse=false` Ҳ���Զ�ʩ�ţ����Իᱣ�� `CanCast`��`CanApplyOn` ��� `EffectComp.AICanTargetNow` �����ơ�
+
+  - `Hediff_AbilityTurret` ֻ��������Լ� `def` ��Ӧ�� Ability����ͬ `hediffDef` ֮�以��Ӱ�졣
+
+  - �Ҽ��л��Զ�ʩ�źͽǱ���ʾ��������Ӧ�� `Hediff_AbilityTurret` �Ѵ��ڣ��� Hediff �Ĵ���/�Ƴ����������֪ͨ�Զ�ά����

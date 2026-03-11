@@ -19,5 +19,6 @@ namespace AzWeaponLib
         public static JobDef AWL_ReloadWeapon;
         public static HediffDef AWL_AmmoGizmoDisp;
         public static HediffDef AWL_MultiVerbSelect;
+        public static HediffDef AWL_AbilityTurret;
     }
 }

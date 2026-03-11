@@ -90,7 +90,11 @@
     <Compile Include="HeavyWeapon\CompApparelWithHeavyWeapon.cs" />
     <Compile Include="HeavyWeapon\HeavyWeaponDef.cs" />
     <Compile Include="HeavyWeapon\Patch_EquipmentUtility.cs" />
+    <Compile Include="HediffTurret\Hediff_AbilityTurret.cs" />
     <Compile Include="HediffTurret\Hediff_TurretGun.cs" />
+    <Compile Include="HediffTurret\Patch_Command_Ability.cs" />
+    <Compile Include="HediffTurret\Patch_Command_Ability_Tooltip.cs" />
+    <Compile Include="HediffTurret\Patch_Pawn_AbilityTracker.cs" />
     <Compile Include="IStatable.cs" />
     <Compile Include="MultiVerb\Command_VerbTargetInvisible.cs" />
     <Compile Include="MultiVerb\Comp_MultiVerb.cs" />

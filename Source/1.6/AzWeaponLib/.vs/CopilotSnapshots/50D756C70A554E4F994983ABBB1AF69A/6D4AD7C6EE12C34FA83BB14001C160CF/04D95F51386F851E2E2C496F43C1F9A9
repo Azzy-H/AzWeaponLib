@@ -1,0 +1,185 @@
+﻿using RimWorld;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Verse;
+using Verse.AI;
+
+namespace AzWeaponLib.HediffTurret
+{
+    public class TurretAbility : DefModExtension
+    {
+        public float priority = 0f;
+    }
+    // HediffDef 的扩展，现在主要用于配置
+    class AbilitySearcher : IAttackTargetSearcher
+    {
+        public Pawn pawn;
+        public Verb verb;
+        public Thing Thing => pawn;
+        public Verb CurrentEffectiveVerb => verb;
+        public LocalTargetInfo LastAttackedTarget => pawn.LastAttackedTarget;
+        public int LastAttackTargetTick => pawn.LastAttackTargetTick;
+    }
+
+    [StaticConstructorOnStartup]
+    public class Hediff_AbilityTurret : HediffWithComps
+    {
+        protected static readonly CachedTexture CancelCommandTex = new CachedTexture("UI/Designators/Cancel");
+
+        // 状态变量
+        private bool forced = false;
+        protected LocalTargetInfo currentTargetInt = LocalTargetInfo.Invalid;
+
+        // 用于存储被手动禁用的 AbilityDef (持久化)
+        private List<AbilityDef> disabledAbilities = new List<AbilityDef>();
+
+        // 获取 Pawn 身上所有带有标记的 Ability
+        public IEnumerable<RimWorld.Ability> ActiveAbilities =>
+            pawn.abilities.abilities.Where(a => a.def.HasModExtension<TurretAbility>());
+
+        // 检查某个技能是否被启用
+        public bool IsEnabled(RimWorld.Ability ability) => !disabledAbilities.Contains(ability.def);
+
+        public override void Tick()
+        {
+            base.Tick();
+            if (!pawn.Spawned || pawn.Downed) return;
+            if (pawn.CurJobDef != JobDefOf.Wait_Combat || !(pawn.stances.curStance is Stance_Mobile)) return;
+            // 每 10 tick轮询一次
+            if (pawn.IsHashIntervalTick(10))
+            {
+                UpdateTargetAndCast();
+            }
+        }
+
+        private void UpdateTargetAndCast()
+        {
+            var abilities = ActiveAbilities.Where(a => IsEnabled(a)).ToList();
+            if (abilities.Count == 0)
+            {
+                currentTargetInt = LocalTargetInfo.Invalid;
+                return;
+            }
+
+            // 可选：按 priority 排序（你扩展里有 priority）
+            abilities.SortByDescending(a => a.def.GetModExtension<TurretAbility>()?.priority ?? 0f);
+
+            foreach (var ability in abilities)
+            {
+                if (!ability.CanCast) continue;
+
+                LocalTargetInfo target;
+                if (forced && currentTargetInt.IsValid && !currentTargetInt.ThingDestroyed)
+                {
+                    target = currentTargetInt; // 强制目标：所有技能都尝试打这个
+                }
+                else
+                {
+                    target = TryFindNewTargetFor(ability); // 非强制：每个技能按自己射程索敌
+                }
+
+                if (!target.IsValid) continue;
+
+                if (ability.CanApplyOn(target))
+                {
+                    ability.verb.TryStartCastOn(target);
+                    if (!forced) currentTargetInt = target; // 记录一下当前目标
+                    return; // 每轮只放一个
+                }
+            }
+
+            if (!forced) currentTargetInt = LocalTargetInfo.Invalid;
+        }
+
+        private LocalTargetInfo TryFindNewTargetFor(Ability ability)
+        {
+            var searcher = new AbilitySearcher
+            {
+                pawn = pawn,
+                verb = ability.verb
+            };
+
+            return (Thing)AttackTargetFinder.BestShootTargetFromCurrentPosition(
+                searcher,
+                TargetScanFlags.NeedThreat | TargetScanFlags.NeedAutoTargetable,
+                validator: t => AbilityCanTargetNowIgnoringAiCanUse(ability, t)
+            );
+        }
+
+        private static bool AbilityCanTargetNowIgnoringAiCanUse(Ability ability, LocalTargetInfo target)
+        {
+            if (!(bool)ability.CanCast)
+            {
+                return false;
+            }
+            if (!ability.CanApplyOn(target))
+            {
+                return false;
+            }
+            if (ability.EffectComps != null)
+            {
+                foreach (CompAbilityEffect effectComp in ability.EffectComps)
+                {
+                    if (!effectComp.AICanTargetNow(target))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public override IEnumerable<Gizmo> GetGizmos()
+        {
+            foreach (Gizmo gizmo in base.GetGizmos()) yield return gizmo;
+
+            if (pawn.Drafted)
+            {
+                yield return new Command_Target
+                {
+                    defaultLabel = "CommandSquadAttack".Translate(),
+                    icon = TexCommand.SquadAttack,
+                    targetingParams = TargetingParameters.ForAttackAny(),
+                    action = (LocalTargetInfo target) =>
+                    {
+                        forced = true;
+                        currentTargetInt = target;
+                    }
+                };
+
+                if (forced)
+                {
+                    yield return new Command_Action
+                    {
+                        defaultLabel = "Koelime_StopForceTarget".Translate(),
+                        icon = CancelCommandTex.Texture,
+                        action = () => forced = false
+                    };
+                }
+            }
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref forced, "forced", false);
+            Scribe_TargetInfo.Look(ref currentTargetInt, "currentTargetInt");
+            // 保存被禁用的技能列表
+            Scribe_Collections.Look(ref disabledAbilities, "disabledAbilities", LookMode.Def);
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit && disabledAbilities == null)
+            {
+                disabledAbilities = new List<AbilityDef>();
+            }
+        }
+
+        public void ToggleAuto(AbilityDef def)
+        {
+            if (disabledAbilities.Contains(def))
+                disabledAbilities.Remove(def);
+            else
+                disabledAbilities.Add(def);
+        }
+    }
+}

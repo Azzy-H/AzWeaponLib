@@ -17,5 +17,8 @@
 
     <AWL_SwitchToggle>自動切換</AWL_SwitchToggle>
     <AWL_SwitchToggleDesc>允許此武器自動切換模式</AWL_SwitchToggleDesc>
+    <AWL_EnableAutoCast>啟用自動施放</AWL_EnableAutoCast>
+    <AWL_DisableAutoCast>禁用自動施放</AWL_DisableAutoCast>
+    <AWL_AbilityToggle_Tips>右鍵切換自動施放。</AWL_AbilityToggle_Tips>
 
 </LanguageData>
