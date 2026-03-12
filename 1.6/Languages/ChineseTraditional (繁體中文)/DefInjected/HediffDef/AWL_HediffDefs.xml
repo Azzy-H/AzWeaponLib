@@ -10,5 +10,8 @@
   <AWL_MultiVerbSelect.label>顯示武器模式切換</AWL_MultiVerbSelect.label>
   <!-- EN: Multi Verb Select. -->
   <AWL_MultiVerbSelect.description>用于顯示武器模式切換界面。</AWL_MultiVerbSelect.description>
+
+  <AWL_AbilityTurret.label>技能索敵</AWL_AbilityTurret.label>
+  <AWL_AbilityTurret.description>用於控制技能索敵。</AWL_AbilityTurret.description>
   
 </LanguageData>
