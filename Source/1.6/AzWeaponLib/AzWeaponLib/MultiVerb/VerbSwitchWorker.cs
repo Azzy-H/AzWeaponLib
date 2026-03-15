@@ -10,6 +10,7 @@ namespace AzWeaponLib.MultiVerb
     public class VerbSwitchWorker
     {
         public ThingWithComps weapon;
+        public Verb verb;
         private CompMultiVerb compMultiVerb;
         public CompMultiVerb CompMultiVerb
         {

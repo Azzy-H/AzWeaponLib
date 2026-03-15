@@ -12,47 +12,82 @@ namespace AzWeaponLib.MultiVerb
     //[HarmonyPatch(typeof(VerbTracker))]
     internal class Patch_VerbTracker
     {
-        //public static readonly Dictionary<VerbTracker, Verb> VerbDict = new Dictionary<VerbTracker, Verb>();
-        public static readonly Dictionary<CompEquippable, CompMultiVerb> MultiVerbDict = new Dictionary<CompEquippable, CompMultiVerb>();
-        public static Verb verb = null;
+        private sealed class PrimaryVerbCacheEntry
+        {
+            public CompMultiVerb CompMultiVerb;
+            public int CachedVerbIndex = -1;
+            public Verb CachedVerb;
+        }
+
+        private static readonly Dictionary<CompEquippable, PrimaryVerbCacheEntry> PrimaryVerbCache = new Dictionary<CompEquippable, PrimaryVerbCacheEntry>();
         //[HarmonyPatch("get_PrimaryVerb")]
         //[HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             List<CodeInstruction> list = instructions.ToList();
             MethodInfo methodInfo = AccessTools.Method(typeof(Patch_VerbTracker), nameof(Patch_VerbTracker.PrefixMethod_get_PrimaryVerb));
-            MethodInfo methodInfo2 = AccessTools.Method(typeof(Patch_VerbTracker), "MakeCache");
-            FieldInfo fieldInfo = AccessTools.Field(typeof(Patch_VerbTracker), "verb");
-            Label endTag_prefix = generator.DefineLabel();
-            list[0].labels.Add(endTag_prefix);
+
+            Label continueLabel = generator.DefineLabel();
+            Label retLabel = generator.DefineLabel();
+            list[0].labels.Add(continueLabel);
+
             List<CodeInstruction> prefix = new List<CodeInstruction>
-        {
-            new CodeInstruction(OpCodes.Ldarg_0),
-            new CodeInstruction(OpCodes.Call, methodInfo),
-            new CodeInstruction(OpCodes.Stsfld, fieldInfo),
-            new CodeInstruction(OpCodes.Ldsfld, fieldInfo),
-            new CodeInstruction(OpCodes.Brfalse_S, endTag_prefix),//prefix未获取则继续原始方法
-            new CodeInstruction(OpCodes.Ldsfld, fieldInfo),
-            new CodeInstruction(OpCodes.Ret)
-        };
+            {
+                new CodeInstruction(OpCodes.Ldarg_0),
+                new CodeInstruction(OpCodes.Call, methodInfo),
+                new CodeInstruction(OpCodes.Dup),
+                new CodeInstruction(OpCodes.Brtrue_S, retLabel),
+                new CodeInstruction(OpCodes.Pop),
+                new CodeInstruction(OpCodes.Br_S, continueLabel),
+                new CodeInstruction(OpCodes.Ret) { labels = new List<Label> { retLabel } }
+            };
             list.InsertRange(0, prefix);
             return list;
         }
         private static Verb PrefixMethod_get_PrimaryVerb(VerbTracker __instance)
         {
-            if (__instance.directOwner is CompEquippable Eq)
+            CompEquippable eq = __instance.directOwner as CompEquippable;
+            if (eq == null)
             {
-                if (!MultiVerbDict.TryGetValue(Eq, out CompMultiVerb comp_MultiVerb))
-                {
-                    comp_MultiVerb = Eq.parent.GetComp<CompMultiVerb>();
-                    MultiVerbDict.Add(Eq, comp_MultiVerb);
-                }
-                if (comp_MultiVerb != null)
-                {
-                    return __instance.AllVerbs[comp_MultiVerb.verbIndex];
-                }
+                return null;
             }
-            return null;
+
+            if (!PrimaryVerbCache.TryGetValue(eq, out PrimaryVerbCacheEntry cacheEntry))
+            {
+                cacheEntry = new PrimaryVerbCacheEntry
+                {
+                    CompMultiVerb = eq.parent.GetComp<CompMultiVerb>()
+                };
+                PrimaryVerbCache.Add(eq, cacheEntry);
+            }
+
+            if (cacheEntry.CompMultiVerb == null)
+            {
+                return null;
+            }
+
+            int verbIndex = cacheEntry.CompMultiVerb.verbIndex;
+            if (cacheEntry.CachedVerb != null && cacheEntry.CachedVerbIndex == verbIndex)
+            {
+                return cacheEntry.CachedVerb;
+            }
+
+            List<Verb> allVerbs = __instance.AllVerbs;
+            if ((uint)verbIndex >= (uint)allVerbs.Count)
+            {
+                cacheEntry.CachedVerbIndex = -1;
+                cacheEntry.CachedVerb = null;
+                return null;
+            }
+
+            Verb selectedVerb = allVerbs[verbIndex];
+            cacheEntry.CachedVerbIndex = verbIndex;
+            cacheEntry.CachedVerb = selectedVerb;
+            return selectedVerb;
+        }
+        public static void ClearCaches()
+        {
+            PrimaryVerbCache.Clear();
         }
         //[HarmonyPatch("CreateVerbTargetCommand")]
         //[HarmonyPostfix]

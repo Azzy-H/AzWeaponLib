@@ -16,6 +16,7 @@ namespace AzWeaponLib.MultiVerb
     {
         public bool SwitchStyle = false;
         public bool CanSwitchVerbAutomatically = false;
+        public bool showGizmos = true;
         public List<MultiVerbInfo> verbInfos;
         public CompProperties_MultiVerb()
         {
@@ -80,10 +81,12 @@ namespace AzWeaponLib.MultiVerb
         public override void Initialize(CompProperties props)
         {
             base.Initialize(props);
+            if (!Props.CanSwitchVerbAutomatically) return;
             for (int i = 0; i < Props.verbInfos.Count; i++)
             {
                 VerbSwitchWorkers.Add((VerbSwitchWorker)Activator.CreateInstance(Props.verbInfos[i].verbSwitchWorker));
                 VerbSwitchWorkers[i].weapon = parent;
+                VerbSwitchWorkers[i].verb = VerbByIndex(i);
             }
         }
         public override void Notify_Equipped(Pawn pawn)
@@ -111,6 +114,11 @@ namespace AzWeaponLib.MultiVerb
         {
             float bestPriority = 0f;
             int bestIndex = verbIndex;
+            if (!Props.CanSwitchVerbAutomatically)
+            {
+                Log.Error("Trying to get best verb index for a CompMultiVerb whose Props doesn't allow automatic verb switching. Returning current verb index.");
+                return verbIndex;
+            }
             for (int i = 0; i < VerbSwitchWorkers.Count; i++)
             {
                 float priority = VerbSwitchWorkers[i].GetPriority(pawn);
@@ -143,6 +151,7 @@ namespace AzWeaponLib.MultiVerb
         }
         public virtual void Notify_PawnUsedVerb(Verb verb, LocalTargetInfo target)
         {
+            if(!Props.CanSwitchVerbAutomatically) return;
             VerbSwitchWorkers[verbIndex].Notify_PawnUsedVerb(verb, target);
         }
         public virtual void Notify_VerbChanged()

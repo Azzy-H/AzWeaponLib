@@ -16,7 +16,7 @@ namespace AzWeaponLib.PatchMisc
         [HarmonyPostfix]
         internal static void Postfix_ClearCache()
         {
-            Patch_VerbTracker.MultiVerbDict.Clear();
+            Patch_VerbTracker.ClearCaches();
         }
     }
 }

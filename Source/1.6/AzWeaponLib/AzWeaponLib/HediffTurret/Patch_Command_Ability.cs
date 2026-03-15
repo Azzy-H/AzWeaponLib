@@ -8,11 +8,11 @@ using Verse.Sound;
 
 namespace AzWeaponLib.HediffTurret
 {
-    [HarmonyPatch(typeof(Command_Ability))]
-    internal static class Patch_Command_Ability
+    [HarmonyPatch]
+    internal static class Patch_Command
     {
         [HarmonyPostfix]
-        [HarmonyPatch(nameof(Command_Ability.GizmoOnGUI))]
+        [HarmonyPatch(typeof(Command_Ability), nameof(Command_Ability.GizmoOnGUI))]
         private static void Postfix_GizmoOnGUI(Command_Ability __instance, ref GizmoResult __result, Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
         {
             Rect rect = new Rect(topLeft.x, topLeft.y, __instance.GetWidth(maxWidth), 75f);
@@ -20,11 +20,37 @@ namespace AzWeaponLib.HediffTurret
         }
 
         [HarmonyPostfix]
-        [HarmonyPatch(nameof(Command_Ability.GizmoOnGUIShrunk))]
-        private static void Postfix_GizmoOnGUIShrunk(Command_Ability __instance, ref GizmoResult __result, Vector2 topLeft, float size, GizmoRenderParms parms)
+        [HarmonyPatch(typeof(Command), nameof(Command.GizmoOnGUIShrunk))]
+        private static void Postfix_GizmoOnGUIShrunk(Command __instance, ref GizmoResult __result, Vector2 topLeft, float size, GizmoRenderParms parms)
         {
+            Command_Ability commandAbility = __instance as Command_Ability;
+            if (commandAbility == null)
+            {
+                return;
+            }
+
             Rect rect = new Rect(topLeft.x, topLeft.y, size, size);
-            PostfixCommon(__instance, ref __result, rect);
+            PostfixCommon(commandAbility, ref __result, rect);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Command_Ability), nameof(Command_Ability.Tooltip), MethodType.Getter)]
+        private static void Postfix_Tooltip(Command_Ability __instance, ref string __result)
+        {
+            Ability ability = __instance.Ability;
+            if (ability == null || ability.pawn == null || !ability.def.HasModExtension<TurretAbility>())
+            {
+                return;
+            }
+
+            Hediff_AbilityTurret turretHediff = TryGetTurretHediff(ability.pawn, ability);
+            if (turretHediff == null)
+            {
+                return;
+            }
+
+            __result += "\n\n" + "AWL_AbilityToggle_Tips".Translate();
+            __result += "\n" + GetCurrentStatusLabel(turretHediff, ability);
         }
 
         private static void PostfixCommon(Command_Ability command, ref GizmoResult result, Rect rect)
@@ -91,9 +117,15 @@ namespace AzWeaponLib.HediffTurret
             return pawn.health.hediffSet.GetFirstHediffOfDef(turretHediffDef) as Hediff_AbilityTurret;
         }
 
+        private static string GetCurrentStatusLabel(Hediff_AbilityTurret turretHediff, Ability ability)
+        {
+            return turretHediff.IsEnabled(ability) ? "Enabled".Translate() : "Disabled".Translate();
+        }
+
         private static string GetToggleLabel(Hediff_AbilityTurret turretHediff, Ability ability)
         {
-            return turretHediff.IsEnabled(ability) ? "AWL_DisableAutoCast".Translate() : "AWL_EnableAutoCast".Translate();
+            string actionLabel = turretHediff.IsEnabled(ability) ? "AWL_DisableAutoCast".Translate() : "AWL_EnableAutoCast".Translate();
+            return actionLabel;
         }
 
         private static void ToggleAuto(Hediff_AbilityTurret turretHediff, Ability ability)
