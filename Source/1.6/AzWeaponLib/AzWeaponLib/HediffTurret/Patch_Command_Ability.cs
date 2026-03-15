@@ -8,13 +8,28 @@ using Verse.Sound;
 
 namespace AzWeaponLib.HediffTurret
 {
-    [HarmonyPatch(typeof(Command_Ability), nameof(Command_Ability.GizmoOnGUI))]
+    [HarmonyPatch(typeof(Command_Ability))]
     internal static class Patch_Command_Ability
     {
         [HarmonyPostfix]
-        private static void Postfix(Command_Ability __instance, ref GizmoResult __result, Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
+        [HarmonyPatch(nameof(Command_Ability.GizmoOnGUI))]
+        private static void Postfix_GizmoOnGUI(Command_Ability __instance, ref GizmoResult __result, Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
         {
-            Ability ability = __instance.Ability;
+            Rect rect = new Rect(topLeft.x, topLeft.y, __instance.GetWidth(maxWidth), 75f);
+            PostfixCommon(__instance, ref __result, rect);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(nameof(Command_Ability.GizmoOnGUIShrunk))]
+        private static void Postfix_GizmoOnGUIShrunk(Command_Ability __instance, ref GizmoResult __result, Vector2 topLeft, float size, GizmoRenderParms parms)
+        {
+            Rect rect = new Rect(topLeft.x, topLeft.y, size, size);
+            PostfixCommon(__instance, ref __result, rect);
+        }
+
+        private static void PostfixCommon(Command_Ability command, ref GizmoResult result, Rect rect)
+        {
+            Ability ability = command.Ability;
             if (ability == null || ability.pawn == null || !ability.def.HasModExtension<TurretAbility>())
             {
                 return;
@@ -23,10 +38,10 @@ namespace AzWeaponLib.HediffTurret
             Hediff_AbilityTurret turretHediff = TryGetTurretHediff(ability.pawn, ability);
             if (turretHediff != null)
             {
-                DrawAutoToggleBadge(__instance, turretHediff, ability, topLeft, maxWidth);
+                DrawAutoToggleBadge(command, turretHediff, ability, rect);
             }
 
-            if (__result.State != GizmoState.OpenedFloatMenu)
+            if (result.State != GizmoState.OpenedFloatMenu)
             {
                 return;
             }
@@ -37,14 +52,14 @@ namespace AzWeaponLib.HediffTurret
                 return;
             }
 
-            List<FloatMenuOption> options = __instance.RightClickFloatMenuOptions.ToList();
+            List<FloatMenuOption> options = command.RightClickFloatMenuOptions.ToList();
             FloatMenuOption toggleOption = new FloatMenuOption(GetToggleLabel(turretHediff, ability), delegate
             {
                 ToggleAuto(turretHediff, ability);
             });
 
             currentEvent.Use();
-            __result = new GizmoResult(GizmoState.Clear);
+            result = new GizmoResult(GizmoState.Clear);
 
             if (options.Count == 0)
             {
@@ -56,15 +71,15 @@ namespace AzWeaponLib.HediffTurret
             Find.WindowStack.Add(new FloatMenu(options));
         }
 
-        private static void DrawAutoToggleBadge(Command_Ability command, Hediff_AbilityTurret turretHediff, Ability ability, Vector2 topLeft, float maxWidth)
+        private static void DrawAutoToggleBadge(Command_Ability command, Hediff_AbilityTurret turretHediff, Ability ability, Rect rect)
         {
             if (command.Disabled)
             {
                 return;
             }
 
-            Rect rect = new Rect(topLeft.x, topLeft.y, command.GetWidth(maxWidth), 75f);
-            Rect position = new Rect(rect.x + rect.width - 24f, rect.y, 24f, 24f);
+            float badgeSize = Mathf.Min(24f, Mathf.Min(rect.width, rect.height));
+            Rect position = new Rect(rect.x + rect.width - badgeSize, rect.y, badgeSize, badgeSize);
             Texture2D image = turretHediff.IsEnabled(ability) ? Widgets.CheckboxOnTex : Widgets.CheckboxOffTex;
             GUI.DrawTexture(position, image);
         }
