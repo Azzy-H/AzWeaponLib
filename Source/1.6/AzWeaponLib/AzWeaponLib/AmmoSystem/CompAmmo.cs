@@ -165,6 +165,8 @@ namespace AzWeaponLib.AmmoSystem
     }
     public class CompAmmo : ThingComp
     {
+        public event Action<CompAmmo> OnAmmoReloaded;
+        public event Action<CompAmmo> OnAmmoComsumed;
         public CompProperties_Ammo Props => (CompProperties_Ammo)props;
         public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
         protected int ammunitionCapacity => Mathf.CeilToInt(parent.GetStatValue(AWL_DefOf.AWL_AmmoCapacity));//Props.ammunitionCapacity;
@@ -345,35 +347,35 @@ namespace AzWeaponLib.AmmoSystem
                 ReloadByNum(BackupAmmo);
                 BackupAmmo = 0;
             }
-            NotifyReloaded();
+            OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadByBackupAmmoOnce()
         {
             ammo++;
             BackupAmmo--;
-            NotifyReloaded();
+            OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadToMax()
         {
             if (!Props.canLoadExtra || isEmpty) ammo = ammunitionCapacity;
             else ammo = ammunitionCapacity + 1;
-            NotifyReloaded();
+            OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadTo(int num)
         {
             ammo = num;
-            NotifyReloaded();
+            OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadByOne()
         {
             if (NeedReload) ammo++;
-            NotifyReloaded();
+            OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadByNum(int num)
         {
             ammo += num;
             ammo = Mathf.Min(ammo, ammunitionCapacity + 1);
-            NotifyReloaded();
+            OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadByAmmoBox(Thing t)
         { 
@@ -387,11 +389,13 @@ namespace AzWeaponLib.AmmoSystem
         public virtual void UsedOnce()
         {
             ammo--;
+            OnAmmoComsumed?.Invoke(this);
             if (ammo <= 0) NotifyExhausted();
         }
         public virtual void UsedByNum(int num)
         {
             Ammo -= num;
+            OnAmmoComsumed?.Invoke(this);
             if (ammo <= 0) NotifyExhausted();
         }
         public virtual void NotifyExhausted()
@@ -407,9 +411,6 @@ namespace AzWeaponLib.AmmoSystem
                 else GenDrop.TryDropSpawn(newThing, p.Position, p.Map, ThingPlaceMode.Near, out _);
             }
             parent.Destroy();
-        }
-        protected virtual void NotifyReloaded()
-        {
         }
         public virtual void TryMakeReloadJob(bool forced = false, bool delay = false, bool resumeCurJob = true)
         {

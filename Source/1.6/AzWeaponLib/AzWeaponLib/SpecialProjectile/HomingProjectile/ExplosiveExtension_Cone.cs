@@ -67,7 +67,7 @@ namespace AzWeaponLib.SpecialProjectile
                 postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
                 preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
                 chanceToStartFire, damageFalloff, direction, ignoredThings,
-                angle2, showConeEffect, propagationSpeed, excludeRadius, showConeEffect, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
+                angle2, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, 0f, flammabilityChanceCurve, overrideCells);
                 }
                 if (angle.min < 0f)
                 {
@@ -76,7 +76,7 @@ namespace AzWeaponLib.SpecialProjectile
                 postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
                 preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
                 chanceToStartFire, damageFalloff, direction, ignoredThings,
-                angle2, showConeEffect, propagationSpeed, excludeRadius, showConeEffect, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
+                angle2, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, 0f, flammabilityChanceCurve, overrideCells);
                 }
                 GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
                 postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
