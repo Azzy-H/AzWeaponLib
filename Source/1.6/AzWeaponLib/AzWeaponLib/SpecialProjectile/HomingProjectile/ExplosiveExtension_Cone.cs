@@ -12,7 +12,7 @@ namespace AzWeaponLib.SpecialProjectile
 {
     public class ModExtension_Cone : DefModExtension
     {
-        public float coneAngle = 10f;
+        public float? coneAngle = null;
         public float coneRange = 7f;
         public int repeatExplosionCount = 1;
         public ThingDef fragment;
@@ -57,32 +57,43 @@ namespace AzWeaponLib.SpecialProjectile
             List<IntVec3> overrideCells = null)
         {
             Vector3 forwardDirection = rotation * Vector3.forward;
-            FloatRange angle = new FloatRange(forwardDirection.ToAngleFlat() - coneAngle, forwardDirection.ToAngleFlat() + coneAngle);
+            FloatRange? angle = coneAngle.HasValue ? new FloatRange(forwardDirection.ToAngleFlat() - coneAngle.Value, forwardDirection.ToAngleFlat() + coneAngle.Value) : (FloatRange?)null;
             for (int i = 0; i < repeatExplosionCount; i++)
             {
-                if (angle.max > 360f)
+                if (angle.HasValue)
                 {
-                    FloatRange angle2 = new FloatRange(0f, angle.max - 360f);
+                    if (angle.Value.max > 360f)
+                    {
+                        FloatRange angle2 = new FloatRange(0f, angle.Value.max - 360f);
+                        GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
+                    postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
+                    preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
+                    chanceToStartFire, damageFalloff, direction, ignoredThings,
+                    angle2, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, 0f, flammabilityChanceCurve, overrideCells);
+                    }
+                    if (angle.Value.min < 0f)
+                    {
+                        FloatRange angle2 = new FloatRange(angle.Value.min + 360f, 360f);
+                        GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
+                    postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
+                    preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
+                    chanceToStartFire, damageFalloff, direction, ignoredThings,
+                    angle2, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, 0f, flammabilityChanceCurve, overrideCells);
+                    }
                     GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
-                postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
-                preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
-                chanceToStartFire, damageFalloff, direction, ignoredThings,
-                angle2, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, 0f, flammabilityChanceCurve, overrideCells);
+                    postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
+                    preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
+                    chanceToStartFire, damageFalloff, direction, ignoredThings,
+                    angle, showConeEffect, propagationSpeed, excludeRadius, showConeEffect, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
                 }
-                if (angle.min < 0f)
+                else
                 {
-                    FloatRange angle2 = new FloatRange(angle.min + 360f, 360f);
                     GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
-                postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
-                preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
-                chanceToStartFire, damageFalloff, direction, ignoredThings,
-                angle2, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, 0f, flammabilityChanceCurve, overrideCells);
+                    postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
+                    preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
+                    chanceToStartFire, damageFalloff, direction, ignoredThings,
+                    null, showConeEffect, propagationSpeed, excludeRadius, showConeEffect, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
                 }
-                GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
-                postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
-                preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
-                chanceToStartFire, damageFalloff, direction, ignoredThings,
-                angle, showConeEffect, propagationSpeed, excludeRadius, showConeEffect, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
             }
             if (fragment != null)
             {
