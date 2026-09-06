@@ -170,7 +170,7 @@
 
   |字段|含义|
   |:--:|:--:|
-  |coneAngle|锥形爆炸角度|
+  |coneAngle|锥形爆炸角度，缺省为Null，为圆形范围|
   |coneRange|锥形爆炸半径|
   |repeatExplosionCount|爆炸重复次数，可以将高数值爆炸裁成多次低数值爆炸降低致死率|
   |fragment|弹片，通常和穿透投射物或者爆炸投射物一同使用|

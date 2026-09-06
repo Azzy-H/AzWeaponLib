@@ -43,6 +43,14 @@
   |ammunitionDef|装填弹药所消耗的物品，当非Null时，启用备用弹药系统|
   |ammoCountPerAmmunitionBox|每个弹药物品给与的弹药数量|
   |canMoveWhenReload|是否可移动装填|
+## 可用类型
+***
+  ```
+  AzWeaponLib.AmmoSystem.CompAmmo
+  AzWeaponLib.AmmoSystem.CompNoMagzineAmmo
+  ```
+  CompAmmo为基类，CompNoMagzineAmmo实现了备弹直接弹匣功能。
+
 ## 重要方法/属性
 ***
   ```

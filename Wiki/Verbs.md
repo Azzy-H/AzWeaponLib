@@ -22,9 +22,10 @@
   |:--:|:--:|
   |bulletsPerShot|每次射击的弹丸数|
   |ammoCostPerShot|每次射击消耗的弹药数|
-  |retargetRange|重新寻找目标的半径，仅在Verb_ShootWithAmmoConstantly上生效|
+  |retargetRange|重新寻找目标的半径|
   |shotgunRetargetRange|未命中时是否重新寻找目标，用于实现霰弹的多目标攻击|
   |shotgunRetargetChanceFromRange|重新寻找到的目标的可用概率分布，类型为SimpleCurve|
+  |projectileOriginOffset|子弹发射的初始位置偏移|
 ## 可用类型
 ***
   ```

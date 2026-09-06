@@ -16,6 +16,7 @@ namespace AzWeaponLib.AmmoSystem
         public int ammoCostPerShot = 1;
         public float retargetRange = 0f;
         public float shotgunRetargetRange = 0f;
+        public Vector2? projectileOriginOffset = null;
         public SimpleCurve shotgunRetargetChanceFromRange;
         public IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req)
         {
@@ -74,6 +75,12 @@ namespace AzWeaponLib.AmmoSystem
         }
         public float retargetChance;
         protected static Dictionary<Thing, ShootLine> victims = new Dictionary<Thing, ShootLine>();
+        protected virtual Vector3 ProjectileOriginOffset(LocalTargetInfo targetInfo)
+        {
+            if(!VerbProps.projectileOriginOffset.HasValue) return Vector3.zero;
+            Quaternion quaternion = Quaternion.AngleAxis((targetInfo.Cell - caster.Position).ToVector3().ToAngleFlat(), Vector3.up);
+            return quaternion * new Vector3(VerbProps.projectileOriginOffset.Value.x, 0f, VerbProps.projectileOriginOffset.Value.y);
+        }
         protected override bool TryCastShot()
         {
             if (VerbProps.shotgunRetargetRange > 1)
@@ -172,13 +179,13 @@ namespace AzWeaponLib.AmmoSystem
                 }
                 if ((hitFlags & ProjectileHitFlags.IntendedTarget) == ProjectileHitFlags.IntendedTarget)
                 {
-                    projectile2.Launch(manningPawn, drawPos, usedTarget, currentTarget, hitFlags, preventFriendlyFire, equipmentSource, targetCoverDef);
+                    projectile2.Launch(manningPawn, drawPos + ProjectileOriginOffset(currentTarget), usedTarget, currentTarget, hitFlags, preventFriendlyFire, equipmentSource, targetCoverDef);
                 }
                 else
                 {
                     ShotReport shotReport = ShotReport.HitReportFor(caster, this, currentTarget);
                     resultingLine.ChangeDestToMissWild(shotReport.AimOnTargetChance_StandardTarget, projectile.projectile.flyOverhead, caster.Map);
-                    projectile2.Launch(manningPawn, drawPos, resultingLine.Dest, currentTarget, hitFlags, preventFriendlyFire, equipmentSource, targetCoverDef);
+                    projectile2.Launch(manningPawn, drawPos + ProjectileOriginOffset(currentTarget), resultingLine.Dest, currentTarget, hitFlags, preventFriendlyFire, equipmentSource, targetCoverDef);
                 }
             }
             //原版逻辑
@@ -187,7 +194,7 @@ namespace AzWeaponLib.AmmoSystem
                 //Log.Message("vanilla shoot");
                 KeyValuePair<LocalTargetInfo, ShootLine> keyValuePair = new KeyValuePair<LocalTargetInfo, ShootLine>(currentTarget, resultingLine);
                 TryGetLaunchProjectileInfo(projectile2, manningPawn, keyValuePair, equipmentSource, drawPos, out usedTarget, out hitFlags, out targetCoverDef);
-                projectile2.Launch(manningPawn, drawPos, usedTarget, currentTarget, hitFlags, preventFriendlyFire, equipmentSource, targetCoverDef);
+                projectile2.Launch(manningPawn, drawPos + ProjectileOriginOffset(currentTarget), usedTarget, currentTarget, hitFlags, preventFriendlyFire, equipmentSource, targetCoverDef);
             }
             return true;
         }

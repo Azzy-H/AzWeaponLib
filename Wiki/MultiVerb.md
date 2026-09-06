@@ -3,6 +3,7 @@
 ## 目的
 ***
   实现武器拥有多种可切换的verb。如果在VEF环境中且Features.Feature_ExtraEquipmentVerbs处于激活状态则不使用该系统，转而使用MVCF的控制逻辑，同样能实现功能（傻逼MVCF我还关不掉它）。
+  通过VerbSwitchWorker，可以实现自定义切换逻辑，每次Verb使用后检测。
 ## 例程
 ***
 ```
