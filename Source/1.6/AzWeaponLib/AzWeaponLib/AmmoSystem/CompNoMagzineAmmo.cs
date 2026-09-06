@@ -43,11 +43,11 @@ namespace AzWeaponLib.AmmoSystem
     }
     public class CompNoMagzineAmmo : CompAmmo
     {
-        public override int maxAmmoNeeded => (ammunitionCapacity - Ammo) / Props.ammoCountPerAmmunitionBox;
-        public override bool needReloadBackupAmmo => ammunitionCapacity >= Ammo + Props.ammoCountPerAmmunitionBox; 
+        public override int MaxAmmoNeeded => (AmmunitionCapacity - Ammo) / Props.ammoCountPerAmmunitionBox;
+        public override bool NeedReloadBackupAmmo => AmmunitionCapacity >= Ammo + Props.ammoCountPerAmmunitionBox; 
         public override void ReloadByAmmoBox(Thing t)
         {
-            int num = Mathf.Min(maxAmmoNeeded, t.stackCount);
+            int num = Mathf.Min(MaxAmmoNeeded, t.stackCount);
             ReloadByNum(num * Props.ammoCountPerAmmunitionBox);
             t.SplitOff(num).Destroy();
             parent.BroadcastCompSignal("AWL_Reloaded");
@@ -58,13 +58,13 @@ namespace AzWeaponLib.AmmoSystem
             {
                 gizmoLabel = Props.gizmoLabel ?? "AWL_AmmunitionGizmoLabel".Translate(),
                 gizmoTip = Props.gizmoTip ?? "AWL_AmmunitionGizmoTip".Translate(),
-                ammunitionCapacity = ammunitionCapacity,
+                ammunitionCapacity = AmmunitionCapacity,
                 amunitionRemained = Ammo,
                 autoReload = autoReload,
                 autoReloadToggle = AutoReloadToggle,
                 makeReloadJob = TryMakeReloadJob,
-                canAutoReloadToggleNow = reloadingTime > 0,
-                canReloadNow = canReloadNow,
+                canAutoReloadToggleNow = ReloadingTime > 0,
+                canReloadNow = CanReloadNow,
                 backupAmmo = -1
             };
             return gizmo_AmmoStatus;

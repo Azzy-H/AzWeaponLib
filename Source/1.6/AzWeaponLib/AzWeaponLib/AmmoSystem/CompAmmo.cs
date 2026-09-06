@@ -169,44 +169,42 @@ namespace AzWeaponLib.AmmoSystem
         public event Action<CompAmmo> OnAmmoComsumed;
         public CompProperties_Ammo Props => (CompProperties_Ammo)props;
         public static AWL_Settings AWL_Settings = LoadedModManager.GetMod<AWL_Mod>().GetSettings<AWL_Settings>();
-        protected int ammunitionCapacity => Mathf.CeilToInt(parent.GetStatValue(AWL_DefOf.AWL_AmmoCapacity));//Props.ammunitionCapacity;
-        protected int backAmmunitionCapacity => Mathf.CeilToInt(parent.GetStatValue(AWL_DefOf.AWL_BackAmmoCapacity) * AWL_Settings.backupAmmoMultipiler);
-        protected float reloadingTime => parent.GetStatValue(AWL_DefOf.AWL_ReloadingTime);
-        protected virtual HediffDef hediffDef => AWL_DefOf.AWL_AmmoGizmoDisp;
+        public int AmmunitionCapacity => Mathf.CeilToInt(parent.GetStatValue(AWL_DefOf.AWL_AmmoCapacity));
+        public int BackAmmunitionCapacity => Mathf.CeilToInt(parent.GetStatValue(AWL_DefOf.AWL_BackAmmoCapacity) * AWL_Settings.backupAmmoMultipiler);
+        public float ReloadingTime => parent.GetStatValue(AWL_DefOf.AWL_ReloadingTime);
+        protected virtual HediffDef GizmoHediffDef => AWL_DefOf.AWL_AmmoGizmoDisp;
         protected Hediff hediff;
         public bool NeedReload
         {
             get
             {
-                return ammo < ammunitionCapacity;
+                return ammo < AmmunitionCapacity;
             }
         }
-        public virtual bool needReloadBackupAmmo
+        public virtual bool NeedReloadBackupAmmo
         {
             get
             {
-                return (backAmmunitionCapacity - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
+                return (BackAmmunitionCapacity - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
             }
         }
-        public virtual int maxAmmoNeeded => (backAmmunitionCapacity - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
-        public bool isEmpty
+        public virtual int MaxAmmoNeeded => (BackAmmunitionCapacity - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
+        public bool IsEmpty
         {
             get
             {
                 return ammo <= 0;
             }
         }
-        public bool useAmmoSystem => AWL_Settings.enableAmmoSystem;
-        private bool onlyShowAmmoGizmoWhenSelectedOneThing => AWL_Settings.onlyShowAmmoGizmoWhenSelectedOneThing;
-        public virtual bool canReloadNow
+        public bool UseAmmoSystem => AWL_Settings.enableAmmoSystem;
+        private bool OnlyShowAmmoGizmoWhenSelectedOneThing => AWL_Settings.onlyShowAmmoGizmoWhenSelectedOneThing;
+        public virtual bool CanReloadNow
         { 
             get 
             {
-                //float manipulation = pawn.health?.capacities?.GetLevel(PawnCapacityDefOf.Manipulation) ?? 1f;
-                //if (manipulation < 0.5f) return false;
-                if (reloadingTime < 0) return false;//一次性
+                if (ReloadingTime < 0) return false;//一次性
                 if (!NeedReload) return false;//满弹
-                if (!enableReloadOverall) return false;//弹药架殉爆
+                if (!enableReloadOverall) return false;
                 return !useBackupAmmo || !NoBackupAmmo;
             }
         }
@@ -241,13 +239,13 @@ namespace AzWeaponLib.AmmoSystem
             }
         }
         public virtual bool NoBackupAmmo => Props.ammunitionDef != null && BackupAmmo <= 0 && (pawn?.Faction?.IsPlayer ?? false) && AWL_Settings.enableBackupAmmoSystem;
-        public virtual int MaxReloadTick => reloadingTime.SecondsToTicks() * 3;
+        public virtual int MaxReloadTick => ReloadingTime.SecondsToTicks() * 3;
         protected bool infiniteBackupAmmo = false;
         public virtual bool useBackupAmmo => Props.ammunitionDef != null && AWL_Settings.enableAmmoSystem && AWL_Settings.enableBackupAmmoSystem && !infiniteBackupAmmo;
         public override void Notify_Equipped(Pawn pawn)
         {
             this.pawn = pawn;
-            hediff = HediffMaker.MakeHediff(hediffDef, pawn);
+            hediff = HediffMaker.MakeHediff(GizmoHediffDef, pawn);
             pawn.health.AddHediff(hediff);
         }
         public override void Notify_Unequipped(Pawn pawn)
@@ -285,8 +283,8 @@ namespace AzWeaponLib.AmmoSystem
         public override void Initialize(CompProperties props)
         {
             base.Initialize(props);
-            ammo = ammunitionCapacity;
-            if (reloadingTime < 0)
+            ammo = AmmunitionCapacity;
+            if (ReloadingTime < 0)
             {
                 autoReload = false;
             }
@@ -296,7 +294,7 @@ namespace AzWeaponLib.AmmoSystem
             if (signal == "AWL_SetMaxAmmo")
             {
                 ReloadToMax();
-                BackupAmmo = backAmmunitionCapacity;
+                BackupAmmo = BackAmmunitionCapacity;
             }
             else if (signal == "AWL_Undrafted" || signal == "AWL_Released" || signal == "AWL_Reloaded")
             {
@@ -328,7 +326,7 @@ namespace AzWeaponLib.AmmoSystem
         }
         public virtual void ReloadByBackupAmmo()
         {
-            int needAmmoNum = isEmpty ? ammunitionCapacity : ammunitionCapacity + 1;
+            int needAmmoNum = IsEmpty ? AmmunitionCapacity : AmmunitionCapacity + 1;
             if (pawn.Faction != null && pawn.Faction.IsPlayer)
             {
                 needAmmoNum -= ammo;
@@ -357,8 +355,8 @@ namespace AzWeaponLib.AmmoSystem
         }
         public virtual void ReloadToMax()
         {
-            if (!Props.canLoadExtra || isEmpty) ammo = ammunitionCapacity;
-            else ammo = ammunitionCapacity + 1;
+            if (!Props.canLoadExtra || IsEmpty) ammo = AmmunitionCapacity;
+            else ammo = AmmunitionCapacity + 1;
             OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadTo(int num)
@@ -374,14 +372,14 @@ namespace AzWeaponLib.AmmoSystem
         public virtual void ReloadByNum(int num)
         {
             ammo += num;
-            ammo = Mathf.Min(ammo, ammunitionCapacity + 1);
+            ammo = Mathf.Min(ammo, AmmunitionCapacity + 1);
             OnAmmoReloaded?.Invoke(this);
         }
         public virtual void ReloadByAmmoBox(Thing t)
         { 
             if (t == null) return;
-            if (!needReloadBackupAmmo) return;
-            int num = Mathf.Min(maxAmmoNeeded, t.stackCount);
+            if (!NeedReloadBackupAmmo) return;
+            int num = Mathf.Min(MaxAmmoNeeded, t.stackCount);
             BackupAmmo += num * Props.ammoCountPerAmmunitionBox;
             t.SplitOff(num).Destroy();
             parent.BroadcastCompSignal("AWL_Reloaded");
@@ -414,7 +412,7 @@ namespace AzWeaponLib.AmmoSystem
         }
         public virtual void TryMakeReloadJob(bool forced = false, bool delay = false, bool resumeCurJob = true)
         {
-            if (!canReloadNow) return;
+            if (!CanReloadNow) return;
             if (!forced && (GetReloadTicks() > MaxReloadTick || !autoReload)) return;
             if (pawn.CurJobDef == AWL_DefOf.AWL_ReloadWeapon) 
             { 
@@ -452,7 +450,7 @@ namespace AzWeaponLib.AmmoSystem
         }
         public virtual IEnumerable<Gizmo> GetAmmoGizmos()
         {
-            if (onlyShowAmmoGizmoWhenSelectedOneThing && Find.Selector.NumSelected > 1) yield break;
+            if (OnlyShowAmmoGizmoWhenSelectedOneThing && Find.Selector.NumSelected > 1) yield break;
             //bool canReloadNow = (Props.reloadingTime > 0)  && (GetReloadTicks() <= MaxReloadTick) && ((Props.ammunitionDef == null && Props.ammoSourceFinder == null) || backupAmmo > 0);//非一次性武器，装填时间低于阈值且足够弹药
             yield return GetAmmoStatusGizmo();
             if (DebugSettings.ShowDevGizmos)
@@ -520,7 +518,7 @@ namespace AzWeaponLib.AmmoSystem
                         onHover = null,
                         action = delegate
                         {
-                            BackupAmmo = backAmmunitionCapacity;
+                            BackupAmmo = BackAmmunitionCapacity;
                         },
                         activateSound = SoundDef.Named("Click"),
                         hotKey = null
@@ -534,18 +532,18 @@ namespace AzWeaponLib.AmmoSystem
             {
                 gizmoLabel = Props.gizmoLabel ?? "AWL_AmmunitionGizmoLabel".Translate(),
                 gizmoTip = Props.gizmoTip ?? "AWL_AmmunitionGizmoTip".Translate(),
-                ammunitionCapacity = ammunitionCapacity,
+                ammunitionCapacity = AmmunitionCapacity,
                 amunitionRemained = ammo,
                 autoReload = autoReload,
                 autoReloadToggle = AutoReloadToggle,
                 makeReloadJob = TryMakeReloadJob,
-                canAutoReloadToggleNow = reloadingTime > 0,
-                canReloadNow = canReloadNow,
+                canAutoReloadToggleNow = ReloadingTime > 0,
+                canReloadNow = CanReloadNow,
                 backupAmmo = !useBackupAmmo ? -1 : BackupAmmo,
             };
-            if (!canReloadNow)
+            if (!CanReloadNow)
             {
-                if (reloadingTime < 0)
+                if (ReloadingTime < 0)
                 {
                     gizmo_AmmoStatus.failedReason = "AWL_DisposableWeapon".Translate().Colorize(Color.yellow);
                 }
@@ -575,7 +573,7 @@ namespace AzWeaponLib.AmmoSystem
         }
         public virtual int GetReloadTicks()
         {
-            return GenTicks.SecondsToTicks(reloadingTime);
+            return GenTicks.SecondsToTicks(ReloadingTime);
             //if (!Props.pawnStatsAffectReloading) return GenTicks.SecondsToTicks(reloadingTime);
             //return GenTicks.SecondsToTicks(reloadingTime * AmmoUtility.GetReloadMultipiler(pawn, parent));
         }
@@ -589,7 +587,7 @@ namespace AzWeaponLib.AmmoSystem
             if (Props.singleShotLoading)
             {
                 if (Forced || (pawn.drafter != null && !pawn.drafter.Drafted))
-                    return ammunitionCapacity - ammo;
+                    return AmmunitionCapacity - ammo;
                 else
                 {
                     Verb v = parent.TryGetComp<CompEquippable>().PrimaryVerb;
@@ -598,7 +596,7 @@ namespace AzWeaponLib.AmmoSystem
                     {
                         result *= vswa.VerbProps.ammoCostPerShot;
                     }
-                    return Mathf.Min(result, ammunitionCapacity - ammo);
+                    return Mathf.Min(result, AmmunitionCapacity - ammo);
                 }
             }
             return 1;

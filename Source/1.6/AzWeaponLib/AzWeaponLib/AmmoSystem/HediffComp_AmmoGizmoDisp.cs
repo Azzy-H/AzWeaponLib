@@ -41,7 +41,7 @@ namespace AzWeaponLib.AmmoSystem
                 compShouldRemove = true;
                 yield break;
             }
-            if (compAmmo.useAmmoSystem)
+            if (compAmmo.UseAmmoSystem)
             {
                 foreach (Gizmo g in compAmmo.GetAmmoGizmos()) yield return g;
             }

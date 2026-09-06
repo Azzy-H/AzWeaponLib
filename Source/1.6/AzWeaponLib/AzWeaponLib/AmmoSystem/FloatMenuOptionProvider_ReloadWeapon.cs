@@ -28,7 +28,7 @@ namespace AzWeaponLib.AmmoSystem
                 yield return new FloatMenuOption(text + ": " + "NoPath".Translate().CapitalizeFirst(), null);
                 yield break;
             }
-            if (!compAmmo.needReloadBackupAmmo)
+            if (!compAmmo.NeedReloadBackupAmmo)
             {
                 yield return new FloatMenuOption(text + ": " + "ReloadFull".Translate(), null);
                 yield break;

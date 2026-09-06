@@ -70,7 +70,7 @@ namespace AzWeaponLib.AmmoSystem
             get 
             { 
                 if (CompAmmo == null) return false;
-                return CompAmmo.useAmmoSystem;
+                return CompAmmo.UseAmmoSystem;
             }
         }
         public float retargetChance;

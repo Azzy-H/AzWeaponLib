@@ -33,7 +33,7 @@ namespace AzWeaponLib.AmmoSystem
             CompAmmo compAmmo = Gear?.TryGetComp<CompAmmo>();
             this.FailOn(() => compAmmo == null);
             this.FailOn(() => compAmmo.pawn != pawn);
-            this.FailOn(() => !compAmmo.needReloadBackupAmmo);
+            this.FailOn(() => !compAmmo.NeedReloadBackupAmmo);
             this.FailOnDestroyedOrNull(TargetIndex.A);
             this.FailOnIncapable(PawnCapacityDefOf.Manipulation);
             Toil getNextIngredient = Toils_General.Label();

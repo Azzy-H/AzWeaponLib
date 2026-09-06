@@ -55,7 +55,7 @@ namespace AzWeaponLib.AmmoSystem
             {
                 return null;
             }
-            IntRange desiredQuantity = new IntRange(1, compAmmo.maxAmmoNeeded);
+            IntRange desiredQuantity = new IntRange(1, compAmmo.MaxAmmoNeeded);
             return RefuelWorkGiverUtility.FindEnoughReservableThings(pawn, rootCell, desiredQuantity, (Thing t) => t.def == compAmmo.Props.ammunitionDef);
         }
     }

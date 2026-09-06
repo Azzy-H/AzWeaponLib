@@ -32,7 +32,7 @@ namespace AzWeaponLib.AmmoSystem
             {
                 return null;
             }
-            if (!compAmmo.needReloadBackupAmmo)
+            if (!compAmmo.NeedReloadBackupAmmo)
             {
                 return null;
             }
@@ -49,7 +49,7 @@ namespace AzWeaponLib.AmmoSystem
             Job job = JobMaker.MakeJob(AWL_DefOf.AWL_ReloadWeaponWithAmmo, compAmmo.parent);
             job.targetQueueB = chosenAmmo.Select((Thing t) => new LocalTargetInfo(t)).ToList();
             job.count = chosenAmmo.Sum((Thing t) => t.stackCount);
-            job.count = Math.Min(job.count, compAmmo.maxAmmoNeeded);
+            job.count = Math.Min(job.count, compAmmo.MaxAmmoNeeded);
             return job;
         }
     }
