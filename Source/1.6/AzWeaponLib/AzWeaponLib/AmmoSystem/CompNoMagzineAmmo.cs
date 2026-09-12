@@ -44,7 +44,7 @@ namespace AzWeaponLib.AmmoSystem
     public class CompNoMagzineAmmo : CompAmmo
     {
         public override int MaxAmmoNeeded => (AmmunitionCapacity - Ammo) / Props.ammoCountPerAmmunitionBox;
-        public override bool NeedReloadBackupAmmo => AmmunitionCapacity >= Ammo + Props.ammoCountPerAmmunitionBox; 
+        public override bool NeedReloadBackupAmmo => AmmunitionCapacity >= Ammo + Props.ammoCountPerAmmunitionBox;
         public override void ReloadByAmmoBox(Thing t)
         {
             int num = Mathf.Min(MaxAmmoNeeded, t.stackCount);
@@ -68,19 +68,6 @@ namespace AzWeaponLib.AmmoSystem
                 backupAmmo = -1
             };
             return gizmo_AmmoStatus;
-        }
-        public override void PostPostMake()
-        {
-            OnAmmoReloaded += NotifyReloaded;
-        }
-        protected virtual void NotifyReloaded(CompAmmo compAmmo)
-        {
-            if (parent.HitPoints < parent.MaxHitPoints)
-            {
-                int num = Mathf.Min(parent.MaxHitPoints - parent.HitPoints, Ammo);
-                UsedByNum(num);
-                parent.HitPoints += num;
-            }
         }
     }
 }

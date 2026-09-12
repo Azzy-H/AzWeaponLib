@@ -43,6 +43,7 @@
   |ammunitionDef|装填弹药所消耗的物品，当非Null时，启用备用弹药系统|
   |ammoCountPerAmmunitionBox|每个弹药物品给与的弹药数量|
   |canMoveWhenReload|是否可移动装填|
+  |reloadSound|装填音效|
 ## 可用类型
 ***
   ```

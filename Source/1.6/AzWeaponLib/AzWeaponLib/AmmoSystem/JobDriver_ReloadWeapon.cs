@@ -11,6 +11,7 @@ using Verse.AI;
 using static RimWorld.PsychicRitualRoleDef;
 using static UnityEngine.GraphicsBuffer;
 using AzWeaponLib;
+using Verse.Sound;
 
 namespace AzWeaponLib.AmmoSystem
 {
@@ -72,6 +73,10 @@ namespace AzWeaponLib.AmmoSystem
 
             Toil reload = ReloadWait(reloadTick, canMove: canMove);
             reload.WithProgressBarToilDelay(TargetIndex.A);
+            reload.initAction = () => 
+            {
+                compAmmo.Props.reloadSound?.PlayOneShot(pawn);
+            };
             yield return reload;
             switch (useAmmo)
             {
@@ -80,8 +85,8 @@ namespace AzWeaponLib.AmmoSystem
                     else yield return Toils_General.Do(compAmmo.ReloadToMax);
                     break;
                 case true: //需要弹药
-                    if (compAmmo.Props.singleShotLoading) yield return Toils_General.Do(compAmmo.ReloadByBackupAmmoOnce);
-                    else yield return Toils_General.Do(compAmmo.ReloadByBackupAmmo);
+                    if (compAmmo.Props.singleShotLoading) yield return Toils_General.Do(compAmmo.ReloadByBackupAmmoByOne);
+                    else yield return Toils_General.Do(compAmmo.ReloadByBackupAmmoToMax);
                     break;
             }
 

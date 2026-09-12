@@ -35,6 +35,7 @@ namespace AzWeaponLib.AmmoSystem
         public bool canMoveWhenReload = false;
         private const int displayPriority = 300;
         private static StatCategoryDef statCategoryDef;
+        public SoundDef reloadSound;
         //public virtual int MaxBackupAmmo => Mathf.CeilToInt(maxBackupAmmo * AWL_Settings.backupAmmoMultipiler);
         public CompProperties_Ammo()
         {
@@ -324,52 +325,70 @@ namespace AzWeaponLib.AmmoSystem
         { 
             foreach(StatDrawEntry sde in Props.GetStatDrawEntries(StatRequest.For(parent))) yield return sde;
         }
-        public virtual void ReloadByBackupAmmo()
+        public virtual void ReloadByBackupAmmoToMax()
         {
-            int needAmmoNum = IsEmpty ? AmmunitionCapacity : AmmunitionCapacity + 1;
+            int costAmmo = (IsEmpty ? AmmunitionCapacity : AmmunitionCapacity + 1) - ammo;
+            if(pawn.Faction == null || !pawn.Faction.IsPlayer)
+            {
+                ReloadByNum(costAmmo);
+                return;
+            }
+            if (costAmmo <= BackupAmmo)
+            {
+                BackupAmmo -= costAmmo;
+                ReloadToMax();
+            }
+            else
+            {
+                BackupAmmo = 0;
+                ReloadByNum(BackupAmmo);
+            }
+        }
+        public virtual void ReloadByBackupAmmoToNum(int num)
+        {
+            int costAmmo = num - ammo;
+            if(costAmmo <= 0) return;
+            if (pawn.Faction == null || !pawn.Faction.IsPlayer)
+            {
+                ReloadTo(num);
+                return;
+            }
+            if (costAmmo <= BackupAmmo)
+            {
+                BackupAmmo -= costAmmo;
+                ReloadTo(num);
+            }
+            else
+            {
+                BackupAmmo = 0;
+                ReloadByNum(BackupAmmo);
+            }
+        }
+        public virtual void ReloadByBackupAmmoByOne()
+        {
             if (pawn.Faction != null && pawn.Faction.IsPlayer)
             {
-                needAmmoNum -= ammo;
+                BackupAmmo--;
             }
-            else
-            {
-                needAmmoNum = 0;
-            }
-            if (needAmmoNum <= BackupAmmo)
-            {
-                ReloadToMax();
-                BackupAmmo -= needAmmoNum;
-            }
-            else
-            {
-                ReloadByNum(BackupAmmo);
-                BackupAmmo = 0;
-            }
-            OnAmmoReloaded?.Invoke(this);
+            ReloadByOne();
         }
-        public virtual void ReloadByBackupAmmoOnce()
-        {
-            ammo++;
-            BackupAmmo--;
-            OnAmmoReloaded?.Invoke(this);
-        }
-        public virtual void ReloadToMax()
+        public void ReloadToMax()
         {
             if (!Props.canLoadExtra || IsEmpty) ammo = AmmunitionCapacity;
             else ammo = AmmunitionCapacity + 1;
             OnAmmoReloaded?.Invoke(this);
         }
-        public virtual void ReloadTo(int num)
+        public void ReloadTo(int num)
         {
             ammo = num;
             OnAmmoReloaded?.Invoke(this);
         }
-        public virtual void ReloadByOne()
+        public void ReloadByOne()
         {
             if (NeedReload) ammo++;
             OnAmmoReloaded?.Invoke(this);
         }
-        public virtual void ReloadByNum(int num)
+        public void ReloadByNum(int num)
         {
             ammo += num;
             ammo = Mathf.Min(ammo, AmmunitionCapacity + 1);
@@ -384,13 +403,13 @@ namespace AzWeaponLib.AmmoSystem
             t.SplitOff(num).Destroy();
             parent.BroadcastCompSignal("AWL_Reloaded");
         }
-        public virtual void UsedOnce()
+        public void UsedOnce()
         {
             ammo--;
             OnAmmoComsumed?.Invoke(this);
             if (ammo <= 0) NotifyExhausted();
         }
-        public virtual void UsedByNum(int num)
+        public void UsedByNum(int num)
         {
             Ammo -= num;
             OnAmmoComsumed?.Invoke(this);

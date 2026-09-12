@@ -117,6 +117,7 @@
     <Compile Include="SpecialProjectile\ElectricArc\ElectricArcDef.cs" />
     <Compile Include="SpecialProjectile\HomingProjectile\ExplosiveExtension_Cone.cs" />
     <Compile Include="SpecialProjectile\HomingProjectile\HomingProjectileDef.cs" />
+    <Compile Include="SpecialProjectile\HomingProjectile\Projectile_ExplosiveWithFrag.cs" />
     <Compile Include="SpecialProjectile\HomingProjectile\Projectile_Homing.cs" />
     <Compile Include="SpecialProjectile\HomingProjectile\Projectile_Homing_Explosive.cs" />
     <Compile Include="SpecialProjectile\PiercingProjectile\Patch_Projectile.cs" />

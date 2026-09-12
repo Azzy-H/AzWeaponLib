@@ -16,7 +16,7 @@ namespace AzWeaponLib.MultiVerb
         }
         public override void Notify_PawnUsedVerb(Verb verb, LocalTargetInfo target)
         {
-            if (verb is Verb_ShootWithAmmo v && !v.canShootNow && !CompAmmo.CanReloadNow)
+            if (verb is Verb_ShootWithAmmo v && !v.CanShootNow && !CompAmmo.CanReloadNow)
             {
                 CompMultiVerb.SetNextVerbIndex();
             }

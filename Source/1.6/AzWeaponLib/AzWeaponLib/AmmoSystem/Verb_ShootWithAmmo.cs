@@ -1,12 +1,7 @@
-﻿using AzWeaponLib;
-using RimWorld;
-using System;
+﻿using RimWorld;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using Verse;
-using Verse.AI;
 
 namespace AzWeaponLib.AmmoSystem
 {
@@ -57,7 +52,7 @@ namespace AzWeaponLib.AmmoSystem
                 return compAmmoInt;
             }
         }
-        public virtual bool canShootNow
+        public virtual bool CanShootNow
         {
             get
             {
@@ -65,7 +60,7 @@ namespace AzWeaponLib.AmmoSystem
                 return VerbProps.ammoCostPerShot <= CompAmmo.Ammo;
             }
         }
-        public bool useAmmoSystem
+        public bool UseAmmoSystem
         { 
             get 
             { 
@@ -89,11 +84,11 @@ namespace AzWeaponLib.AmmoSystem
             }
 
             bool flag = false;
-            if (!useAmmoSystem) 
+            if (!UseAmmoSystem) 
             { 
                 flag = TryCastMultiBulletShot(); 
             }
-            else if (canShootNow && TryCastMultiBulletShot())
+            else if (CanShootNow && TryCastMultiBulletShot())
             {
                 CompAmmo.UsedByNum(VerbProps.ammoCostPerShot);
                 //if (!canShootNow) 
@@ -123,7 +118,7 @@ namespace AzWeaponLib.AmmoSystem
         }
         public override bool TryStartCastOn(LocalTargetInfo castTarg, LocalTargetInfo destTarg, bool surpriseAttack = false, bool canHitNonTargetPawns = true, bool preventFriendlyFire = false, bool nonInterruptingSelfCast = false)
         {
-            if (useAmmoSystem && !canShootNow)
+            if (UseAmmoSystem && !CanShootNow)
             {
                 if(CompAmmo.autoReload && (!(CasterPawn?.pather.Moving ?? false) || CompAmmo.Props.canMoveWhenReload)) CompAmmo.TryMakeReloadJob(forced: false);
                 return false;
