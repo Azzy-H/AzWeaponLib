@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 using Verse.Noise;
+using Verse.Sound;
 
 namespace AzWeaponLib.SpecialProjectile
 {
@@ -65,7 +66,7 @@ namespace AzWeaponLib.SpecialProjectile
                     if (angle.Value.max > 360f)
                     {
                         FloatRange angle2 = new FloatRange(0f, angle.Value.max - 360f);
-                        GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
+                        GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, null, weapon, projectile, intendedTarget,
                     postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
                     preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
                     chanceToStartFire, damageFalloff, direction, ignoredThings,
@@ -80,20 +81,25 @@ namespace AzWeaponLib.SpecialProjectile
                     chanceToStartFire, damageFalloff, direction, ignoredThings,
                     angle2, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, 0f, flammabilityChanceCurve, overrideCells);
                     }
-                    GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
+                    GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, null, weapon, projectile, intendedTarget,
                     postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
                     preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
                     chanceToStartFire, damageFalloff, direction, ignoredThings,
-                    angle, showConeEffect, propagationSpeed, excludeRadius, showConeEffect, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
+                    angle, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
                 }
                 else
                 {
-                    GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, explosionSound, weapon, projectile, intendedTarget,
+                    GenExplosion.DoExplosion(center, map, coneRange, damType, instigator, damAmount, armorPenetration, null, weapon, projectile, intendedTarget,
                     postExplosionSpawnThingDef, postExplosionSpawnChance, postExplosionSpawnThingCount, postExplosionGasType, postExplosionGasRadiusOverride, postExplosionGasAmount, applyDamageToExplosionCellsNeighbors,
                     preExplosionSpawnThingDef, preExplosionSpawnChance, preExplosionSpawnThingCount,
                     chanceToStartFire, damageFalloff, direction, ignoredThings,
-                    null, showConeEffect, propagationSpeed, excludeRadius, showConeEffect, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
+                    null, showConeEffect, propagationSpeed, excludeRadius, false, postExplosionSpawnThingDefWater, screenShakeFactor, flammabilityChanceCurve, overrideCells);
                 }
+                if (showConeEffect) 
+                {
+                    (explosionSound ?? damType.soundExplosion).PlayOneShot(new TargetInfo(center, map));
+                }
+                ;
             }
             if (fragment != null)
             {

@@ -17,5 +17,16 @@ namespace AzWeaponLib.AmmoSystem
             this.focusTarg = focusTarg;
         }
         public Stance_Reload() : base() { }
+        public override void StanceTick()
+        {
+            base.StanceTick();
+            if (focusTarg != null)
+            {
+                if (focusTarg.Thing == null || !focusTarg.Thing.Spawned)
+                {
+                    focusTarg = null;
+                }
+            }
+        }
     }
 }
