@@ -97,7 +97,11 @@ namespace AzWeaponLib.SpecialProjectile
                 }
                 if (showConeEffect) 
                 {
-                    (explosionSound ?? damType.soundExplosion).PlayOneShot(new TargetInfo(center, map));
+                    SoundDef  sound = explosionSound ?? damType.soundExplosion;
+                    if (!sound.NullOrUndefined())
+                    {
+                        sound.PlayOneShot(new TargetInfo(center, map));
+                    }
                 }
                 ;
             }
