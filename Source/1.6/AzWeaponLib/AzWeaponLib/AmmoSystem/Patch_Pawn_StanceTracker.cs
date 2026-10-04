@@ -85,7 +85,7 @@ namespace AzWeaponLib.AmmoSystem
                 if (verb.caster is IAttackTargetSearcher attackTargetSearcher)
                 {
                     List<IAttackTarget> attackTargets = attackTargetSearcher.Thing.Map.attackTargetsCache.GetPotentialTargetsFor(attackTargetSearcher);
-                    attackTargets.RemoveAll(x => Vector3.Dot((verb.CurrentTarget.Cell - attackTargetSearcher.Thing.Position).ToVector3(), (x.Thing.Position - attackTargetSearcher.Thing.Position).ToVector3()) < 0f);
+                    attackTargets.RemoveAll(x => Vector3.Dot((verb.CurrentTarget.Cell - attackTargetSearcher.Thing.Position).ToVector3(), (x.Thing.Position - attackTargetSearcher.Thing.Position).ToVector3()) < 0f || (x is Pawn p && p.DeadOrDowned));
                     if (attackTargets.Count == 0) return;
                     Thing closestTarget = attackTargets.MinBy(x => x.Thing.Position.DistanceToSquared(verb.CurrentTarget.Cell)).Thing;
                     if (closestTarget.Position.DistanceToSquared(verb.CurrentTarget.Cell) < (vpswa.retargetRange * vpswa.retargetRange))
