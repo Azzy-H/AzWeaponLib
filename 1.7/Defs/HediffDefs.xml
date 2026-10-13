@@ -1,0 +1,51 @@
+<Defs>
+    <HediffDef>
+        <defName>AWL_MultiVerbSelect</defName>
+        <label>multi verb select</label>
+        <description>Multi Verb Select.</description>
+        <hediffClass>HediffWithComps</hediffClass>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <isBad>false</isBad>
+        <comps>
+            <li Class="AzWeaponLib.MultiVerb.HediffCompProperties_MultiVerbSelect" />
+        </comps>
+        <stages>
+            <li>
+                <becomeVisible>false</becomeVisible>
+            </li>
+        </stages>
+    </HediffDef>
+
+    <HediffDef>
+        <defName>AWL_AmmoGizmoDisp</defName>
+        <label>ammo gizmo disp</label>
+        <description>Ammo Gizmo Disp.</description>
+        <hediffClass>HediffWithComps</hediffClass>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <isBad>false</isBad>
+        <comps>
+            <li Class="AzWeaponLib.AmmoSystem.HediffCompProperties_AmmoGizmoDisp" />
+        </comps>
+        <stages>
+            <li>
+                <becomeVisible>false</becomeVisible>
+            </li>
+        </stages>
+    </HediffDef>
+
+
+    <HediffDef>
+        <defName>AWL_AbilityTurret</defName>
+        <label>ability turret</label>
+        <description>Automatically casts enabled abilities.</description>
+        <hediffClass>AzWeaponLib.HediffTurret.Hediff_AbilityTurret</hediffClass>
+        <isBad>false</isBad>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <stages>
+            <li>
+                <becomeVisible>false</becomeVisible>
+            </li>
+        </stages>
+    </HediffDef>
+
+</Defs>

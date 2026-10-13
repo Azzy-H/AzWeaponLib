@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net480</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>Latest</LangVersion>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<OutputPath>..\..\..\1.7\Assemblies</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Lib.Harmony.Ref" Version="2.4.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="**\obj\**" />
+	  <Compile Remove="**\bin\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="MultiVerb\Patch_VerbTracker - 复制.cs" />
+	  <Compile Remove="PatchMisc\Patch_TickList.cs" />
+	</ItemGroup>
+
+  <ItemGroup>
+  <Reference Include="0Harmony" Condition="'$(HarmonyPath)' != '' AND Exists('$(HarmonyPath)')">
+    <HintPath>$(HarmonyPath)</HintPath>
+    <Private>False</Private>
+  </Reference>
+  <Reference Include="Assembly-CSharp">
+    <HintPath>..\..\..\..\..\Assembly-CSharp.dll</HintPath>
+  </Reference>
+  <Reference Include="UnityStubs">
+    <HintPath>..\..\..\..\..\UnityStubs.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+</ItemGroup>
+
+</Project>

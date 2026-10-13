@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <JobDef>
+    <defName>AWL_ReloadWeapon</defName>
+    <driverClass>AzWeaponLib.AmmoSystem.JobDriver_ReloadWeapon</driverClass>
+    <reportString>Reloading.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+    <alwaysShowWeapon>true</alwaysShowWeapon>
+    <checkOverrideOnDamage>Never</checkOverrideOnDamage>
+  </JobDef>
+
+  <JobDef>
+    <defName>AWL_ReloadWeaponWithAmmo</defName>
+    <driverClass>AzWeaponLib.AmmoSystem.JobDriver_ReloadWeaponWithAmmo</driverClass>
+    <reportString>Reloading.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+
+</Defs>
