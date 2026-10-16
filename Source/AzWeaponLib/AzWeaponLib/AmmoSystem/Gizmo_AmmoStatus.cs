@@ -14,8 +14,8 @@ namespace AzWeaponLib.AmmoSystem
     [StaticConstructorOnStartup]
     public class Gizmo_AmmoStatus : Gizmo
     {
-        public string gizmoLabel;
-        public string gizmoTip;
+        public string gizmoLabel = null!;
+        public string gizmoTip = null!;
         public int ammunitionCapacity;
         public int amunitionRemained;
         public bool autoReload;

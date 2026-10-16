@@ -242,8 +242,8 @@ namespace AzWeaponLib.AmmoSystem
                 }
             }
             ShotReport shotReport = ShotReport.HitReportFor(caster, this, currentTarget);
-            Thing randomCoverToMissInto = shotReport.GetRandomCoverToMissInto();
-            targetCoverDef = randomCoverToMissInto.def;
+            Thing? randomCoverToMissInto = shotReport.GetRandomCoverToMissInto();
+            targetCoverDef = randomCoverToMissInto?.def;
             if (verbProps.canGoWild && !Rand.Chance(shotReport.AimOnTargetChance_IgnoringPosture))
             {
                 bool flyOverhead = projectile?.def?.projectile != null && projectile.def.projectile.flyOverhead;
@@ -262,7 +262,7 @@ namespace AzWeaponLib.AmmoSystem
             if (currentTarget.Thing != null && currentTarget.Thing.def.CanBenefitFromCover && !Rand.Chance(shotReport.PassCoverChance))
             {
                 ThrowDebugText("ToCover" + (canHitNonTargetPawnsNow ? "\nchntp" : ""));
-                ThrowDebugText("Cover\nDest", randomCoverToMissInto.Position);
+                ThrowDebugText("Cover\nDest", randomCoverToMissInto!.Position);
                 ProjectileHitFlags projectileHitFlags3 = ProjectileHitFlags.NonTargetWorld;
                 if (canHitNonTargetPawnsNow)
                 {

@@ -215,13 +215,19 @@ namespace AzWeaponLib.SpecialProjectile
                 int maxConductNum;
                 if (extra)
                 {
-                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount * ElectricArcDef.damageMultiplierExtra, ArmorPenetration * ElectricArcDef.penetrationMultiplierExtra, ExactRotation.eulerAngles.y, launcher, null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing, instigatorGuilty);
+                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount * ElectricArcDef.damageMultiplierExtra, 
+                        ArmorPenetration * ElectricArcDef.penetrationMultiplierExtra, ExactRotation.eulerAngles.y, launcher, 
+                        null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, 
+                        intendedTarget.Thing, instigatorGuilty);
                     conductChance = ElectricArcDef.conductChanceExtra;
                     maxConductNum = ElectricArcDef.maxConductNumExtra;
                 }
                 else
                 {
-                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount, ArmorPenetration, ExactRotation.eulerAngles.y, launcher, null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing, instigatorGuilty);
+                    dinfo = new DamageInfo(def.projectile.damageDef, DamageAmount, 
+                        ArmorPenetration, ExactRotation.eulerAngles.y, launcher, 
+                        null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, 
+                        intendedTarget.Thing, instigatorGuilty);
                     conductChance = ElectricArcDef.conductChance;
                     maxConductNum = ElectricArcDef.maxConductNum;
                 }
@@ -235,7 +241,10 @@ namespace AzWeaponLib.SpecialProjectile
                     {
                         if (Rand.Chance(extraDamage.chance))
                         {
-                            DamageInfo dinfo2 = new DamageInfo(extraDamage.def, extraDamage.amount, extraDamage.AdjustedArmorPenetration(), ExactRotation.eulerAngles.y, launcher, null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, intendedTarget.Thing, instigatorGuilty);
+                            DamageInfo dinfo2 = new DamageInfo(extraDamage.def, extraDamage.amount, 
+                                extraDamage.AdjustedArmorPenetration(), ExactRotation.eulerAngles.y, launcher, 
+                                null, equipmentDef, DamageInfo.SourceCategory.ThingOrUnknown, 
+                                intendedTarget.Thing, instigatorGuilty);
                             hitThing.TakeDamage(dinfo2).AssociateWithLog(battleLogEntry_RangedImpact);
                         }
                     }

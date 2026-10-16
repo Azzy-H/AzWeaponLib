@@ -15,7 +15,7 @@ namespace AzWeaponLib.AmmoSystem
     {
         [HarmonyPatch("StartCollectCorpseToil")]
         [HarmonyPostfix]
-        public static void Postfix_StartCollectCorpseToil(JobDriver_Lovin __instance, Toil __result)
+        public static void Postfix_StartCollectCorpseToil(JobDriver_Hunt __instance, Toil __result)
         {
             Action action = () =>
             {
