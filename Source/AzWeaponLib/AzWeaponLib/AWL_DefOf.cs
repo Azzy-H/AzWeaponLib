@@ -20,6 +20,7 @@ namespace AzWeaponLib
         public static HediffDef AWL_AmmoGizmoDisp = null!;
         public static HediffDef AWL_MultiVerbSelect = null!;
         public static HediffDef AWL_AbilityTurret = null!;
+        public static ShaderDef AWL_FlameField = null!;
         static AWL_DefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(AWL_DefOf));

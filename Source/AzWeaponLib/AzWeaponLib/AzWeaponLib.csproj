@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net480</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
@@ -43,6 +43,10 @@
   </Reference>
   <Reference Include="UnityStubs">
     <HintPath>..\..\..\..\..\UnityStubs.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+  <Reference Include="Waylith">
+    <HintPath>..\..\..\..\..\Waylith.dll</HintPath>
     <Private>False</Private>
   </Reference>
 </ItemGroup>

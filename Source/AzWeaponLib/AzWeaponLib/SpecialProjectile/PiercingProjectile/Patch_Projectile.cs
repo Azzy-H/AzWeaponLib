@@ -43,7 +43,7 @@ namespace AzWeaponLib.SpecialProjectile
         {
             MethodInfo method = projectile.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
                             .Where(m => m.Name == "Impact" && m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType == typeof(Thing) && m.GetParameters()[1].ParameterType == typeof(bool))
-                            .FirstOrDefault();
+                            .FirstOrDefault()!;
             method.Invoke(projectile, new object[2] { hitThing, blockedByShield });
         }
     }

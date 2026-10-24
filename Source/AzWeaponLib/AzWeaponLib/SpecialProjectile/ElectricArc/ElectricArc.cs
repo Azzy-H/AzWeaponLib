@@ -59,9 +59,9 @@ namespace AzWeaponLib.SpecialProjectile
         {
             if (!def.projectile.soundAmbient.NullOrUndefined())
             {
-                ambientSustainer = (Sustainer)(NonPublicFields.Projectile_AmbientSustainer.GetValue(this));
+                ambientSustainer = (Sustainer)(NonPublicFields.Projectile_AmbientSustainer.GetValue(this))!;
             }
-            comps = (List<ThingComp>)(NonPublicFields.ThingWithComps_comps.GetValue(this));
+            comps = (List<ThingComp>)(NonPublicFields.ThingWithComps_comps.GetValue(this))!;
         }
         protected override void Tick()
         {

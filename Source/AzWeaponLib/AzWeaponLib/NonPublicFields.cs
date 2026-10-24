@@ -14,9 +14,9 @@ namespace AzWeaponLib
     internal static class NonPublicFields
     {
 
-        public static FieldInfo Projectile_AmbientSustainer = typeof(Projectile).GetField("ambientSustainer", BindingFlags.Instance | BindingFlags.NonPublic);
+        public static FieldInfo Projectile_AmbientSustainer = typeof(Projectile).GetField("ambientSustainer", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
-        public static FieldInfo ThingWithComps_comps = typeof(ThingWithComps).GetField("comps", BindingFlags.Instance | BindingFlags.NonPublic);
+        public static FieldInfo ThingWithComps_comps = typeof(ThingWithComps).GetField("comps", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
         public static FieldInfo StatDrawEntry_labelInt = AccessTools.Field(typeof(StatDrawEntry), "labelInt");
 

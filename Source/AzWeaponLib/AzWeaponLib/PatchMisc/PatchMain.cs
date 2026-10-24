@@ -75,20 +75,20 @@ namespace AzWeaponLib
 
             Type Feature_VerbCompsType = AccessTools.TypeByName("MVCF.Features.Feature_VerbComps");
             object Feature_VerbCompsObj = MVCF
-                .GetMethod("GetFeature", BindingFlags.Static | BindingFlags.Public)
-                .MakeGenericMethod(Feature_VerbCompsType).Invoke(null, null);
-            FieldInfo VerbComps_EnabledField = Feature_VerbCompsType.GetField("Enabled");
+                .GetMethod("GetFeature", BindingFlags.Static | BindingFlags.Public)!
+                .MakeGenericMethod(Feature_VerbCompsType).Invoke(null, null)!;
+            FieldInfo VerbComps_EnabledField = Feature_VerbCompsType.GetField("Enabled")!;
 
 
             Type Feature_ExtraEquipmentVerbsType = AccessTools.TypeByName("MVCF.Features.Feature_ExtraEquipmentVerbs");
             object Feature_ExtraEquipmentVerbsObj = MVCF
-                .GetMethod("GetFeature", BindingFlags.Static | BindingFlags.Public)
-                .MakeGenericMethod(Feature_ExtraEquipmentVerbsType).Invoke(null, null);
-            FieldInfo ExtraEquipmentVerbs_EnabledField = Feature_ExtraEquipmentVerbsType.GetField("Enabled");
+                .GetMethod("GetFeature", BindingFlags.Static | BindingFlags.Public)!
+                .MakeGenericMethod(Feature_ExtraEquipmentVerbsType).Invoke(null, null)!;
+            FieldInfo ExtraEquipmentVerbs_EnabledField = Feature_ExtraEquipmentVerbsType.GetField("Enabled")!;
             //MVCF_EnableFeature.Invoke(null, new object[] { Feature_ExtraEquipmentVerbsObj });
 
-            AWL_Mod.MVCF_Feature_VerbComps = (bool)VerbComps_EnabledField.GetValue(Feature_VerbCompsObj);
-            AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs = (bool)ExtraEquipmentVerbs_EnabledField.GetValue(Feature_ExtraEquipmentVerbsObj);
+            AWL_Mod.MVCF_Feature_VerbComps = (bool)VerbComps_EnabledField.GetValue(Feature_VerbCompsObj)!;
+            AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs = (bool)ExtraEquipmentVerbs_EnabledField.GetValue(Feature_ExtraEquipmentVerbsObj)!;
 
             if (AWL_Mod.MVCF_Feature_VerbComps && !AWL_Mod.MVCF_Feature_ExtraEquipmentVerbs)
             {

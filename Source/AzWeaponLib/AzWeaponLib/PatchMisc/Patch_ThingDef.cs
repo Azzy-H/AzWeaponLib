@@ -324,7 +324,7 @@ namespace AzWeaponLib.PatchMisc
                     {
                         foreach (var s in statable1.GetStatDrawEntries(req))
                         {
-                            string labelInt = (string)NonPublicFields.StatDrawEntry_labelInt.GetValue(s);
+                            string labelInt = (string)NonPublicFields.StatDrawEntry_labelInt.GetValue(s)!;
                             NonPublicFields.StatDrawEntry_labelInt.SetValue(s, prefix + labelInt + postfix);
                             NonPublicFields.StatDrawEntry_displayOrderWithinCategory.SetValue(s, s.DisplayPriorityWithinCategory + dispPriorityOffset);
                             yield return s;
@@ -367,7 +367,7 @@ namespace AzWeaponLib.PatchMisc
             {
                 foreach (var s in statable.GetStatDrawEntries(req))
                 {
-                    string labelInt = (string)NonPublicFields.StatDrawEntry_labelInt.GetValue(s);
+                    string labelInt = (string)NonPublicFields.StatDrawEntry_labelInt.GetValue(s)!;
                     NonPublicFields.StatDrawEntry_labelInt.SetValue(s, prefix + labelInt + postfix);
                     NonPublicFields.StatDrawEntry_displayOrderWithinCategory.SetValue(s, s.DisplayPriorityWithinCategory + dispPriorityOffset);
                     yield return s;

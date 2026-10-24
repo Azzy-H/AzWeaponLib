@@ -77,9 +77,9 @@ namespace AzWeaponLib.SpecialProjectile
         {
             if (!def.projectile.soundAmbient.NullOrUndefined())
             {
-                ambientSustainer = (Sustainer)(NonPublicFields.Projectile_AmbientSustainer.GetValue(this));
+                ambientSustainer = (Sustainer)(NonPublicFields.Projectile_AmbientSustainer.GetValue(this))!;
             }
-            comps = (List<ThingComp>)(NonPublicFields.ThingWithComps_comps.GetValue(this));
+            comps = (List<ThingComp>)(NonPublicFields.ThingWithComps_comps.GetValue(this))!;
         }
         public virtual float GetHitChance(Thing thing)
         {
@@ -227,7 +227,7 @@ namespace AzWeaponLib.SpecialProjectile
             }
             Vector3 exactPositionNow = ExactPosition;
             object[] parameters = new object[] { exactPositionPast, exactPositionNow };
-            if ((bool)ProjectileCheckForFreeInterceptBetween.Invoke(this, parameters))
+            if ((bool)ProjectileCheckForFreeInterceptBetween.Invoke(this, parameters)!)
             {
                 return;
             }
@@ -261,7 +261,7 @@ namespace AzWeaponLib.SpecialProjectile
             }
         }
        
-        private static MethodInfo ProjectileCheckForFreeInterceptBetween = typeof(Projectile).GetMethod("CheckForFreeInterceptBetween", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static MethodInfo ProjectileCheckForFreeInterceptBetween = typeof(Projectile).GetMethod("CheckForFreeInterceptBetween", BindingFlags.NonPublic | BindingFlags.Instance)!;
         protected override void Impact(Thing hitThing, bool blockedByShield = false) 
         {
             Map map = Map;

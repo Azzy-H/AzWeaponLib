@@ -51,7 +51,7 @@ namespace AzWeaponLib.MultiVerb
                 return null;
             }
 
-            if (!PrimaryVerbCache.TryGetValue(eq, out PrimaryVerbCacheEntry cacheEntry))
+            if (!PrimaryVerbCache.TryGetValue(eq, out PrimaryVerbCacheEntry? cacheEntry))
             {
                 cacheEntry = new PrimaryVerbCacheEntry
                 {

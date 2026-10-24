@@ -84,7 +84,7 @@ namespace AzWeaponLib.MultiVerb
             if (!Props.CanSwitchVerbAutomatically) return;
             for (int i = 0; i < Props.verbInfos.Count; i++)
             {
-                VerbSwitchWorkers.Add((VerbSwitchWorker)Activator.CreateInstance(Props.verbInfos[i].verbSwitchWorker));
+                VerbSwitchWorkers.Add((VerbSwitchWorker)Activator.CreateInstance(Props.verbInfos[i].verbSwitchWorker)!);
                 VerbSwitchWorkers[i].weapon = parent;
                 VerbSwitchWorkers[i].verb = VerbByIndex(i);
             }

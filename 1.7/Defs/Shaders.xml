@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ============================================================
+       地面火焰速度场的着色器（1.7 / Waylith 运行时编译 GLSL）
+       源文件在模组根目录的 Shaders/ 下，由 ShaderDefRegistry 自动注册。
+       不需要 Unity、不需要 AssetBundle、不需要预编译 SPIR-V。
+       ============================================================ -->
+  <ShaderDef>
+    <defName>AWL_FlameField</defName>
+    <shaderProgram>
+      <vertexShaderFileName>AWL_FlameField.vert.glsl</vertexShaderFileName>
+      <fragmentShaderFileName>AWL_FlameField.frag.glsl</fragmentShaderFileName>
+      <useTexture>true</useTexture>
+      <!-- 关掉 UV 翻转：场是按格坐标逐像素对应的，镜像了火焰就会错位 -->
+      <flipTextureST>false</flipTextureST>
+      <transparent>true</transparent>
+      <!-- 加色混合：火焰叠加越叠越亮 -->
+      <blendMode>Additive</blendMode>
+      <cullMode>None</cullMode>
+      <depthTest>false</depthTest>
+      <depthWrite>false</depthWrite>
+    </shaderProgram>
+  </ShaderDef>
+
+</Defs>

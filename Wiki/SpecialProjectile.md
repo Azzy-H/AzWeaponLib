@@ -129,6 +129,69 @@
     </modExtensions>
   </ThingDef>
   ```
+  - 火焰射流
+  ```
+  <ThingDef ParentName="BaseBullet">
+    <defName>SEA_FlameBullet</defName>
+    <label>flame jet</label>
+    <thingClass>AzWeaponLib.SpecialProjectile.JetProjectile_FlameField</thingClass>
+    <graphicData>
+      <texPath>Blank/Blank</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <damageDef>SEA_FlameAP</damageDef>
+      <speed>45</speed>
+      <damageAmountBase>8</damageAmountBase>
+      <armorPenetrationBase>1.4</armorPenetrationBase>
+      <screenShakeFactor>0</screenShakeFactor>
+    </projectile>
+    <modExtensions>
+      <li Class="AzWeaponLib.SpecialProjectile.JetProjectileDef">
+        <!-- 穿透：不限数量，每命中一个目标伤害 ×0.85 自然衰减 -->
+        <damageRetainPerHit>0.85</damageRetainPerHit>
+
+        <!-- 撞墙/护盾反射：法向压扁 + 切向补偿。
+             法向按恢复系数衰减（几乎不往回弹），目标总速度剩下的份额全补到切向，
+             所以射流一撞墙就"摊平"贴墙滑走：
+               掠射 → 几乎不掉速；斜撞 → 出射角远低于镜面角；
+               正面撞 → 切向为零，随机挑一侧转 90° 沿墙走，绝不折回发射位置。
+             反射次数不限，终止条件只有"射程耗尽"与"两次散射点间距不足"。 -->
+        <deflectOnWall>true</deflectOnWall>
+        <deflectOnPawn>false</deflectOnPawn>
+        <deflectionAngle>20</deflectionAngle>
+        <restitutionHeadOn>0.1</restitutionHeadOn>      <!-- 垂直命中几乎无法向恢复 -->
+        <restitutionGrazing>0.6</restitutionGrazing>
+        <speedRetainHeadOn>0.6</speedRetainHeadOn>      <!-- 切向补偿后保留的总速度 -->
+        <speedRetainGrazing>0.95</speedRetainGrazing>
+        <minSpeedAfterDeflect>0.12</minSpeedAfterDeflect>
+        <!-- 墙面不是绝对光滑：扰法线 ±4°，切分出来的出射方向才不会每次都一样 -->
+        <deflectionNormalJitter>4</deflectionNormalJitter>
+
+        <!-- 湍流：以"基准航向"为轴来回摆，幅度 = turbulenceWanderAngle（不会累积）。
+             6~14 tick 换一次目标偏角，出膛 2 格内按距离渐入。 -->
+        <turbulence>true</turbulence>
+        <turbulenceWanderAngle>4</turbulenceWanderAngle>
+        <turbulenceWanderInterval>6~14</turbulenceWanderInterval>
+        <turbulenceWanderLerp>0.25</turbulenceWanderLerp>
+        <turbulenceJitterAngle>1.2</turbulenceJitterAngle>
+        <turbulenceRampTiles>2</turbulenceRampTiles>
+
+        <!-- 沿路径点燃地面：0.35/格，实际还要过地形易燃度 -->
+        <igniteChance>0.35</igniteChance>
+        <igniteFireSize>0.2~0.6</igniteFireSize>
+
+        <!-- 留油：由弹体处理，与伤害/点燃共用同一条路径与枪口安全区
+             （枪口 1.9 格内既不留油也不点火）。 -->
+        <oilFilthDef>Filth_Fuel</oilFilthDef>
+        <oilChancePerCell>0.25</oilChancePerCell>
+
+        <!-- 火焰填满格子：Pawn 恒为必中（代码固定），这里只剩非生物的概率 -->
+        <hitChanceOther>0.5</hitChanceOther>
+      </li>
+    </modExtensions>
+  </ThingDef>
+  ```
 ## 字段含义
 ***
   - 电弧
@@ -166,7 +229,7 @@
   |speedChangePerTick|速度变化率，用于实现中段加速|
   |speedRangeOverride|速度分布，用于一次性发射多枚导弹时从视觉上将其分开，缺省则用ProjectileProperties数据|
   
-  1. ModExtension_Cone
+  2. ModExtension_Cone
 
   |字段|含义|
   |:--:|:--:|
@@ -188,9 +251,52 @@
   |minDistanceToAffectAny|击中判定豁免半径（和原版击中判定分开判定）|
   |penetratingPowerCostByShield|击中护盾/墙壁的穿透力损失|
   |alwaysHitStandingEnemy|站立敌人必定击中（否则采用原版流弹概率判定）|
+  - 火焰射流
+  1. JetProjectileDef
+  
+  |字段|含义|
+  |:--:|:--:|
+  |damageRetainPerHit|每次命中目标或发生一次反射后的伤害乘数（贯穿与反射共用同一数值）|
+  |deflectOnWall|撞到满格建筑时是否反射，false 则直接熄灭|
+  |deflectOnPawn|命中生物后是否随机散射（火焰一般 false）|
+  |deflectionAngle|生物散射的角度范围（±度）|
+  |restitutionHeadOn|垂直入射时的法向恢复系数，0 表示完全不往回弹|
+  |restitutionGrazing|掠射时的法向恢复系数|
+  |speedRetainHeadOn|垂直入射反射后保留的总速度比例|
+  |speedRetainGrazing|掠射反射后保留的总速度比例|
+  |minSpeedAfterDeflect|反射后的最低速度（格/tick），防止射流停在墙上|
+  |deflectionNormalJitter|撞墙时对法线施加的随机扰动（±度），模拟墙面粗糙|
+  |turbulence|是否启用湍流|
+  |turbulenceWanderAngle|低频摆动幅度（度），"看起来像火"的主要来源|
+  |turbulenceWanderInterval|低频摆动重新选目标的间隔（tick）|
+  |turbulenceWanderLerp|每 tick 向目标偏角靠拢的比例（0~1），越小越柔和|
+  |turbulenceJitterAngle|高频抖动幅度（度），叠在低频摆动上提供"沸腾"细节|
+  |turbulenceRampTiles|出膛后多少格达到满幅湍流，枪口收束、越远越散|
+  |igniteChance|路径每格的点火概率（还会再乘地形易燃度判定）|
+  |igniteFireSize|点燃时生成的火焰大小|
+  |oilFilthDef|路径留下的污渍，留空则不生成|
+  |oilChancePerCell|每进入一个新格子的留油概率|
+  |hitChanceOther|对非 Pawn 物体的命中概率（Pawn 恒为必中）|
+
+  2. 类内字段与常量（不走 XML）
+
+  |字段|含义|
+  |:--:|:--:|
+  |collisionStep = 0.2|碰撞采样步长（格），公有字段，默认与原版 CheckForFreeInterceptBetween 一致|
+  |MinAffectRange = 1.9|枪口安全区。更近的目标不判定命中、不留油、不点火、不写火焰场|
+  |MinDeflectionSpacing = 1.9|两次散射点（撞墙反射 / 生物散射）的最小间距，防止在墙角来回抖动|
+
+  3. thingClass 选择
+
+  |thingClass|行为|
+  |:--:|:--:|
+  |AzWeaponLib.SpecialProjectile.JetProjectile|飞行、碰撞、穿透伤害、留油、点燃|
+  |AzWeaponLib.SpecialProjectile.JetProjectile_FlameField|在上面基础上把速度与热量写入地图级火焰速度场（AzWeaponLib.VFX.FlameFieldComponent）|
 
 ## 注意事项
 ***
   导弹要注意是否为高角。
+  反射采用"法向压扁 + 切向补偿"而不是镜面反射：正面撞墙时射流沿墙面转 90° 走掉，不会折回发射位置；
+  弹性碰撞就调高 restitutionHeadOn，非弹性碰撞就调低 speedRetainHeadOn。
 
 
