@@ -45,16 +45,12 @@ namespace AzWeaponLib.AmmoSystem
             { }
             return keyValues;
         }
-        public static CompAmmo? FindCompAmmo(Pawn pawn)
+        public static CompAmmo? FindCompAmmo(Pawn? pawn)
         {
             return pawn?.equipment?.Primary?.TryGetComp<CompAmmo>();
         }
         public static List<Thing>? FindEnoughAmmo(Pawn pawn, IntVec3 rootCell, CompAmmo compAmmo, bool forceReload)
         {
-            if (compAmmo == null)
-            {
-                return null;
-            }
             IntRange desiredQuantity = new IntRange(1, compAmmo.MaxAmmoNeeded);
             return RefuelWorkGiverUtility.FindEnoughReservableThings(pawn, rootCell, desiredQuantity, (Thing t) => t.def == compAmmo.Props.ammunitionDef);
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace AzWeaponLib.AmmoSystem
 {
@@ -341,21 +342,29 @@ namespace AzWeaponLib.AmmoSystem
     }
     public class Verb_ShootWithAmmoConstantly : Verb_ShootWithAmmo
     {
-        public virtual bool isConstantly
-        { get { return true; } }
         public LocalTargetInfo jobTarget => CasterPawn.jobs.curJob.targetA;
         protected override bool TryCastShot()
         {
-            if (isConstantly)
+            Pawn? casterPawn = CasterPawn;
+            if (casterPawn != null && casterPawn.jobs?.curJob != null)
             {
-                //if((!currentTarget.HasThing) || !(currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing.Destroyed)) burstShotsLeft++;
-                if (CasterPawn.jobs.curJob.def == JobDefOf.Wait_Combat || (CasterPawn.jobs.curJob.def == JobDefOf.AttackStatic && (jobTarget.Cell == CurrentTarget.Cell || jobTarget.Thing == CurrentTarget.Thing)))
+                Job job = casterPawn.jobs.curJob;
+                LocalTargetInfo casterTarget = job.targetA;
+                bool waiting = job.def == JobDefOf.Wait_Combat;
+                bool attacking = job.def == JobDefOf.AttackStatic
+                    && (casterTarget.Cell == CurrentTarget.Cell || casterTarget.Thing == CurrentTarget.Thing);
+                if (waiting || attacking)
                 {
-                    if (currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing?.Destroyed ?? false) goto end;
-                    burstShotsLeft++;
+                    if (!(currentTarget.Pawn?.DeadOrDowned ?? currentTarget.Thing?.Destroyed ?? false))
+                    {
+                        burstShotsLeft++;
+                    }
                 }
             }
-            end:
+            else
+            {
+                burstShotsLeft++;
+            }
             return base.TryCastShot();
         }
     }
