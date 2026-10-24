@@ -195,7 +195,8 @@
 ## 字段含义
 ***
   - 电弧
-  
+  ElectricArcDef
+
   |字段|含义|
   |:--:|:--:|
   |conductChance|能继续传导的概率|
@@ -252,7 +253,7 @@
   |penetratingPowerCostByShield|击中护盾/墙壁的穿透力损失|
   |alwaysHitStandingEnemy|站立敌人必定击中（否则采用原版流弹概率判定）|
   - 火焰射流
-  1. JetProjectileDef
+  JetProjectileDef
   
   |字段|含义|
   |:--:|:--:|
@@ -277,21 +278,6 @@
   |oilFilthDef|路径留下的污渍，留空则不生成|
   |oilChancePerCell|每进入一个新格子的留油概率|
   |hitChanceOther|对非 Pawn 物体的命中概率（Pawn 恒为必中）|
-
-  2. 类内字段与常量（不走 XML）
-
-  |字段|含义|
-  |:--:|:--:|
-  |collisionStep = 0.2|碰撞采样步长（格），公有字段，默认与原版 CheckForFreeInterceptBetween 一致|
-  |MinAffectRange = 1.9|枪口安全区。更近的目标不判定命中、不留油、不点火、不写火焰场|
-  |MinDeflectionSpacing = 1.9|两次散射点（撞墙反射 / 生物散射）的最小间距，防止在墙角来回抖动|
-
-  3. thingClass 选择
-
-  |thingClass|行为|
-  |:--:|:--:|
-  |AzWeaponLib.SpecialProjectile.JetProjectile|飞行、碰撞、穿透伤害、留油、点燃|
-  |AzWeaponLib.SpecialProjectile.JetProjectile_FlameField|在上面基础上把速度与热量写入地图级火焰速度场（AzWeaponLib.VFX.FlameFieldComponent）|
 
 ## 注意事项
 ***
