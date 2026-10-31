@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.BaseGen;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
@@ -14,6 +15,7 @@ namespace AzWeaponLib.AmmoSystem
         public float shotgunRetargetRange = 0f;
         public Vector2? projectileOriginOffset = null;
         public SimpleCurve shotgunRetargetChanceFromRange = null!;
+        public bool useAimingDelayFactor = true;
         public IEnumerable<StatDrawEntry> GetStatDrawEntries(StatRequest req)
         {
             StatCategoryDef statCat = StatCategoryDefOf.Weapon_Ranged;
@@ -33,6 +35,10 @@ namespace AzWeaponLib.AmmoSystem
             if (typeof(Verb_ShootWithAmmoConstantly).IsAssignableFrom(verbClass))
             {
                 yield return new StatDrawEntry(statCat, "AWL_MechineGun".Translate(), "Yes".Translate(), "AWL_MechineGun_Desc".Translate(), 3590);
+            }
+            if (useAimingDelayFactor)
+            {
+                yield return new StatDrawEntry(statCat, "AWL_UseAimingDelayFactor".Translate(), "Yes".Translate(), "AWL_UseAimingDelayFactor_Desc".Translate(), 3590);
             }
         }
     }
@@ -119,7 +125,88 @@ namespace AzWeaponLib.AmmoSystem
                 if(CompAmmo!.autoReload && (!(CasterPawn?.pather.Moving ?? false) || CompAmmo.Props.canMoveWhenReload)) CompAmmo.TryMakeReloadJob(forced: false);
                 return false;
             }
-            return base.TryStartCastOn(castTarg, destTarg, surpriseAttack, canHitNonTargetPawns, preventFriendlyFire, nonInterruptingSelfCast);
+            return Verb_TryStartCastOn(castTarg, destTarg, surpriseAttack, canHitNonTargetPawns, preventFriendlyFire, nonInterruptingSelfCast);
+        }
+        private bool Verb_TryStartCastOn(LocalTargetInfo castTarg, LocalTargetInfo destTarg, bool surpriseAttack = false, bool canHitNonTargetPawns = true, bool preventFriendlyFire = false, bool nonInterruptingSelfCast = false)
+        {
+            if (caster == null)
+            {
+                Log.Error("Verb " + GetUniqueLoadID() + " needs caster to work (possibly lost during saving/loading).");
+                return false;
+            }
+            if (!caster.Spawned)
+            {
+                return false;
+            }
+            if (state == VerbState.Bursting || !CanHitTarget(castTarg))
+            {
+                return false;
+            }
+            if (CausesTimeSlowdown(castTarg))
+            {
+                Find.TickManager.slower.SignalForceNormalSpeed();
+            }
+            this.surpriseAttack = surpriseAttack;
+            canHitNonTargetPawnsNow = canHitNonTargetPawns;
+            this.preventFriendlyFire = preventFriendlyFire;
+            this.nonInterruptingSelfCast = nonInterruptingSelfCast;
+            currentTarget = castTarg;
+            currentDestination = destTarg;
+            if (CasterIsPawn && WarmupTime > 0f)
+            {
+                if (!TryFindShootLineFromTo(caster.Position, castTarg, out var resultingLine))
+                {
+                    return false;
+                }
+                CasterPawn.Drawer.Notify_WarmingCastAlongLine(resultingLine, caster.Position);
+                float statValue = VerbProps.useAimingDelayFactor ? CasterPawn.GetStatValue(StatDefOf.AimingDelayFactor) : 1f;
+                int ticks = (WarmupTime * statValue).SecondsToTicks();
+                CasterPawn.stances.SetStance(new Stance_Warmup(ticks, castTarg, this));
+                if (verbProps.stunTargetOnCastStart && castTarg.Pawn != null)
+                {
+                    castTarg.Pawn.stances.stunner.StunFor(ticks, null, addBattleLog: false);
+                }
+            }
+            else
+            {
+                if (verbTracker.directOwner is Ability ability)
+                {
+                    ability.lastCastTick = Find.TickManager.TicksGame;
+                }
+                WarmupComplete();
+            }
+            return true;
+        }
+        private bool CausesTimeSlowdown(LocalTargetInfo castTarg)
+        {
+            if (!verbProps.CausesTimeSlowdown)
+            {
+                return false;
+            }
+            if (!castTarg.HasThing)
+            {
+                return false;
+            }
+            Thing thing = castTarg.Thing;
+            if (thing.def.category != ThingCategory.Pawn && (thing.def.building == null || !thing.def.building.IsTurret))
+            {
+                return false;
+            }
+            Pawn? pawn = thing as Pawn;
+            bool flag = pawn?.Downed ?? false;
+            if ((CasterPawn != null && CasterPawn.Faction == Faction.OfPlayer && CasterPawn.IsShambler) || (pawn != null && pawn.Faction == Faction.OfPlayer && pawn.IsShambler))
+            {
+                return false;
+            }
+            if (thing.Faction != Faction.OfPlayer || !caster.HostileTo(Faction.OfPlayer))
+            {
+                if (caster.Faction == Faction.OfPlayer && thing.HostileTo(Faction.OfPlayer))
+                {
+                    return !flag;
+                }
+                return false;
+            }
+            return true;
         }
         protected virtual bool Verb_LaunchProjectile_TryCastShot()
         {

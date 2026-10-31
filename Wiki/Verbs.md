@@ -26,6 +26,7 @@
   |shotgunRetargetRange|未命中时是否重新寻找目标，用于实现霰弹的多目标攻击|
   |shotgunRetargetChanceFromRange|重新寻找到的目标的可用概率分布，类型为SimpleCurve|
   |projectileOriginOffset|子弹发射的初始位置偏移|
+  |useAimingDelayFactor|是否使用PAWN的瞄准时间乘数|
 ## 可用类型
 ***
   ```

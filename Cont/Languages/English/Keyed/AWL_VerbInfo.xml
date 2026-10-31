@@ -14,4 +14,7 @@
     <AWL_Retarget>Shift target</AWL_Retarget>
     <AWL_Stat_Retarget_Desc>This weapon is capable of shifting the enemy's radius of the target during the attack.</AWL_Stat_Retarget_Desc>
 
+    <AWL_IgnoreAimingDelayFactor>Ignore aiming delay factor</AWL_IgnoreAimingDelayFactor>
+    <AWL_IgnoreAimingDelayFactorDesc>This weapon does not use the aiming delay factor.</AWL_IgnoreAimingDelayFactorDesc>
+
 </LanguageData>

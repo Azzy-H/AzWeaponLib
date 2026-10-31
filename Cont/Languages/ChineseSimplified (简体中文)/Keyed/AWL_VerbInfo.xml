@@ -21,4 +21,9 @@
     <!-- EN: This weapon is capable of shifting the enemy's radius of the target during the attack. -->
   <AWL_Stat_Retarget_Desc>该武器能够在攻击过程中转移目标的索敌半径。</AWL_Stat_Retarget_Desc>
 
+    <!-- EN: Ignore aiming delay factor -->
+  <AWL_IgnoreAimingDelayFactor>忽略瞄准时间乘数</AWL_IgnoreAimingDelayFactor>
+    <!-- EN: This weapon does not use the aiming delay factor. -->
+  <AWL_IgnoreAimingDelayFactorDesc>该武器在瞄准时不会使用操作者的瞄准时间乘数。</AWL_IgnoreAimingDelayFactorDesc>
+
 </LanguageData>

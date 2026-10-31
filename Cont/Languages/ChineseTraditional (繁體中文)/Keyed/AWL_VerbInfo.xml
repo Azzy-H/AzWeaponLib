@@ -14,4 +14,7 @@
     <AWL_Retarget>轉移目標</AWL_Retarget>
     <AWL_Stat_Retarget_Desc>該武器能夠在攻擊過程中轉移目標的索敵半徑。</AWL_Stat_Retarget_Desc>
 
+    <AWL_IgnoreAimingDelayFactor>忽略瞄準時間乘數</AWL_IgnoreAimingDelayFactor>
+    <AWL_IgnoreAimingDelayFactorDesc>該武器在瞄準時不會使用操作者的瞄準時間乘數。</AWL_IgnoreAimingDelayFactorDesc>
+
 </LanguageData>
