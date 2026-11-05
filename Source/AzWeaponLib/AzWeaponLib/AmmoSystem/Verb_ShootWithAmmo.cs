@@ -36,9 +36,9 @@ namespace AzWeaponLib.AmmoSystem
             {
                 yield return new StatDrawEntry(statCat, "AWL_MechineGun".Translate(), "Yes".Translate(), "AWL_MechineGun_Desc".Translate(), 3590);
             }
-            if (useAimingDelayFactor)
+            if (!useAimingDelayFactor)
             {
-                yield return new StatDrawEntry(statCat, "AWL_UseAimingDelayFactor".Translate(), "Yes".Translate(), "AWL_UseAimingDelayFactor_Desc".Translate(), 3590);
+                yield return new StatDrawEntry(statCat, "AWL_IgnoreAimingDelayFactor".Translate(), "Yes".Translate(), "AWL_IgnoreAimingDelayFactor_Desc".Translate(), 3590);
             }
         }
     }
@@ -53,7 +53,7 @@ namespace AzWeaponLib.AmmoSystem
             {
                 if (compAmmoInt == null && !compAmmoIsNull) 
                 { 
-                    if(verbTracker.directOwner is CompEquippable eq) compAmmoInt = eq.parent.GetComp<CompAmmo>();
+                    if(verbTracker.directOwner is ThingComp eq) compAmmoInt = eq.parent.GetComp<CompAmmo>();
                     if (compAmmoInt == null) compAmmoIsNull = true;
                 }
                 return compAmmoInt;

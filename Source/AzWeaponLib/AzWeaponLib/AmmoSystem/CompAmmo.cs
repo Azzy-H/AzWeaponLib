@@ -185,7 +185,7 @@ namespace AzWeaponLib.AmmoSystem
         {
             get
             {
-                return (BackAmmunitionCapacity - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && useBackupAmmo;
+                return (BackAmmunitionCapacity - BackupAmmo) >= Props.ammoCountPerAmmunitionBox && UseBackupAmmo;
             }
         }
         public virtual int MaxAmmoNeeded => (BackAmmunitionCapacity - BackupAmmo) / Props.ammoCountPerAmmunitionBox;
@@ -205,7 +205,7 @@ namespace AzWeaponLib.AmmoSystem
                 if (ReloadingTime < 0) return false;//一次性
                 if (!NeedReload) return false;//满弹
                 if (!enableReloadOverall) return false;
-                return !useBackupAmmo || !NoBackupAmmo;
+                return !UseBackupAmmo || !NoBackupAmmo;
             }
         }
         public AcceptanceReport enableReloadOverall = true;
@@ -241,7 +241,18 @@ namespace AzWeaponLib.AmmoSystem
         public virtual bool NoBackupAmmo => Props.ammunitionDef != null && BackupAmmo <= 0 && (pawn?.Faction?.IsPlayer ?? false) && AWL_Settings.enableBackupAmmoSystem;
         public virtual int MaxReloadTick => ReloadingTime.SecondsToTicks() * 3;
         protected bool infiniteBackupAmmo = false;
-        public virtual bool useBackupAmmo => Props.ammunitionDef != null && AWL_Settings.enableAmmoSystem && AWL_Settings.enableBackupAmmoSystem && !infiniteBackupAmmo;
+        public virtual bool UseBackupAmmo => Props.ammunitionDef != null && AWL_Settings.enableAmmoSystem && AWL_Settings.enableBackupAmmoSystem && !infiniteBackupAmmo;
+        public virtual Verb PrimaryVerb
+        {
+            get
+            {
+                if (parent is ThingWithComps t)
+                {
+                    return t.TryGetComp<CompEquippable>().PrimaryVerb;
+                }
+                return null!;
+            }
+        }
         public override void Notify_Equipped(Pawn pawn)
         {
             this.pawn = pawn;
@@ -448,8 +459,9 @@ namespace AzWeaponLib.AmmoSystem
             Job reload = JobMaker.MakeJob(AWL_DefOf.AWL_ReloadWeapon);
             reload.targetA = pawn;
             reload.targetB = parent;
-            reload.count = !useBackupAmmo ? 0 : 1;
+            reload.count = !UseBackupAmmo ? 0 : 1;
             reload.playerForced = forced;
+            reload.verbToUse = PrimaryVerb;
             //pawn.jobs.SuspendCurrentJob(JobCondition.InterruptOptional);
             if (delay)
             {
@@ -514,7 +526,7 @@ namespace AzWeaponLib.AmmoSystem
                     activateSound = SoundDef.Named("Click"),
                     hotKey = null
                 };
-                if (useBackupAmmo)
+                if (UseBackupAmmo)
                 {
                     yield return new Command_Action
                     {
@@ -558,7 +570,7 @@ namespace AzWeaponLib.AmmoSystem
                 makeReloadJob = TryMakeReloadJob,
                 canAutoReloadToggleNow = ReloadingTime > 0,
                 canReloadNow = CanReloadNow,
-                backupAmmo = !useBackupAmmo ? -1 : BackupAmmo,
+                backupAmmo = !UseBackupAmmo ? -1 : BackupAmmo,
             };
             if (!CanReloadNow)
             {
@@ -609,7 +621,7 @@ namespace AzWeaponLib.AmmoSystem
                     return AmmunitionCapacity - ammo;
                 else
                 {
-                    Verb v = parent.TryGetComp<CompEquippable>().PrimaryVerb;
+                    Verb v = PrimaryVerb;
                     int result = v.verbProps.burstShotCount;
                     if (v is Verb_ShootWithAmmo vswa)
                     {

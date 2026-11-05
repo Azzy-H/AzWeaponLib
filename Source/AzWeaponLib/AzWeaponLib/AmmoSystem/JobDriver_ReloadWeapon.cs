@@ -38,7 +38,7 @@ namespace AzWeaponLib.AmmoSystem
         private bool useAmmo => job.count > 0;
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
-            if (TargetB.Thing == null || TargetB.Thing != pawn.equipment.Primary) return false;
+            if (TargetB.Thing == null) return false;
             if (useAmmo) 
             { 
                 if (compAmmo.NoBackupAmmo) return false;
@@ -65,7 +65,7 @@ namespace AzWeaponLib.AmmoSystem
 
             Toil makeStance = Toils_General.Do(
                 delegate {
-                    pawn.stances.SetStance(new Stance_Reload(int.MaxValue, Find.TickManager.TicksGame - pawn.LastAttackTargetTick <= 300 ? pawn.LastAttackedTarget : null));
+                    pawn.stances.SetStance(new Stance_Reload(int.MaxValue, Find.TickManager.TicksGame - pawn.LastAttackTargetTick <= 300 ? pawn.LastAttackedTarget : null, job.verbToUse));
                 });
             yield return makeStance;
 

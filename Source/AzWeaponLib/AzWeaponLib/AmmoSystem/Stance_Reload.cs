@@ -10,6 +10,7 @@ namespace AzWeaponLib.AmmoSystem
     public class Stance_Reload : Stance_Busy
     {
         public override bool StanceBusy => false;
+        public Stance_Reload(int ticks, LocalTargetInfo focusTarg, Verb verb) : base(ticks, focusTarg, verb) { }
         public Stance_Reload(int ticks, LocalTargetInfo focusTarg)
         {
             ticksLeft = ticks;
