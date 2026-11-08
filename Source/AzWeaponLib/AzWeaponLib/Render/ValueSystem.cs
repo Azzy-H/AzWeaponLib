@@ -42,11 +42,11 @@ namespace AzWeaponLib.Render
                 }
                 catch (Exception ex)
                 {
-                    Log.ErrorOnce($"[SEA.Rendering] value '{key}' threw: {ex}", key.GetHashCode());
+                    Log.ErrorOnce($"[AWL] value '{key}' threw: {ex}", key.GetHashCode());
                     return 0f;
                 }
             }
-            Log.ErrorOnce($"[SEA.Rendering] unregistered value key '{key}'", key.GetHashCode());
+            Log.ErrorOnce($"[AWL] unregistered value key '{key}'", key.GetHashCode());
             return 0f;
         }
     }
