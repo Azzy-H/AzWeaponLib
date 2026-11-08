@@ -127,7 +127,7 @@ namespace AzWeaponLib.AmmoSystem
             }
             return Verb_TryStartCastOn(castTarg, destTarg, surpriseAttack, canHitNonTargetPawns, preventFriendlyFire, nonInterruptingSelfCast);
         }
-        private bool Verb_TryStartCastOn(LocalTargetInfo castTarg, LocalTargetInfo destTarg, bool surpriseAttack = false, bool canHitNonTargetPawns = true, bool preventFriendlyFire = false, bool nonInterruptingSelfCast = false)
+        protected virtual bool Verb_TryStartCastOn(LocalTargetInfo castTarg, LocalTargetInfo destTarg, bool surpriseAttack = false, bool canHitNonTargetPawns = true, bool preventFriendlyFire = false, bool nonInterruptingSelfCast = false)
         {
             if (caster == null)
             {
@@ -177,7 +177,7 @@ namespace AzWeaponLib.AmmoSystem
             }
             return true;
         }
-        private bool CausesTimeSlowdown(LocalTargetInfo castTarg)
+        protected bool CausesTimeSlowdown(LocalTargetInfo castTarg)
         {
             if (!verbProps.CausesTimeSlowdown)
             {
@@ -385,14 +385,14 @@ namespace AzWeaponLib.AmmoSystem
                 return;
             }
         }
-        private void ThrowDebugText(string text)
+        protected void ThrowDebugText(string text)
         {
             if (DebugViewSettings.drawShooting)
             {
                 MoteMaker.ThrowText(caster.DrawPos, caster.Map, text);
             }
         }
-        private void ThrowDebugText(string text, IntVec3 c)
+        protected void ThrowDebugText(string text, IntVec3 c)
         {
             if (DebugViewSettings.drawShooting)
             {
