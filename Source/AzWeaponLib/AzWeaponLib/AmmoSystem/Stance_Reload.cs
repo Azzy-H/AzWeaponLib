@@ -23,7 +23,7 @@ namespace AzWeaponLib.AmmoSystem
             base.StanceTick();
             if (focusTarg != null)
             {
-                if (focusTarg.Thing == null || !focusTarg.Thing.Spawned)
+                if (focusTarg.Thing == null || !focusTarg.Thing.Spawned || Pawn.pather.MovingNow)
                 {
                     focusTarg = null;
                 }

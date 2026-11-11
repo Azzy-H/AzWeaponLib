@@ -80,8 +80,18 @@ namespace AzWeaponLib.AmmoSystem
         protected virtual Vector3 ProjectileOriginOffset(LocalTargetInfo targetInfo)
         {
             if(!VerbProps.projectileOriginOffset.HasValue) return Vector3.zero;
-            Quaternion quaternion = Quaternion.AngleAxis((targetInfo.Cell - caster.Position).ToVector3().ToAngleFlat(), Vector3.up);
-            return quaternion * new Vector3(VerbProps.projectileOriginOffset.Value.x, 0f, VerbProps.projectileOriginOffset.Value.y);
+            float aimAngle = (targetInfo.HasThing ? targetInfo.Thing.DrawPos : targetInfo.Cell.ToVector3() - caster.DrawPos).AngleFlat();
+            float num = aimAngle - 90f;
+            if (aimAngle > 200f && aimAngle < 340f)
+            {
+                Quaternion quaternion = Quaternion.AngleAxis(num - 180f, Vector3.up);
+                return quaternion * new Vector3(-VerbProps.projectileOriginOffset.Value.x, 0f, VerbProps.projectileOriginOffset.Value.y);
+            }
+            else 
+            {
+                Quaternion quaternion = Quaternion.AngleAxis(num, Vector3.up);
+                return quaternion * new Vector3(VerbProps.projectileOriginOffset.Value.x, 0f, VerbProps.projectileOriginOffset.Value.y);
+            }
         }
         protected override bool TryCastShot()
         {

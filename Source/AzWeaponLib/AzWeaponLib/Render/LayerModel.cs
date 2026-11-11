@@ -24,7 +24,7 @@ namespace AzWeaponLib.Render
 
         public abstract void Resolve(in FrameCtx ctx, in Pose parent, IDrawSink sink);
 
-        protected bool Active(in FrameCtx ctx)
+        public bool Active(in FrameCtx ctx)
         {
             if ((stage & ctx.stage) == 0)
             {
