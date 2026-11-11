@@ -79,19 +79,17 @@ namespace AzWeaponLib.AmmoSystem
         protected static Dictionary<Thing, ShootLine> victims = new Dictionary<Thing, ShootLine>();
         protected virtual Vector3 ProjectileOriginOffset(LocalTargetInfo targetInfo)
         {
-            if(!VerbProps.projectileOriginOffset.HasValue) return Vector3.zero;
-            float aimAngle = (targetInfo.HasThing ? targetInfo.Thing.DrawPos : targetInfo.Cell.ToVector3() - caster.DrawPos).AngleFlat();
-            float num = aimAngle - 90f;
-            if (aimAngle > 200f && aimAngle < 340f)
-            {
-                Quaternion quaternion = Quaternion.AngleAxis(num - 180f, Vector3.up);
-                return quaternion * new Vector3(-VerbProps.projectileOriginOffset.Value.x, 0f, VerbProps.projectileOriginOffset.Value.y);
-            }
-            else 
-            {
-                Quaternion quaternion = Quaternion.AngleAxis(num, Vector3.up);
-                return quaternion * new Vector3(VerbProps.projectileOriginOffset.Value.x, 0f, VerbProps.projectileOriginOffset.Value.y);
-            }
+            if (!VerbProps.projectileOriginOffset.HasValue) return Vector3.zero;
+
+            Vector3 to = (targetInfo.HasThing ? targetInfo.Thing.DrawPos : targetInfo.Cell.ToVector3()) - caster.DrawPos;
+            float yaw = to.AngleFlat();
+            float num = yaw - 90f;
+            Vector2 off = VerbProps.projectileOriginOffset.Value;
+
+            if (yaw > 200f && yaw < 340f)
+                return Quaternion.AngleAxis(num - 180f, Vector3.up) * new Vector3(-off.x, 0f, off.y);
+
+            return Quaternion.AngleAxis(num, Vector3.up) * new Vector3(off.x, 0f, off.y);
         }
         protected override bool TryCastShot()
         {
